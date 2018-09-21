@@ -1,0 +1,81 @@
+{
+  "name": "website-react-chart-container",
+  "version": "0.2.0",
+  "description": "MarketWall Advanced Chart New Version. Post Operatore1.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.config.js",
+    "build": "make build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "aurora",
+    "logger"
+  ],
+  "author": "Renzo Mischianti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xreef/aurora/issues"
+  },
+  "homepage": "https://github.com/xreef/aurora#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "d3-format": "^1.0.2",
+    "d3-time-format": "^2.0.3",
+    "fabric": "^2.3.1",
+    "react-intl": "^2.4.0",
+    "save-svg-as-png": "=1.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-react-intl": "^2.3.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "d3": "^3.5.17",
+    "d3-array": "^1.2.0",
+    "d3-collection": "^1.0.3",
+    "d3-format": "^1.2.0",
+    "d3-scale": "^1.0.6",
+    "d3-selection": "^1.0.5",
+    "d3-shape": "^1.0.6",
+    "d3-time-format": "^2.0.5",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "intl": "^1.2.5",
+    "json-loader": "^0.5.4",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
+    "moment": "^2.18.1",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.3.1",
+    "connected-react-router": "^4.4.1",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-promise": "^0.5.3",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.3",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-visualizer-plugin": "^0.1.11",
+    "rgbcolor": "^1.0.1",
+    "stackblur": "^1.0.0",
+    "jsdom": "^8.1.0",
+    "xmldom": "^0.1.22"
+  }
+}

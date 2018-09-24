@@ -26,7 +26,6 @@
     "d3-format": "^1.0.2",
     "d3-time-format": "^2.0.3",
     "fabric": "^2.3.1",
-    "react-stockcharts": "file:../react-stockcharts/build",
     "save-svg-as-png": "=1.2.0"
   },
   "devDependencies": {
@@ -44,6 +43,7 @@
     "d3": "^3.5.17",
     "d3-array": "^1.2.0",
     "d3-collection": "^1.0.3",
+    "d3-dsv": "^1.0.10",
     "d3-format": "^1.2.0",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.0.5",

@@ -26,6 +26,7 @@ const Container = () => (
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/grid_showcase">Grid showcase</Link></li>
+                <li><Link to="/chart_examples">Chart example</Link></li>
             </ul>
             <div style={{ minHeight: "300px", height:"100%"}}>
                 <Routes />

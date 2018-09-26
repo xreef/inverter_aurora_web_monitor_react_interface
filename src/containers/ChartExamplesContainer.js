@@ -13,7 +13,7 @@ import moment from "moment";
 
 const ChartExamplesContainer = () => {
     var csvFile = csvParse(testData, (elem)=>{
-        let date = moment("20180925"+elem.ora, "YYYYMMDDkkmm");
+        let date = new Date(moment("20180925"+elem.ora, "YYYYMMDDkkmm").valueOf());
         let wattParsed = parseFloat(elem.watt);
         elem.date = date;
         elem.wattParsed = wattParsed;

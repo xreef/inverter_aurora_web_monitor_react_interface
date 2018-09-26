@@ -5,6 +5,8 @@ import { formatDefaultLocale, format } from "d3-format";
 import { timeFormatDefaultLocale, timeFormat } from "d3-time-format";
 import D3DateTimeLocales from "../../../../utils/locale/D3DateTimeLocales";
 import D3NumberLocales from "../../../../utils/locale/D3NumberLocales";
+import { last, first } from "react-stockcharts/lib/utils";
+import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 
 import { scaleTime } from "d3-scale";
 import { curveMonotoneX } from "d3-shape";
@@ -43,16 +45,29 @@ class AreaChart extends React.Component {
 
     }
 	render() {
-		const { data, type, width, ratio } = this.props;
-        const xScaleProvider = scaleTime();//.setLocale(this.d3DTLocales.getDateTimeLocale('it'), this.scaleFormat);
-		return (
+		const { data: initialData, type, width, ratio } = this.props;
+        const xScaleProvider = discontinuousTimeScaleProvider
+            .inputDateAccessor(d => d.date);
+        xScaleProvider.setLocale(this.d3DTLocales.getDateTimeLocale('it'), this.scaleFormat);
+        const {
+            data,
+            xScale,
+            xAccessor,
+            displayXAccessor,
+        } = xScaleProvider(initialData);
+
+        const start = xAccessor(last(data));
+        const end = xAccessor(first(data));
+
+        const xExtents = [start, end];		return (
 			<ChartCanvas ratio={ratio} width={width} height={400}
 				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
 				seriesName="MSFT"
 				data={data} type={type}
-				xAccessor={d => d.date}
-				xScale={xScaleProvider}
-				xExtents={[data[0].date, data[data.length-1].date]}
+				 xScale={xScale}
+				 xAccessor={xAccessor}
+				 displayXAccessor={displayXAccessor}
+				 xExtents={xExtents}
 			>
 				<Chart id={0} yExtents={d => d.wattParsed}>
 					<defs>

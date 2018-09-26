@@ -1,6 +1,10 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import { formatDefaultLocale, format } from "d3-format";
+import { timeFormatDefaultLocale, timeFormat } from "d3-time-format";
+import D3DateTimeLocales from "../../../../utils/locale/D3DateTimeLocales";
+import D3NumberLocales from "../../../../utils/locale/D3NumberLocales";
 
 import { scaleTime } from "d3-scale";
 import { curveMonotoneX } from "d3-shape";
@@ -18,18 +22,39 @@ const canvasGradient = createVerticalLinearGradient([
 ]);
 
 class AreaChart extends React.Component {
+	constructor(){
+		super();
+		this.scaleFormat = {
+            yearFormat: "%Y",
+                quarterFormat: "%b %Y",
+                monthFormat: "%b",
+                weekFormat: "%d %b",
+                dayFormat: "%a %d",
+                hourFormat: "%Hh",
+                minuteFormat: "%H:%M",
+                secondFormat: "%H:%M:%S",
+                milliSecondFormat: "%L"
+        };
+
+        this.d3DTLocales = new D3DateTimeLocales();
+        let d3Locales = new D3NumberLocales();
+        timeFormatDefaultLocale( this.d3DTLocales.getDateTimeLocale('it'));
+        formatDefaultLocale(d3Locales.getDateTimeLocale('it'));
+
+    }
 	render() {
 		const { data, type, width, ratio } = this.props;
+        const xScaleProvider = scaleTime();//.setLocale(this.d3DTLocales.getDateTimeLocale('it'), this.scaleFormat);
 		return (
 			<ChartCanvas ratio={ratio} width={width} height={400}
 				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
 				seriesName="MSFT"
 				data={data} type={type}
 				xAccessor={d => d.date}
-				xScale={scaleTime()}
-				xExtents={[new Date(2011, 0, 1), new Date(2013, 0, 2)]}
+				xScale={xScaleProvider}
+				xExtents={[data[0].date, data[data.length-1].date]}
 			>
-				<Chart id={0} yExtents={d => d.close}>
+				<Chart id={0} yExtents={d => d.wattParsed}>
 					<defs>
 						<linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">
 							<stop offset="0%" stopColor="#b5d0ff" stopOpacity={0.2} />
@@ -37,10 +62,10 @@ class AreaChart extends React.Component {
 							<stop offset="100%"  stopColor="#4286f4" stopOpacity={0.8} />
 						</linearGradient>
 					</defs>
-					<XAxis axisAt="bottom" orient="bottom" ticks={6}/>
-					<YAxis axisAt="left" orient="left" />
+					<XAxis axisAt="bottom" orient="bottom" ticks={6} />
+					<YAxis axisAt="left" orient="left"  />
 					<AreaSeries
-						yAccessor={d => d.close}
+						yAccessor={d => d.wattParsed}
 						fill="url(#MyGradient)"
 						strokeWidth={2}
 						interpolation={curveMonotoneX}

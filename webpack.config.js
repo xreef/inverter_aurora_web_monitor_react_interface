@@ -98,6 +98,14 @@ module.exports = function(env) {return {
             }, {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "file-loader"
+            },
+            {
+                test: /\.txt$/,
+                loader: 'raw-loader'
+            },
+            {
+                test: /\.CSV$/,
+                loader: 'raw-loader'
             }
         ]
     },

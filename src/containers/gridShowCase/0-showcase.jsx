@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from "prop-types";
+
 import _ from 'lodash';
 import {Responsive, WidthProvider} from  "react-grid-layout";// '../../lib/grid-layout.min';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -9,7 +11,7 @@ import "./style/example-styles.less";
 class ShowcaseLayout extends React.Component {
 
   static propTypes = {
-    onLayoutChange: React.PropTypes.func.isRequired
+    onLayoutChange: PropTypes.func.isRequired
   };
 
   static defaultProps = {

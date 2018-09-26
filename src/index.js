@@ -14,18 +14,18 @@ import localeData from './i18n/data.json';
 
 addLocaleData([...en, ...it]);
 
-import dataFile from "../resources/data/esempio_dati.txt"
+// import dataFile from "../resources/data/esempio_dati.txt"
 
 import "./style/app.less";
 import configureStore from "./utils/configureStore";
 
-import Container from './container';
+import ResponsiveContainer from './container';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
-        let data = dataFile;
+        // let data = dataFile;
 
         this.store = configureStore('aurora', {}, true);
     }
@@ -39,7 +39,7 @@ class App extends React.Component {
 
         return <Provider store={this.store}>
                     <IntlProvider locale={language} messages={messages}>
-                        <Container>c</Container>
+                        <ResponsiveContainer></ResponsiveContainer>
                     </IntlProvider>
                 </Provider>
     };

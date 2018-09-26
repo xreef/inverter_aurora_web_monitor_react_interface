@@ -5,7 +5,7 @@ import jData from "./chartExamples/data/dataOHLC.json";
 import AreaChart from "./chartExamples/lib/charts/AreaChart"
 
 import { csvParse } from "d3-dsv"
-import testData from "../../resources/data/20180925.CSV";
+import testData from "../../resources/data/20180926.CSV";
 
 import moment from "moment";
 

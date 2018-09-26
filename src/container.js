@@ -29,6 +29,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/Report';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
+
 
 import Routes from './Routes';
 
@@ -71,19 +81,57 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing.unit * 3,
     },
+    sectionDesktop: {
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+        },
+    },
+    sectionMobile: {
+        display: 'flex',
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        },
+    },
+    grow: {
+        flexGrow: 1,
+    },
+
 });
 
 class ResponsiveContainer extends React.Component {
     state = {
         mobileOpen: false,
+        anchorEl: null,
+        mobileMoreAnchorEl: null,
+    };
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null });
+        this.handleMobileMenuClose();
+    };
+
+    handleMobileMenuOpen = event => {
+        this.setState({ mobileMoreAnchorEl: event.currentTarget });
+    };
+
+    handleMobileMenuClose = () => {
+        this.setState({ mobileMoreAnchorEl: null });
     };
 
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
     };
 
+    handleProfileMenuOpen = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+
     render() {
         const { classes, theme } = this.props;
+        const { anchorEl, mobileMoreAnchorEl } = this.state;
+        const isMenuOpen = Boolean(anchorEl);
+        const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
         const drawer = (
             <div>
@@ -158,6 +206,51 @@ class ResponsiveContainer extends React.Component {
                 </List>
             </div>
         );
+        const renderMenu = (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isMenuOpen}
+                onClose={this.handleMenuClose}
+            >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+            </Menu>
+        );
+
+        const renderMobileMenu = (
+            <Menu
+                anchorEl={mobileMoreAnchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isMobileMenuOpen}
+                onClose={this.handleMobileMenuClose}
+            >
+                <MenuItem>
+                    <IconButton color="inherit">
+                        <Badge className={classes.margin} badgeContent={4} color="secondary">
+                            <MailIcon />
+                        </Badge>
+                    </IconButton>
+                    <p>Messages</p>
+                </MenuItem>
+                <MenuItem>
+                    <IconButton color="inherit">
+                        <Badge className={classes.margin} badgeContent={11} color="secondary">
+                            <NotificationsIcon />
+                        </Badge>
+                    </IconButton>
+                    <p>Notifications</p>
+                </MenuItem>
+                <MenuItem onClick={this.handleProfileMenuOpen}>
+                    <IconButton color="inherit">
+                        <AccountCircle />
+                    </IconButton>
+                    <p>Profile</p>
+                </MenuItem>
+            </Menu>
+        );
 
         return (
             <BrowserRouter>
@@ -175,8 +268,37 @@ class ResponsiveContainer extends React.Component {
                             <Typography variant="title" color="inherit" noWrap>
                                 Responsive drawer
                             </Typography>
+                            <div className={classes.grow} />
+                            <div className={classes.sectionDesktop}>
+                                <IconButton color="inherit">
+                                    <Badge className={classes.margin} badgeContent={4} color="secondary">
+                                        <MailIcon />
+                                    </Badge>
+                                </IconButton>
+                                <IconButton color="inherit">
+                                    <Badge className={classes.margin} badgeContent={17} color="secondary">
+                                        <NotificationsIcon />
+                                    </Badge>
+                                </IconButton>
+                                <IconButton
+                                    aria-owns={isMenuOpen ? 'material-appbar' : null}
+                                    aria-haspopup="true"
+                                    onClick={this.handleProfileMenuOpen}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                            </div>
+                            <div className={classes.sectionMobile}>
+                                <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+                                    <MoreIcon />
+                                </IconButton>
+                            </div>
+
                         </Toolbar>
                     </AppBar>
+                    {renderMenu}
+                    {renderMobileMenu}
                     <Hidden mdUp>
                         <Drawer
                             variant="temporary"

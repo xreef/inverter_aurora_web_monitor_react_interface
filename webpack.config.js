@@ -134,8 +134,8 @@ module.exports = function(env) {return {
     devServer: {
         // publicPath: '/'
         // // ,compress: true
-        // host: "0.0.0.0",
-        host: "localhost",
+        host: "0.0.0.0",
+        // host: "localhost",
         port: 9000
         , inline: true
         ,stats: {
@@ -145,5 +145,6 @@ module.exports = function(env) {return {
 
         ,open: true
         ,hot: true
+        // ,https: true
     }
 }};

@@ -145,6 +145,10 @@ module.exports = function(env) {return {
 
         ,open: true
         ,hot: true
-        // ,https: true
+         , https: true
+        // , https: {
+        //     key: fs.readFileSync( "./resources/certificati/key.key"),
+        //     cert: fs.readFileSync("./resources/certificati/cert.crt")
+        // }
     }
 }};

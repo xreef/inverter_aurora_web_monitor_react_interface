@@ -55,6 +55,7 @@ const styles = theme => ({
         position: 'relative',
         display: 'flex',
         width: '100%',
+        height: '100%'
     },
     appBar: {
         position: 'absolute',
@@ -70,11 +71,15 @@ const styles = theme => ({
         },
     },
     toolbar: theme.mixins.toolbar,
+    drawer:{
+        height: '100%'
+    },
     drawerPaper: {
         width: drawerWidth,
         [theme.breakpoints.up('md')]: {
             position: 'relative',
         },
+        height: '100%'
     },
     content: {
         flexGrow: 1,
@@ -134,7 +139,7 @@ class ResponsiveContainer extends React.Component {
         const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
         const drawer = (
-            <div>
+            <div style={{height: '100%'}}>
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
@@ -305,6 +310,7 @@ class ResponsiveContainer extends React.Component {
                             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
                             open={this.state.mobileOpen}
                             onClose={this.handleDrawerToggle}
+
                             classes={{
                                 paper: classes.drawerPaper,
                             }}
@@ -319,6 +325,7 @@ class ResponsiveContainer extends React.Component {
                         <Drawer
                             variant="permanent"
                             open
+                            className={classes.drawer}
                             classes={{
                                 paper: classes.drawerPaper,
                             }}

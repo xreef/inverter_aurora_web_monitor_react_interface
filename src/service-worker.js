@@ -38,7 +38,7 @@ self.addEventListener('install', function(event) {
                             // We could also cache any static assets like CSS or images
                             const urlsToCache = [
                                 "/",
-                                assets["../aurora-web.js"]
+                                // assets["../aurora-web.js"]
                                 // ,assets["main.js"]
                             ]
                             cache.addAll(urlsToCache)
@@ -61,3 +61,5 @@ self.addEventListener('fetch', function(event) {
     }
 });
 
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', () => self.clients.claim());

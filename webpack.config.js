@@ -134,8 +134,8 @@ module.exports = function(env) {return {
     devServer: {
         // publicPath: '/'
         // // ,compress: true
-        host: "0.0.0.0",
-        // host: "localhost",
+        // host: "0.0.0.0",
+        host: "localhost",
         port: 9000
         , inline: true
         ,stats: {
@@ -145,10 +145,10 @@ module.exports = function(env) {return {
 
         ,open: true
         ,hot: true
-         , https: true
-        // , https: {
-        //     key: fs.readFileSync( "./resources/certificati/key.key"),
-        //     cert: fs.readFileSync("./resources/certificati/cert.crt")
-        // }
+         // , https: true
+        , https: {
+            key: fs.readFileSync( "./resources/certificates/localhost_key.pem"),
+            cert: fs.readFileSync("./resources/certificates/localhost.crt")
+        }
     }
 }};

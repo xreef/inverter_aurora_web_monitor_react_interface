@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Home, About } from './containers';
-import GridShowCaseContainer from "./containers/GridShowCaseContainer";
-import ChartExamplesContainer from "./containers/ChartExamplesContainer";
+import { Home, About } from './views';
+import GridShowCaseContainer from "./views/GridShowCaseContainer";
+import ChartExamplesContainer from "./views/ChartExamplesContainer";
 
 const Routes = () => (
     <Switch>

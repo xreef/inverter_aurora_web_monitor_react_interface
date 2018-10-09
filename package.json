@@ -26,6 +26,7 @@
     "d3-format": "^1.0.2",
     "d3-time-format": "^2.0.3",
     "fabric": "^2.3.1",
+    "perfect-scrollbar": "^1.4.0",
     "react-grid-layout": "file:react-grid-layout-0.14.5.tgz",
     "react-stockcharts": "file:react-stockcharts-0.7.8.tgz",
     "save-svg-as-png": "=1.2.0"

@@ -1,6 +1,8 @@
 import React from 'react';
 import {
     BrowserRouter,
+    Router,
+    HashRouter,
     Link,
 } from 'react-router-dom';
 
@@ -15,7 +17,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
-import Snackbar from '@material-ui/core/Snackbar';
+// import Snackbar from '@material-ui/core/Snackbar';
+
+import Snackbar from './component/snackbars/Snackbar'
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -43,6 +47,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Slide from '@material-ui/core/Slide';
 
+import { createBrowserHistory } from "history";
 
 import Routes from './routes';
 
@@ -50,6 +55,8 @@ import reactLogo from './resources/images/react-icon.png';
 import {CustomizedSnackbar} from "./component/snackbars/CustomizedSnackbar";
 
 const drawerWidth = 240;
+
+const hist = createBrowserHistory();
 
 const styles = theme => ({
     root: {
@@ -506,7 +513,6 @@ class ResponsiveContainer extends React.Component {
 
 
         return (
-            <BrowserRouter>
                 <div className={classes.root}>
                     <AppBar className={classes.appBar}>
                         <Toolbar>
@@ -584,29 +590,37 @@ class ResponsiveContainer extends React.Component {
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
                         <Routes />
-                        <Snackbar anchorOrigin={{
-                                      vertical: 'bottom',
-                                      horizontal: 'right',
-                                  }}
-                                  open={this.state.notifications.current!==null}
-                                  autoHideDuration={6000}
+                        {this.state.notifications.current!==null?
+                        <Snackbar
+                            message={this.state.notifications.current.message}
+                            open={this.state.notifications.current!==null}
+                            color={this.state.notifications.current.variant}
+                            onClose={this.handleCloseNotification}
+                            ClickAwayListenerProps={{mouseEvent: null}}
+                        ></Snackbar>
+                            :
+                            null}
+                        {/*<Snackbar anchorOrigin={{*/}
+                                      {/*vertical: 'bottom',*/}
+                                      {/*horizontal: 'right',*/}
+                                  {/*}}*/}
+                                  {/*open={this.state.notifications.current!==null}*/}
+                                  {/*autoHideDuration={6000}*/}
 
-                                  ClickAwayListenerProps={{mouseEvent: null}}
-                                  onClose={this.handleCloseNotification}
-                        >
-                            {this.state.notifications.current!==null?
+                                  {/*ClickAwayListenerProps={{mouseEvent: null}}*/}
+                                  {/*onClose={this.handleCloseNotification}*/}
+                        {/*>*/}
+                            {/*{this.state.notifications.current!==null?*/}
 
-                            <CustomizedSnackbar  onClose={this.handleCloseNotification}
-                                                 variant={this.state.notifications.current.variant}
-                                                 message={this.state.notifications.current.message}/>
-                                :
-                                null}
+                            {/*<CustomizedSnackbar  onClose={this.handleCloseNotification}*/}
+                                                 {/*variant={this.state.notifications.current.variant}*/}
+                                                 {/*message={this.state.notifications.current.message}/>*/}
+                                {/*:*/}
+                                {/*null}*/}
 
-                        </Snackbar>
+                        {/*</Snackbar>*/}
                     </main>
                 </div>
-
-            </BrowserRouter>
         );
     }
 }

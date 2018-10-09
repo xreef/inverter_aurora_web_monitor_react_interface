@@ -20,6 +20,9 @@ import "./style/app.less";
 import configureStore from "./utils/configureStore";
 
 import ResponsiveContainer from './container';
+import {HashRouter, Switch, Route} from "react-router-dom";
+
+import indexRoutes from "./routes/index.jsx";
 
 class App extends React.Component {
     constructor(props) {
@@ -39,9 +42,17 @@ class App extends React.Component {
 
         return <Provider store={this.store}>
                     <IntlProvider locale={language} messages={messages}>
-                        <ResponsiveContainer></ResponsiveContainer>
+                        <HashRouter>
+                            {/*<ResponsiveContainer/>*/}
+                            <Switch>
+                                {indexRoutes.map((prop, key) => {
+                                    return <Route path={prop.path} component={prop.component} key={key} />;
+                                })}
+                            </Switch>
+                        </HashRouter>
                     </IntlProvider>
                 </Provider>
+
     };
 }
 

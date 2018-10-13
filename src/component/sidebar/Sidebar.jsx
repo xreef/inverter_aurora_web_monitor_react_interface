@@ -15,13 +15,14 @@ import Icon from "@material-ui/core/Icon";
 import HeaderLinks from "../header/HeaderLinks.jsx";
 
 import sidebarStyle from "./style/sidebarStyle.jsx";
+import Header from "../header/Header";
 
 const Sidebar = ({ ...props }) => {
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
-  const { classes, color, logo, image, logoText, routes } = props;
+  const { classes, color, logo, image, logoText, routes, notifications } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -94,7 +95,7 @@ const Sidebar = ({ ...props }) => {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            <HeaderLinks />
+            <HeaderLinks notifications={notifications} />
             {links}
           </div>
           {image !== undefined ? (
@@ -129,7 +130,8 @@ const Sidebar = ({ ...props }) => {
 };
 
 Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    notifications: PropTypes.object.isRequired
 };
 
 export default withStyles(sidebarStyle)(Sidebar);

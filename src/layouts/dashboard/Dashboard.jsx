@@ -16,8 +16,9 @@ import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "./style/dashboardStyle.jsx";
 
-import image from "../../resources/images/sidebar-2.jpg";
-import logo from "../../resources/images/react-icon.png";
+import image from "../../resources/images/sidebar-solar.jpg";
+import logo from "../../resources/images/bill.jpg";
+import Snackbar from "../../component/snackbars/Snackbar";
 
 const switchRoutes = (
   <Switch>
@@ -36,7 +37,29 @@ class App extends React.Component {
       mobileOpen: false
     };
     this.resizeFunction = this.resizeFunction.bind(this);
+
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
+    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
   }
+
+  handleCloseNotification = () => {
+    this.props.shiftNotification()
+  };
+
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
@@ -72,22 +95,25 @@ class App extends React.Component {
 
   render() {
     const { classes, ...rest } = this.props;
+    const {notifications} = this.props;
     return (
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText={"Creative Tim"}
+          logoText={"REEF"}
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
           color="blue"
+          notifications={notifications}
           {...rest}
         />
         <div className={classes.mainPanel} ref={this.setMainPanelRef}>
           <Header
             routes={dashboardRoutes}
             handleDrawerToggle={this.handleDrawerToggle}
+            notifications={notifications}
             {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
@@ -99,6 +125,18 @@ class App extends React.Component {
             <div className={classes.map}>{switchRoutes}</div>
           )}
           {this.getRoute() ? <Footer /> : null}
+
+            {notifications.current!==null?
+                <Snackbar
+                    message={notifications.current.message}
+                    open={notifications.current!==null}
+                    color={notifications.current.variant}
+                    onClose={this.handleCloseNotification}
+                    ClickAwayListenerProps={{mouseEvent: null}}
+                />
+                :
+                null}
+
         </div>
       </div>
     );
@@ -106,7 +144,11 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    notifications: PropTypes.object.isRequired,
+
+    addNotification: PropTypes.func.isRequired,
+    shiftNotification: PropTypes.func.isRequired
 };
 
 export default withStyles(dashboardStyle)(App);

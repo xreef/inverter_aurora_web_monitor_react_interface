@@ -27,6 +27,7 @@ function Header({ ...props }) {
     return name;
   }
   const { classes, color } = props;
+  const { notifications } = props;
   const appBarClasses = classNames({
     [" " + classes[color]]: color
   });
@@ -40,7 +41,7 @@ function Header({ ...props }) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          <HeaderLinks />
+          <HeaderLinks notifications={notifications}/>
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton
@@ -58,7 +59,8 @@ function Header({ ...props }) {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"])
+  color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
+  notifications: PropTypes.object.isRequired
 };
 
 export default withStyles(headerStyle)(Header);

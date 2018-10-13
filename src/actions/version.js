@@ -1,3 +1,3 @@
-export const getVersion = () => ({
-    type: 'GET_VERSION'
+export const setVersion = (versione) => ({
+    type: 'SET_VERSION'
 });

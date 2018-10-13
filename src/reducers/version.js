@@ -5,8 +5,8 @@ const version = (state = {
 
 , action) => {
     switch (action.type) {
-        case 'GET_VERSION':
-            return {...state};
+        case 'SET_VERSION':
+            return {version: action.version, date: new Date().toISOString()};
         default:
             return state
     }

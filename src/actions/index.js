@@ -2,8 +2,11 @@
  * Created by renzo on 17/05/2017.
  */
 
-import {getVersion} from 'version'
+import {setVersion} from './version'
+import {addNotification, shiftNotification} from './notifications'
 
 export {
-    getVersion
+    setVersion,
+    addNotification,
+    shiftNotification
 }

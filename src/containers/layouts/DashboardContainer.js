@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 
-import {shiftNotification, addNotification} from '../../actions'
+import {
+    shiftNotification, addNotification,
+    setUserSubscribedToPushNotification, setServiceWorkerSubscription, setPushNotificationSupported
+} from '../../actions'
 
 import App from '../../layouts/dashboard/Dashboard'
 
@@ -10,7 +13,10 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps ={
     addNotification,
-    shiftNotification
+    shiftNotification,
+    setUserSubscribedToPushNotification,
+    setServiceWorkerSubscription,
+    setPushNotificationSupported
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

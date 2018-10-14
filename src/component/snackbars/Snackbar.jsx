@@ -11,7 +11,11 @@ import Close from "@material-ui/icons/Close";
 import snackbarContentStyle from "./style/snackbarContentStyle";
 
 function Snackbar({ ...props }) {
-  const { classes, message, color, close, icon, place, open, onClose, ClickAwayListenerProps } = props;
+  const { classes, message, close, icon, place, open, onClose, ClickAwayListenerProps } = props;
+  let {color} = props;
+  if (color==='error'){
+      color = 'danger';
+  }
   var action = [];
   const messageClasses = classNames({
     [classes.iconMessage]: icon !== undefined
@@ -61,7 +65,7 @@ function Snackbar({ ...props }) {
 Snackbar.propTypes = {
   classes: PropTypes.object.isRequired,
   message: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(["info", "success", "warning", "danger", "primary"]),
+  color: PropTypes.oneOf(["info", "success", "warning", "danger", "error", "primary"]),
   close: PropTypes.bool,
   icon: PropTypes.func,
   place: PropTypes.oneOf(["tl", "tr", "tc", "br", "bl", "bc"]),

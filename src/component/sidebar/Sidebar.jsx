@@ -15,15 +15,34 @@ import Icon from "@material-ui/core/Icon";
 import HeaderLinks from "../header/HeaderLinks.jsx";
 
 import sidebarStyle from "./style/sidebarStyle.jsx";
-import Header from "../header/Header";
+import Divider from "@material-ui/core/Divider/Divider";
+import StoreIcon from "@material-ui/icons/Store";
 
 const Sidebar = ({ ...props }) => {
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
-  const { classes, color, logo, image, logoText, routes, notifications } = props;
-  var links = (
+  const { classes, color, logo, image, logoText, routes, notifications, addToHomeScreen } = props;
+    let additionalLink = null;
+  if (addToHomeScreen!==null) {
+      additionalLink = [
+          <Divider key={1} className={classes.whiteDivider} />,
+          <List key={2}>
+                  <div>
+                      <ListItem button onClick={addToHomeScreen} className={classes.itemLink }>
+                          <ListItemIcon className={classes.itemIcon + " " + classes.whiteFont}>
+                              <StoreIcon/>
+                          </ListItemIcon>
+                          <ListItemText disableTypography={true} className={classes.itemText + " " + classes.whiteFont} primary="Install"/>
+                      </ListItem>
+                  </div>
+          </List>
+
+      ];
+  }
+
+    var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
         if (prop.redirect) return null;
@@ -66,6 +85,7 @@ const Sidebar = ({ ...props }) => {
           </NavLink>
         );
       })}
+
     </List>
   );
   var brand = (
@@ -97,6 +117,7 @@ const Sidebar = ({ ...props }) => {
           <div className={classes.sidebarWrapper}>
             <HeaderLinks notifications={notifications} />
             {links}
+              {additionalLink}
           </div>
           {image !== undefined ? (
             <div
@@ -116,7 +137,7 @@ const Sidebar = ({ ...props }) => {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.sidebarWrapper}>{links}{additionalLink}</div>
           {image !== undefined ? (
             <div
               className={classes.background}
@@ -131,7 +152,9 @@ const Sidebar = ({ ...props }) => {
 
 Sidebar.propTypes = {
     classes: PropTypes.object.isRequired,
-    notifications: PropTypes.object.isRequired
+    notifications: PropTypes.object.isRequired,
+
+    addToHomeScreen: PropTypes.func
 };
 
 export default withStyles(sidebarStyle)(Sidebar);

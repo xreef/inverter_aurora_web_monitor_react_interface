@@ -23,7 +23,7 @@ const notifications = (state = {
                 elem = state.queue.shift();
             }
             return {
-                        queue: state.queue.splice(1),
+                        queue: [...state.queue],
                         current: elem
                     };
         default:

@@ -1,45 +1,57 @@
-export const checkPushNotificationSupport = () => {
+export const checkPushNotificationSupport = (callBack) => {
     if ('PushManager' in window){
         console.log('Push is supported');
-        return {
-            variant: "info",
-            message:"Push supported",
-            exitStatus: true
-        }
+        callBack(
+                    {
+                        variant: "info",
+                        message:"Push supported",
+                        title:"Push supported",
+                        exitStatus: true
+                    }
+                );
     }else{
         console.log('Push is not supported');
-        return {
-            variant: "warning",
-            message:"Push is not supported",
-            exitStatus: false
-        };
+        callBack(
+                    {
+                        variant: "warning",
+                        message:"Push is not supported",
+                        title:"Push is not supported",
+                        exitStatus: false
+                    }
+                );
     }
 };
 
-export const checkUserSubscribedToPushNotification = (registration) => {
+export const checkUserSubscribedToPushNotification = (registration, callBack) => {
+    // navigator.serviceWorker.ready.then(function(registration) {
     registration.pushManager.getSubscription()
         .then((subscription) => {
             let isSubscribed = !(subscription === null);
 
             if (isSubscribed) {
                 console.log('User is push notification subscribed.');
-                return {
-                    variant: "info",
-                    message:"User is push notification subscribed.",
-                    exitStatus: true
-                };
+                callBack(
+                            {
+                                variant: "info",
+                                message:"User is push notification subscribed.",
+                                title:"User is push notification subscribed.",
+                                exitStatus: true
+                            }
+                        );
             } else {
                 console.log('User is push notification NOT subscribed.');
-                return {
-                    variant: "warning",
-                    message:"User is push notification NOT subscribed.",
-                    exitStatus: false
-                };
+                callBack({
+                            variant: "warning",
+                            message:"User is push notification NOT subscribed.",
+                            title:"User is push notification NOT subscribed.",
+                            exitStatus: false
+                        });
             }
         });
+    // }
 };
 
-export const subscribePush = () => {
+export const subscribePush = (callBack) => {
     navigator.serviceWorker.ready.then((registration) => {
         // ALREADY CHECKED
         // if (!registration.pushManager) {
@@ -55,11 +67,12 @@ export const subscribePush = () => {
                 console.info('Push notification subscribed.');
                 console.log(subscription);
 
-                return {
-                    exitStatus: true,
-                    variant: 'success',
-                    message: 'Subscribed successfully.'
-                };
+                callBack( {
+                                exitStatus: true,
+                                variant: 'success',
+                                message: 'Subscribed successfully.',
+                                title: 'Subscribed successfully.'
+                            });
                 //saveSubscriptionID(subscription);
                 // this.setState({serviceWorker:{
                 //         ...this.state.serviceWorker,
@@ -78,18 +91,19 @@ export const subscribePush = () => {
                     };
 
                 }else {
-                    return {
+                    callBack( {
                         exitStatus: false,
                         variant: 'error',
-                        message: 'Push notification subscription error: ' + error
-                    };
+                        message: 'Push notification subscription error: ' + error,
+                        title: 'Push notification subscription error'
+                    });
                 }
             });
     })
 };
 
 // Unsubscribe the user from push notifications
-export const unsubscribePush = () => {
+export const unsubscribePush = (callBack) => {
     navigator.serviceWorker.ready
         .then((registration) => {
             //Get `push subscription`
@@ -97,10 +111,12 @@ export const unsubscribePush = () => {
                 .then((subscription) => {
                     //If no `push subscription`, then return
                     if(!subscription) {
-                        return {
-                                variant: "error",
-                                message: 'Unable to unregister push notification.'
-                            };
+                        callBack( {
+                                exitStatus: true,
+                                variant: "warning",
+                                message: 'Unable to unregister push notification, already unsubscribed.',
+                                title: 'Unable to unregister push notification.'
+                            });
                     }
 
                     //Unsubscribe `push notification`
@@ -109,29 +125,32 @@ export const unsubscribePush = () => {
                             console.info('Push notification unsubscribed.');
                             console.log(subscription);
 
-                            return {
-                                exitStatus: false,
+                            callBack( {
+                                exitStatus: true,
                                 variant: "success",
-                                message: "Unsubscribed successfully."
-                            };
+                                message: "Unsubscribed successfully.",
+                                title: "Unsubscribed successfully."
+                            });
                         })
                         .catch(function (error) {
                             console.error(error);
 
-                            return {
+                            callBack( {
                                 exitStatus: false,
                                 variant: "error",
-                                message: error
-                            };
+                                message: "Error on unsubscription of push notification "+error,
+                                title: "Error on unsubscription of push notification."
+                            });
                         });
                 })
                 .catch(function (error) {
                     console.error('Failed to unsubscribe push notification.');
-                    return {
+                    callBack( {
                         exitStatus: false,
                         variant: "error",
-                        message: error
-                    };
+                        message: "Error on unsubscription of push notification "+error,
+                        title: "Error on unsubscription of push notification."
+                    });
                 });
         })
 };

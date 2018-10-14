@@ -60,7 +60,7 @@ class HeaderLinks extends React.Component {
               onClick={handleClose}
               className={classes.dropdownItem}
           >
-              notification.title
+              {notification.title}
           </MenuItem>
       );
       let arrMI = [];
@@ -100,6 +100,7 @@ class HeaderLinks extends React.Component {
           simple={!(window.innerWidth > 959)}
           aria-label="Dashboard"
           className={classes.buttonLink}
+          href="#"
         >
           <Dashboard className={classes.icons} />
           <Hidden mdUp implementation="css">

@@ -20,6 +20,22 @@ import image from "../../resources/images/sidebar-solar.jpg";
 import logo from "../../resources/images/bill.jpg";
 import Snackbar from "../../component/snackbars/Snackbar";
 
+import {subscribeServiceWorker} from "../../utils/serviceWorker/subscribeServiceWorker"
+import {checkPushNotificationSupport, checkUserSubscribedToPushNotification, subscribePush, unsubscribePush} from "../../utils/serviceWorker/subscribePush"
+import {addToHomeScreen} from "../../utils/serviceWorker/homeScreen"
+import {addNotification} from "../../actions";
+import Divider from "@material-ui/core/Divider/Divider";
+import List from "@material-ui/core/List/List";
+import ListItem from "@material-ui/core/ListItem/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
+import StoreIcon from "@material-ui/icons/Store";
+import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+// import {
+//     setPushNotificationSupported,
+//     setServiceWorkerSubscription,
+//     setUserSubscribedToPushNotification
+// } from "../../actions";
+
 const switchRoutes = (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
@@ -34,26 +50,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mobileOpen: false
+        mobileOpen: false,
+        serviceWorker: {
+          deferredPrompt: null
+        }
     };
     this.resizeFunction = this.resizeFunction.bind(this);
-
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
-    this.props.addNotification({variant: 'success', message: 'Long description message', title: 'short description'});
   }
 
   handleCloseNotification = () => {
@@ -72,11 +74,67 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
+    const {addNotification,
+        setUserSubscribedToPushNotification,
+        setServiceWorkerSubscription,
+        setPushNotificationSupported} = this.props;
     if (navigator.platform.indexOf("Win") > -1) {
       const ps = new PerfectScrollbar(this.mainPanel);
     }
     window.addEventListener("resize", this.resizeFunction);
+
+    let  registration = null;
+    const subscribeServiceWorkerCB = (response) => {
+        addNotification(response);
+        setServiceWorkerSubscription(response.exitStatus, response.registration);
+
+        let registration = response.registration;
+        if (response.exitStatus) {
+            //        chrome://flags/#enable-desktop-pwas
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent Chrome 67 and earlier from automatically showing the prompt
+                e.preventDefault();
+                // Stash the event so it can be triggered later.
+                this.setState({
+                    serviceWorker: {
+                        ...this.state.serviceWorker,
+                        deferredPrompt: e
+                    }
+                })
+            });
+
+            const checkPushNotificationSupportCB = (response) => {
+                addNotification(response);
+                setPushNotificationSupported(response.exitStatus);
+
+                if (response.exitStatus) {
+                    const checkUserSubscribedToPushNotificationCB = (response) => {
+                        addNotification(response);
+                        setUserSubscribedToPushNotification(response.exitStatus);
+                    };
+                    checkUserSubscribedToPushNotification(registration, checkUserSubscribedToPushNotificationCB);
+                }
+            };
+            checkPushNotificationSupport(checkPushNotificationSupportCB);
+        }
+    };
+    subscribeServiceWorker(subscribeServiceWorkerCB);
   }
+
+  addToHomeScreen = () => {
+      const {addNotification} = this.props;
+      const addToHomeScreenCB = (response) => {
+          addNotification(response);
+          if (response.exitStatus===true){
+            this.setState({serviceWorke:{
+                    ...this.state.serviceWorker,
+                    deferredPrompt: null
+                }})
+          }
+      };
+      addToHomeScreen(this.state.serviceWorker.deferredPrompt, addToHomeScreenCB);
+  };
+
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
       this.mainPanel.scrollTop = 0;
@@ -93,10 +151,12 @@ class App extends React.Component {
     this.mainPanel = mainPanel;
   };
 
+
   render() {
     const { classes, ...rest } = this.props;
     const {notifications} = this.props;
-    return (
+
+      return (
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
@@ -107,8 +167,10 @@ class App extends React.Component {
           open={this.state.mobileOpen}
           color="blue"
           notifications={notifications}
+          addToHomeScreen = {this.state.serviceWorker.deferredPrompt!==null?this.addToHomeScreen:null}
           {...rest}
         />
+
         <div className={classes.mainPanel} ref={this.setMainPanelRef}>
           <Header
             routes={dashboardRoutes}
@@ -116,6 +178,7 @@ class App extends React.Component {
             notifications={notifications}
             {...rest}
           />
+
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
           {this.getRoute() ? (
             <div className={classes.content}>
@@ -148,7 +211,11 @@ App.propTypes = {
     notifications: PropTypes.object.isRequired,
 
     addNotification: PropTypes.func.isRequired,
-    shiftNotification: PropTypes.func.isRequired
+    shiftNotification: PropTypes.func.isRequired,
+
+    setUserSubscribedToPushNotification: PropTypes.func.isRequired,
+    setServiceWorkerSubscription: PropTypes.func.isRequired,
+    setPushNotificationSupported: PropTypes.func.isRequired
 };
 
 export default withStyles(dashboardStyle)(App);

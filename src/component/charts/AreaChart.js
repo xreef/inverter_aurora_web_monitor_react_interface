@@ -14,8 +14,10 @@ import { curveMonotoneX } from "d3-shape";
 import { ChartCanvas, Chart } from "react-stockcharts";
 import { AreaSeries } from "react-stockcharts/lib/series";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
-import { fitDimensions } from "react-stockcharts/lib/helper";
 import { createVerticalLinearGradient, hexToRGBA } from "react-stockcharts/lib/utils";
+import { fitDimensions } from "react-stockcharts/lib/helper";
+
+import fitDimensionsFix from "./utils/fitDimensionsFix";
 
 const canvasGradient = createVerticalLinearGradient([
 	{ stop: 0, color: hexToRGBA("#b5d0ff", 0.2) },
@@ -102,6 +104,6 @@ AreaChart.propTypes = {
 AreaChart.defaultProps = {
 	type: "svg",
 };
-AreaChart = fitDimensions(AreaChart);
+AreaChart = fitDimensionsFix(AreaChart);
 
 export default AreaChart;

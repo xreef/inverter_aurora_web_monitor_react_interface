@@ -21,7 +21,6 @@ const inverterDailyFetchLogic = createLogic({
     process({ getState, action }, dispatch, done) {
         return axios.get(`http://192.168.1.101:8080/production?day=${action.day}&type=${action.dataType}`)
             .then(resp => (resp.data.data.map(elem => {
-                debugger
                     elem.date = new Date(moment(action.day+elem.h, "YYYYMMDDHHmm").valueOf());
                     elem.power = elem.val;
                     return elem;

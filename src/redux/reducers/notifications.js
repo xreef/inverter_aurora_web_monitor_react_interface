@@ -1,3 +1,5 @@
+import {ADD_NOTIFICATION, SHIFT_NOTIFICATION, GET_CURRENT_NOTIFICATION} from '../actions/notifications';
+
 const notifications = (state = {
                      current: null,
                      queue: []
@@ -5,7 +7,7 @@ const notifications = (state = {
 
     , action) => {
     switch (action.type) {
-        case 'ADD_NOTIFICATION':
+        case ADD_NOTIFICATION:
             if (state.current){
                 return {
                     ...state,
@@ -17,7 +19,7 @@ const notifications = (state = {
                     current: action.notification
                 };
             }
-        case 'SHIFT_NOTIFICATION':
+        case SHIFT_NOTIFICATION:
             let elem = null;
             if (state.queue.length>0){
                 elem = state.queue.shift();

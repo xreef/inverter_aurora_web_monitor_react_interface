@@ -2,9 +2,11 @@
  * Created by renzo on 19/05/2017.
  */
 import { createStore, applyMiddleware } from 'redux';
-import promise from 'redux-promise';
+import { createLogicMiddleware } from 'redux-logic';
+import axios from 'axios';
 
-import reducer from '../reducers'
+import reducer from '../redux/reducers';
+import logic from '../redux/logic/index';
 
 import {saveState, loadState} from './localStorage'
 import throttle from "lodash.throttle";
@@ -25,10 +27,16 @@ const logger = (store) =>  (next) => {
         }
     };
 
+const deps = { // injected dependencies for redux.logic
+    httpClient: axios
+};
+
 const configureStore = (id, initialConfig, autoSaveToLocalStorage) => {
+    const logicMiddleware = createLogicMiddleware(logic, deps);
+
     const middlewares = [];
 
-    middlewares.push(promise);
+    middlewares.push(logicMiddleware );
     if (process.env.NODE_ENV !== 'production') middlewares.push(logger);
 
     let store=null;

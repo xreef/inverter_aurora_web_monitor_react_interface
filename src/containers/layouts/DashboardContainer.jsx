@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
     shiftNotification, addNotification,
     setUserSubscribedToPushNotification, setServiceWorkerSubscription, setPushNotificationSupported
-} from '../../actions'
+} from '../../redux/actions'
 
 import App from '../../layouts/dashboard/Dashboard'
 

@@ -146,9 +146,9 @@ module.exports = function(env) {return {
         ,open: true
         ,hot: true
          // , https: true
-        , https: {
-            key: fs.readFileSync( "./resources/certificates/localhost_key.pem"),
-            cert: fs.readFileSync("./resources/certificates/localhost.crt")
-        }
+        // , https: {
+        //     key: fs.readFileSync( "./resources/certificates/localhost_key.pem"),
+        //     cert: fs.readFileSync("./resources/certificates/localhost.crt")
+        // }
     }
 }};

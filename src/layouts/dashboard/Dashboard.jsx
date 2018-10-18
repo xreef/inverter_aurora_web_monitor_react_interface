@@ -23,7 +23,7 @@ import Snackbar from "../../component/snackbars/Snackbar";
 import {subscribeServiceWorker} from "../../utils/serviceWorker/subscribeServiceWorker"
 import {checkPushNotificationSupport, checkUserSubscribedToPushNotification, subscribePush, unsubscribePush} from "../../utils/serviceWorker/subscribePush"
 import {addToHomeScreen} from "../../utils/serviceWorker/homeScreen"
-import {addNotification} from "../../actions";
+import {addNotification} from "../../redux/actions";
 import Divider from "@material-ui/core/Divider/Divider";
 import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
@@ -34,7 +34,7 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 //     setPushNotificationSupported,
 //     setServiceWorkerSubscription,
 //     setUserSubscribedToPushNotification
-// } from "../../actions";
+// } from "../../redux.actions";
 
 const switchRoutes = (
   <Switch>

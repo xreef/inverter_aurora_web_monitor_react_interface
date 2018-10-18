@@ -20,7 +20,7 @@ Details available in https://github.com/rrag/react-stockcharts/issues/206
 
 #### Breaking Changes
 
-1. `EventCapture` is now removed. This is because starting `0.6` zoom actions can happen by drag on the x/y axis also, and that is a separate container, so having a single `EventCapture` is not possible
+1. `EventCapture` is now removed. This is because starting `0.6` zoom redux.actions can happen by drag on the x/y axis also, and that is a separate container, so having a single `EventCapture` is not possible
 1. `CurrentCoordinate`, `MouseCoordinateX`, `MouseCoordinateY` no longer require an `id` prop
 1. `TooltipContainer` is removed and all the tooltips (`OHLCTooltip`, `MovingAverageTooltip`)  are now moved inside the `Chart` relative to which you specify the origin. This also makes the `forChart` prop on the different `XXXTooltip` unnecessary
 1. `ElderRaySeries` no longer accepts a `calculator` prop but instead an `accessor`
@@ -197,7 +197,7 @@ for your constant support, providing ideas for new features, suggestions for imp
 
 1. Add new methods to `ChartCanvas`
 1. Add `Brush` and `ClickCallback` interactive components
-1. Fix bug on zoom, for charts not using stockscale
+1. Fix bug on zoom, for component.charts not using stockscale
 1. Change to use ES6 module exports instead of commonjs `module.exports = ...`
 
 ## v0.2.12
@@ -300,7 +300,7 @@ for your constant support, providing ideas for new features, suggestions for imp
 
 #### Internal changes
 
-1. In an attempt to improve performance of pan actions on firefox, the pan actions when done for canvas now do not update the state during pan. To achieve this the following changes were done
+1. In an attempt to improve performance of pan redux.actions on firefox, the pan redux.actions when done for canvas now do not update the state during pan. To achieve this the following changes were done
     1. Create Canvas based X & YAxis
     1. Canvas based `EdgeCoordinates` and `MouseCoordinates` and `CurrentCoordinate`
     1. Create 2 canvas as against one for each chart.

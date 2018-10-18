@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ResponsiveGrid from "../component/responsiveGrid/ResponsiveGrid";
 
+class Home extends React.Component {
 
-const Home = () => (
-    <div>
-        <h2>Home Page</h2>
-        <div>To install this Web App activate the chrome features <b>Desktop PWAs</b></div>
-        <div>Copy this link and paste in your browser</div>
-        <div>chrome://flags/#enable-desktop-pwas</div>
-    </div>
-);
+    constructor(props) {
+        super(props);
+
+    }
+
+    render() {
+        return <ResponsiveGrid />
+    }
+}
+
+Home.propTypes = {
+
+};
 
 export default Home;

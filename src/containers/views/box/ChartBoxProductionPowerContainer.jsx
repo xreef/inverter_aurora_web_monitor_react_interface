@@ -1,18 +1,21 @@
 import { connect } from 'react-redux';
 
 import {
-    inverterDailyFetch
+    inverterDailyCurrentFetch,
+    inverterDailyPowerFetch,
+    inverterDailyVoltageFetch
 } from '../../../redux/actions';
 
 import ChartBoxProduction from '../../../views/box/chartBox/ChartBoxProduction';
 
 const mapStateToProps = (state, ownProps) => ({
-    data: state.inverterDaily.list,
-    day: state.inverterDaily.day
+    data: state.inverterDailyPower.list,
+    day: ownProps.day,
+    dataType: 'power'
 });
 
 const mapDispatchToProps = {
-    inverterDailyFetch
+    inverterDailyFetch: inverterDailyPowerFetch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartBoxProduction);

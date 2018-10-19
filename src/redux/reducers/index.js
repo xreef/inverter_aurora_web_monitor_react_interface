@@ -3,13 +3,17 @@ import { combineReducers } from 'redux';
 import version from './version';
 import notifications from './notifications';
 import subscriptionsServiceWorker from './subscriptionsServiceWorker';
-import inverterDaily from './inverterDaily';
+import inverterDailyVoltage from './inverterDailyVoltage';
+import inverterDailyCurrent from './inverterDailyCurrent';
+import inverterDailyPower from './inverterDailyPower';
 
 const reducersAurora = combineReducers({
     version,
     notifications,
     subscriptionsServiceWorker,
-    inverterDaily
+    inverterDailyVoltage,
+    inverterDailyCurrent,
+    inverterDailyPower
 });
 
 export default reducersAurora

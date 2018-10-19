@@ -1,5 +1,9 @@
-import inverterDailyFetchLogic from './inverterDaily'
+import inverterDailyPowerFetchLogic from './inverterDailyPower'
+import inverterDailyCurrentFetchLogic from './inverterDailyCurrent'
+import inverterDailyVoltageFetchLogic from './inverterDailyVoltage'
 
 export default [
-    ...inverterDailyFetchLogic
+    ...inverterDailyPowerFetchLogic,
+    ...inverterDailyCurrentFetchLogic,
+    ...inverterDailyVoltageFetchLogic
 ];

@@ -15,26 +15,34 @@ import boxStyle from '../style/boxStyle'
 import Table from "../../../component/table/Table";
 import AreaChart from "../../../component/charts/AreaChart";
 
+import { FormattedMessage } from 'react-intl';
+
 class ChartBoxProduction extends React.Component {
     constructor(props) {
         super(props);
-        props.inverterDailyFetch('power', moment().format('YYYYMMDD'));
+        let { day, dataType} = this.props;
+        props.inverterDailyFetch( day, dataType);
     }
 
     render() {
         const {classes, id} = this.props;
-        const {data, day} = this.props;
+        const {data, day, dataType} = this.props;
+        const {color, title, subtitle} = this.props;
 
-        return <Card key={id}>
-            <CardHeader color="warning" className="dragHeader">
-                <h4 className={classes.cardTitleWhite}>Production daily chart</h4>
+        return <Card id={id} key={id}>
+            <CardHeader color={color} className="dragHeader">
+                <h4 className={classes.cardTitleWhite}>{title}</h4>
                 <p className={classes.cardCategoryWhite}>
-                    Data of {day}
+                    <FormattedMessage
+                        id={ 'chart.searchMessage.'+dataType }
+                        defaultMessage={ subtitle }
+                        values={{ day: day }}
+                    />
                 </p>
             </CardHeader>
             <CardBody>
                 {(data && data.length>0)?
-                        <AreaChart data={data} ratio={1} type="hybrid"/>
+                        <AreaChart data={data} color={color} ratio={1} type="hybrid"/>
                     :null}
             </CardBody>
         </Card>;
@@ -45,7 +53,25 @@ ChartBoxProduction.propTypes = {
     classes: PropTypes.object.isRequired,
     data: PropTypes.array,
     day: PropTypes.string,
+    dataType: PropTypes.string,
     id: PropTypes.string.isRequired,
+    color: PropTypes.oneOf([
+        "warning",
+        "success",
+        "danger",
+        "info",
+        "primary",
+        "rose"
+    ]),
+    title: PropTypes.string,
+    subtitle: PropTypes.string
+};
+ChartBoxProduction.defaultProps = {
+    day: moment().format('YYYYMMDD'),
+    dataType: "power",
+    color: "warning",
+    title: "Title",
+    subtitle: "Data of {day}"
 };
 
 export default withStyles(boxStyle)(ChartBoxProduction);

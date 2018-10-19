@@ -12,12 +12,18 @@ import { scaleTime } from "d3-scale";
 import { curveMonotoneX } from "d3-shape";
 
 import { ChartCanvas, Chart } from "react-stockcharts";
-import { AreaSeries } from "react-stockcharts/lib/series";
+import CustomAreaSeries from "./series/CustomAreaSeries";
+
+import { EdgeIndicator, CurrentCoordinate } from "react-stockcharts/lib/coordinates";
+
+import CustomImage from './annotation/CustomImage'
+import {Annotate} from "react-stockcharts/lib/annotation";
+
+
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { createVerticalLinearGradient, hexToRGBA } from "react-stockcharts/lib/utils";
-import { fitDimensions } from "react-stockcharts/lib/helper";
 
-import fitDimensionsFix from "./utils/fitDimensionsFix";
+import fitDimensionsBox from "./utils/fitDimensionsBox";
 
 const canvasGradient = createVerticalLinearGradient([
 	{ stop: 0, color: hexToRGBA("#b5d0ff", 0.2) },
@@ -25,9 +31,11 @@ const canvasGradient = createVerticalLinearGradient([
 	{ stop: 1, color: hexToRGBA("#4286f4", 0.8) },
 ]);
 
+import * as grad from '../../component/style/material-dashboard-react'
+
 class AreaChart extends React.Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.scaleFormat = {
             yearFormat: "%Y",
                 quarterFormat: "%b %Y",
@@ -44,6 +52,103 @@ class AreaChart extends React.Component {
         let d3Locales = new D3NumberLocales();
         timeFormatDefaultLocale( this.d3DTLocales.getDateTimeLocale('it'));
         formatDefaultLocale(d3Locales.getDateTimeLocale('it'));
+
+        let {color} = props;
+debugger
+        this.config = {
+            line:{
+                strokeWidth: 1,
+                    hoverStrokeWidth: 4,
+                    stroke: {
+                        up:     grad[color+'Gradient'].up  ,
+						down:   grad[color+'Gradient'].down
+					},
+                strokeFlat: '#ffffff',
+                    strokeDasharray: "Solid",
+                    hoverTolerance: 6,
+                    highlightOnHover: false,
+                    connectNulls: false
+            },
+            currentCoordinate: {
+                currentCoordinateActive: false,
+                    currentCoordinateColor: '#ff0100'
+            },
+            area:{
+                fill: {
+                    up:         grad[color+'Gradient'].up  ,
+                    middleUp:   grad[color+'Gradient'].up  ,
+                    middleDown: grad[color+'Gradient'].down,
+                    down:       grad[color+'Gradient'].down
+                },
+                opacity: {
+                    up:     0.2,
+                        middleUp: 0.8,
+                        middleDown: 0.8,
+                        down:   0.2
+                },
+                textureImageSrc: 'resources/images/textures/pattern_type1_inverted_4x4_opacity100.png'
+                // textureImageSrc: 'resources/images/pattern_type1_inverted_4x4_opacity100.png'
+            },
+            edgeIndicator: {
+                textFormat: ".3f",
+                    type: "horizontal",
+                    orient: "left",
+                    edgeAt: "left",
+                    textFill: "#FFFFFF",
+                    // displayFormat: format(".2f"),
+                    yAxisPad: 0,
+                    rectHeight: 20,
+                    rectWidth: 50,
+                    arrowWidth: 10,
+                    fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif",
+                    fontSize: 13,
+                    dx: 0,
+                    hideLine: false,
+                    fill: "#ff0000",
+                    opacity: 1,
+                    lineStroke: "#000000",
+                    lineOpacity: 0.3,
+                    itemType:"last"
+            },
+                showMinValueOnChart: {
+            image: "circleSonarRed",
+                width: 20,
+                height: 20,
+                onClick: console.log.bind(console),
+                y: ({ yScale, datum }) => yScale(datum.val),
+                tooltip: "Valore minimo"
+        },
+            showMaxValueOnChart: {
+                image: "circleSonarGreen",
+                    width: 20,
+                    height: 20,
+                    onClick: console.log.bind(console),
+                    y: ({ yScale, datum }) => yScale(datum.val),
+                    tooltip: "Valore massimo"
+            }
+        };
+
+        var {stroke, ...other} = this.config.line;
+        this.lineConfig = other;
+        this.stroke = stroke;
+
+        var {fill, ...other} = this.config.area;
+        this.areaConfig = other;
+        this.fill = fill;
+
+        var {textFormat, ...other} = this.config.edgeIndicator;
+        this.edgeIndicator = other;
+        this.edgeTextFormat = textFormat;
+
+        let {currentCoordinateActive, currentCoordinateColor} = this.config.currentCoordinate;
+        this.currentCoordinate = currentCoordinateActive;
+
+        if (currentCoordinateColor){
+            this.currentCoordinateColor = currentCoordinateColor;
+        }
+
+        this.showMinValueOnChart = this.config.showMinValueOnChart;
+        this.showMaxValueOnChart = this.config.showMaxValueOnChart;
     }
 	render() {
 		const { data: initialData, type, width, ratio, height } = this.props;
@@ -70,23 +175,27 @@ class AreaChart extends React.Component {
 				 displayXAccessor={displayXAccessor}
 				 xExtents={xExtents}
 			>
-				<Chart id={0} yExtents={d => d.power}>
-					<defs>
-						<linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">
-							<stop offset="0%" stopColor="#b5d0ff" stopOpacity={0.2} />
-							<stop offset="70%" stopColor="#6fa4fc" stopOpacity={0.4} />
-							<stop offset="100%"  stopColor="#4286f4" stopOpacity={0.8} />
-						</linearGradient>
-					</defs>
+				<Chart id={0} yExtents={d => d.val}>
+					{/*<defs>*/}
+						{/*<linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">*/}
+							{/*<stop offset="0%" stopColor="#b5d0ff" stopOpacity={0.2} />*/}
+							{/*<stop offset="70%" stopColor="#6fa4fc" stopOpacity={0.4} />*/}
+							{/*<stop offset="100%"  stopColor="#4286f4" stopOpacity={0.8} />*/}
+						{/*</linearGradient>*/}
+					{/*</defs>*/}
 					<XAxis axisAt="bottom" orient="bottom" ticks={6} />
 					<YAxis axisAt="left" orient="left"  />
-					<AreaSeries
-						yAccessor={d => d.power}
-						fill="url(#MyGradient)"
-						strokeWidth={2}
-						interpolation={curveMonotoneX}
-						canvasGradient={canvasGradient}
-					/>
+					{/*<AreaSeries*/}
+						{/*yAccessor={d => d.val}*/}
+						{/*fill="url(#MyGradient)"*/}
+						{/*strokeWidth={2}*/}
+						{/*interpolation={curveMonotoneX}*/}
+						{/*canvasGradient={canvasGradient}*/}
+					{/*/>*/}
+                    <CustomAreaSeries key={'lsCAS'} yAccessor={d => d.val} stroke={this.stroke} fill={this.fill} {...this.lineConfig} {...this.areaConfig}/>
+                    {/*<EdgeIndicator displayFormat={format(this.edgeTextFormat)} yAccessor={d => d.val} {...this.edgeIndicator} />*/}
+                    <CurrentCoordinate key={'ccCAS'} yAccessor={d => d.val} fill={this.currentCoordinateColor} />
+                    <Annotate with={CustomImage} when={d => d.maxPlot === true} usingProps={this.showMaxValueOnChart}/>
 				</Chart>
 			</ChartCanvas>
 		);
@@ -104,6 +213,6 @@ AreaChart.propTypes = {
 AreaChart.defaultProps = {
 	type: "svg",
 };
-AreaChart = fitDimensionsFix(AreaChart);
+AreaChart = fitDimensionsBox(AreaChart);
 
 export default AreaChart;

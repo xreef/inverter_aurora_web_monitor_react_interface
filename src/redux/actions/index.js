@@ -5,11 +5,15 @@
 import {setVersion} from './version';
 import {addNotification, shiftNotification} from './notifications';
 import {setPushNotificationSupported, setServiceWorkerSubscription, setUserSubscribedToPushNotification} from './subscriptionsServiceWorker';
-import {inverterDailyFetch, inverterDailyFetchCancel, inverterDailyFetchFulfilled, inverterDailyFetchRejected} from './inverterDaily';
+import {inverterDailyPowerFetch, inverterDailyPowerFetchCancel, inverterDailyPowerFetchFulfilled, inverterDailyPowerFetchRejected} from './inverterDailyPower';
+import {inverterDailyCurrentFetch, inverterDailyCurrentFetchCancel, inverterDailyCurrentFetchFulfilled, inverterDailyCurrentFetchRejected} from './inverterDailyCurrent';
+import {inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected} from './inverterDailyVoltage';
 
 export {
     setVersion,
     addNotification, shiftNotification,
     setPushNotificationSupported, setServiceWorkerSubscription, setUserSubscribedToPushNotification,
-    inverterDailyFetch, inverterDailyFetchCancel, inverterDailyFetchFulfilled, inverterDailyFetchRejected
+    inverterDailyPowerFetch, inverterDailyPowerFetchCancel, inverterDailyPowerFetchFulfilled, inverterDailyPowerFetchRejected,
+    inverterDailyCurrentFetch, inverterDailyCurrentFetchCancel, inverterDailyCurrentFetchFulfilled, inverterDailyCurrentFetchRejected,
+    inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected
 }

@@ -1,8 +1,11 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 
 import {Responsive, WidthProvider} from  "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
+
+import {guid} from '../../utils/math';
 
 import './style/responsiveGridLayout.less';
 
@@ -61,8 +64,11 @@ class ResponsiveGrid extends React.Component {
         const {layouts} = props;
 
         let additionalInfo = {};
-        layouts['lg'].forEach(elem => {
-            additionalInfo[elem.i] = elem.additionalInfo;
+        layouts['lg'].map(elem => {
+            let newElem = {...elem};
+            newElem.additionalInfo.id = newElem.i; // = (newElem.additionalInfo.id || newElem.additionalInfo.boxType+guid());
+            additionalInfo[newElem.i] = {...newElem.additionalInfo};
+            return newElem;
         });
 
         this.state = {
@@ -80,14 +86,38 @@ class ResponsiveGrid extends React.Component {
         this.setState({layouts:layouts});
     };
 
+    onResizeStart = (layout, from, to) => {
+        const addI = this.state.additionalInfo[from.i];
+    };
+    onResize = (layout, from, to, elem, event, dragger) => {
+        // console.log(layout, from, to, elem, event, dragger);
+        const addI = this.state.additionalInfo[from.i];
+    };
+    onResizeStop = (layout, from, to) => {
+        const addI = this.state.additionalInfo[from.i];
+
+        setTimeout(()=>window.dispatchEvent(new Event('resize')), 50);
+    };
+
+    onDragStop = (layout, from, to) => {
+        const addI = this.state.additionalInfo[from.i];
+    };
+    onDragStart = (layout, from, to) => {
+        const addI = this.state.additionalInfo[from.i];
+    };
+    onDrag = (layout, from, to, elem, event, dragged) => {
+        // console.log(layout, from, to, elem, event, dragged);
+        const addI = this.state.additionalInfo[from.i];
+    };
+
     getCard = (additionalInfo) => {
         const {classes} = this.props;
 
         if (additionalInfo.classObj){
-            return additionalInfo.classObj;
+            return additionalInfo.classObj(additionalInfo.id , {...(additionalInfo.settingsProps || additionalInfo.defaultProps)});
         }else {
 
-            return <Card key={additionalInfo.id}>
+            return <Card key={additionalInfo.id || additionalInfo.boxType+guid()}>
                 <CardHeader color="warning" className="dragHeader">
                     <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
                     <p className={classes.cardCategoryWhite}>
@@ -114,9 +144,11 @@ class ResponsiveGrid extends React.Component {
         }
     };
     getAllDivs = () => {
-        let {layouts, breakpoint} = this.state;
+        let {layouts, breakpoint, additionalInfo} = this.state;
         let alldivs = [];
-        layouts[breakpoint].forEach(elem => {alldivs.push(<div id={elem.i} key={elem.i}>{this.getCard(this.state.additionalInfo[elem.i])}</div>)});
+        layouts[breakpoint].forEach(elem => {
+            alldivs.push(<div id={elem.i} key={elem.i}>{this.getCard(additionalInfo[elem.i])}</div>)
+        });
         return alldivs;
     };
 
@@ -128,6 +160,19 @@ class ResponsiveGrid extends React.Component {
             layouts={layouts}
             onBreakpointChange={this.onBreakpointChange}
             onLayoutChange={this.onLayoutChange}
+
+            onResizeStart={this.onResizeStart}
+            onResize={this.onResize}
+            onResizeStop={this.onResizeStop}
+
+            onDragStop={this.onDragStop}
+            onDragStart={this.onDragStart}
+            onDrag={this.onDrag}
+
+            // WidthProvider option
+            measureBeforeMount={false}
+
+
             {...gridConfig}>
                 {this.getAllDivs()}
             </ResponsiveReactGridLayout>
@@ -180,38 +225,30 @@ ResponsiveGrid.defaultProps = {
         ,isDraggable: true
         ,isResizable: true
     },
-    layouts: {lg: [{
-            i: '1',
-            additionalInfo: {id: 1},
-            w: 2,
-            h: 2,
-            y: Infinity,
-            x: 0,
-            maxH: 2,
-            maxW: 4,
-            minH: 2,
-            minW: 1,
-            isDraggable: true,
-            isResizable: true,
-            static: false
+    layouts: {lg: [
+            {i: guid(), ...{...boxes['chartBoxProductionPower']}, ...{y: Infinity,x: 0}}
+            ,{i: guid(), ...{...boxes['chartBoxProductionCurrent']}, ...{y: Infinity,x: 0}}
+            ,{i: guid(), ...{...boxes['chartBoxProductionVoltage']}, ...{additionalInfo: {...boxes['chartBoxProductionVoltage'].additionalInfo,
+                        settingsProps: {
+                            day: "20181018"
+                        }
+                    }}, ...{y: Infinity,x: 0}}
+            , {
+                i: guid(),
+                additionalInfo: {},
+                w: 2,
+                h: 2,
+                y: Infinity,
+                x: 0,
+                maxH: 2,
+                maxW: 4,
+                minH: 2,
+                minW: 1,
+                isDraggable: true,
+                isResizable: true,
+                static: false
 
-        }, {
-            i: '2',
-            additionalInfo: {id: 1},
-            w: 2,
-            h: 2,
-            y: Infinity,
-            x: 0,
-            maxH: 2,
-            maxW: 4,
-            minH: 2,
-            minW: 1,
-            isDraggable: true,
-            isResizable: true,
-            static: false
-
-        },
-            {...boxes.chartBoxProduction, ...{y: Infinity,x: 0}}
+            }
             ], md: [], sm: [], xs: [], xxs: []}
 };
 

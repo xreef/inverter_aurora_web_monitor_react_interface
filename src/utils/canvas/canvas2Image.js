@@ -241,7 +241,6 @@
                 return makeURI(strData, 'image/bmp');
             } else {
                 let strData = getDataURL(canvas, type, width, height);
-                debugger
                 return strData;
             }
         }

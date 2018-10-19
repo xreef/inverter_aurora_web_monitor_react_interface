@@ -7,7 +7,7 @@ function getDisplayName(Series) {
     return Series.displayName || Series.name || "Series";
 }
 
-export default function fitDimensionsFix(WrappedComponent, props = {}) {
+export default function fitDimensionsBox(WrappedComponent, props = {}) {
 
 	let {
 		minWidth = 100,
@@ -120,7 +120,7 @@ export default function fitDimensionsFix(WrappedComponent, props = {}) {
             }
 
 			let node = ReactDOM.findDOMNode(this.node); // eslint-disable-line react/no-find-dom-node
-debugger
+
             let {checkSibling} = this.props;
 
             this.setState(getDimensions(node, checkSibling, this.size));

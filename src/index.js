@@ -9,6 +9,12 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import it from 'react-intl/locale-data/it';
 
+String.prototype.toCamelCase = function() {
+    return this.replace(/\b(\w)/g, function(match, capture) {
+        return capture.toUpperCase();
+    }).replace(/\s+/g, '');
+};
+
 // Our translated strings
 import localeData from './i18n/data.json';
 

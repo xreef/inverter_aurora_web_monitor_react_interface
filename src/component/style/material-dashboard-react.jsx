@@ -86,28 +86,53 @@ const roseBoxShadow = {
     "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4)"
 };
 
+const warningGradient = {
+    up:     "#ffa726"  ,
+    down:   "#fb8c00"
+};
+const successGradient = {
+    up:     "#66bb6a"  ,
+    down:   "#43a047"
+};
+const dangerGradient = {
+    up:     "#ef5350"  ,
+    down:   "#e53935"
+};
+const infoGradient = {
+    up:     "#26c6da"  ,
+    down:   "#00acc1"
+};
+const primaryGradient = {
+    up:     "#ab47bc"  ,
+    down:   "#8e24aa"
+};
+const roseGradient = {
+    up:     "#ec407a"  ,
+    down:   "#d81b60"
+};
+
 const warningCardHeader = {
-  background: "linear-gradient(60deg, #ffa726, #fb8c00)",
+  background: "linear-gradient(60deg, "+warningGradient.up+", "+warningGradient.down+")",
   ...warningBoxShadow
 };
 const successCardHeader = {
-  background: "linear-gradient(60deg, #66bb6a, #43a047)",
+    background: "linear-gradient(60deg, "+successGradient.up+", "+successGradient.down+")",
   ...successBoxShadow
 };
 const dangerCardHeader = {
-  background: "linear-gradient(60deg, #ef5350, #e53935)",
+    background: "linear-gradient(60deg, "+dangerGradient.up+", "+dangerGradient.down+")",
   ...dangerBoxShadow
 };
 const infoCardHeader = {
-  background: "linear-gradient(60deg, #26c6da, #00acc1)",
+    background: "linear-gradient(60deg, "+infoGradient.up+", "+infoGradient.down+")",
   ...infoBoxShadow
 };
 const primaryCardHeader = {
-  background: "linear-gradient(60deg, #ab47bc, #8e24aa)",
+    background: "linear-gradient(60deg, "+primaryGradient.up+", "+primaryGradient.down+")",
   ...primaryBoxShadow
 };
 const roseCardHeader = {
-  background: "linear-gradient(60deg, #ec407a, #d81b60)",
+    background: "linear-gradient(60deg, "+roseGradient.up+", "+roseGradient.down+")",
   ...roseBoxShadow
 };
 
@@ -187,7 +212,15 @@ export {
   infoColor,
   roseColor,
   grayColor,
-  primaryBoxShadow,
+
+    primaryGradient,
+    warningGradient,
+    dangerGradient,
+    successGradient,
+    infoGradient,
+    roseGradient,
+
+    primaryBoxShadow,
   infoBoxShadow,
   successBoxShadow,
   warningBoxShadow,

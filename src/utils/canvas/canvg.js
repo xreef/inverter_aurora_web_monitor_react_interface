@@ -13,7 +13,6 @@
 import {RGBColor} from "rgbcolor";
 import {stackBlur} from "stackblur";
 
-debugger
 let nodeEnv = (typeof module !== 'undefined' && module.exports);
 let windowEnv, ImageClass, CanvasClass,
     defaultClientWidth = 800, defaultClientHeight = 600;

@@ -19,6 +19,7 @@ import { EdgeIndicator, CurrentCoordinate } from "react-stockcharts/lib/coordina
 import CustomImage from './annotation/CustomImage'
 import {Annotate} from "react-stockcharts/lib/annotation";
 
+import { SingleValueTooltip } from "react-stockcharts/lib/tooltip";
 
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { createVerticalLinearGradient, hexToRGBA } from "react-stockcharts/lib/utils";
@@ -32,6 +33,7 @@ const canvasGradient = createVerticalLinearGradient([
 ]);
 
 import * as grad from '../../component/style/material-dashboard-react'
+import {defineMessages, injectIntl} from 'react-intl';
 
 class AreaChart extends React.Component {
 	constructor(props){
@@ -54,7 +56,6 @@ class AreaChart extends React.Component {
         formatDefaultLocale(d3Locales.getDateTimeLocale('it'));
 
         let {color} = props;
-debugger
         this.config = {
             line:{
                 strokeWidth: 1,
@@ -125,7 +126,15 @@ debugger
                     onClick: console.log.bind(console),
                     y: ({ yScale, datum }) => yScale(datum.val),
                     tooltip: "Valore massimo"
-            }
+            },
+            singleTooltip: {
+                xDisplayFormatPattern: "%d-%m-%Y %H:%M",
+                yDisplayFormatPattern: ".1f",
+                origin: [10, 0],
+                valueStroke: "#fff",
+                // fontFamily: null,
+                fontSize: 12
+            },
         };
 
         var {stroke, ...other} = this.config.line;
@@ -149,9 +158,18 @@ debugger
 
         this.showMinValueOnChart = this.config.showMinValueOnChart;
         this.showMaxValueOnChart = this.config.showMaxValueOnChart;
+
+        this.singleTooltip = null;
+
+        let {xDisplayFormatPattern, yDisplayFormatPattern, ...otherSingleTooltipStyle} = this.config.singleTooltip;
+        this.singleTooltip = otherSingleTooltipStyle;
+        this.singleTooltip.xDisplayFormat = timeFormat(xDisplayFormatPattern);
+        this.singleTooltip.yDisplayFormat = format(yDisplayFormatPattern);
+
+
     }
 	render() {
-		const { data: initialData, type, width, ratio, height } = this.props;
+		const { data: initialData, type, width, ratio, height, dataType } = this.props;
         const xScaleProvider = discontinuousTimeScaleProvider
             .inputDateAccessor(d => d.date);
         xScaleProvider.setLocale(this.d3DTLocales.getDateTimeLocale('it'), this.scaleFormat);
@@ -164,6 +182,23 @@ debugger
 
         const start = xAccessor(last(data));
         const end = xAccessor(first(data));
+
+
+        const messagesDataTypeLabel = defineMessages({
+            greeting: {
+                id:  'chart.production.'+dataType+'.label',
+                defaultMessage: dataType,
+                description: 'Label of toltip',
+            },
+        });
+
+        const messagesDateLabel = defineMessages({
+            greeting: {
+                id:  'date.label',
+                defaultMessage: "Date",
+                description: 'Label of toltip',
+            },
+        });
 
         const xExtents = [start, end];		return (
 			<ChartCanvas ratio={ratio} width={width-20} height={height}
@@ -196,6 +231,12 @@ debugger
                     {/*<EdgeIndicator displayFormat={format(this.edgeTextFormat)} yAccessor={d => d.val} {...this.edgeIndicator} />*/}
                     <CurrentCoordinate key={'ccCAS'} yAccessor={d => d.val} fill={this.currentCoordinateColor} />
                     <Annotate with={CustomImage} when={d => d.maxPlot === true} usingProps={this.showMaxValueOnChart}/>
+
+                    <SingleValueTooltip
+                        xLabel={this.props.intl.formatMessage(messagesDateLabel.greeting)} /* xLabel is optional, absense will not show the x value */ yLabel={this.props.intl.formatMessage(messagesDataTypeLabel.greeting)}
+                        xAccessor={d => d.date}
+                        yAccessor={d => d.val}
+                        {...this.singleTooltip}/>
 				</Chart>
 			</ChartCanvas>
 		);
@@ -208,11 +249,12 @@ AreaChart.propTypes = {
 	width: PropTypes.number.isRequired,
 	ratio: PropTypes.number.isRequired,
 	type: PropTypes.oneOf(["svg", "hybrid"]).isRequired,
+    dataType: PropTypes.string
 };
 
 AreaChart.defaultProps = {
 	type: "svg",
 };
-AreaChart = fitDimensionsBox(AreaChart);
+AreaChart = fitDimensionsBox(injectIntl(AreaChart));
 
 export default AreaChart;

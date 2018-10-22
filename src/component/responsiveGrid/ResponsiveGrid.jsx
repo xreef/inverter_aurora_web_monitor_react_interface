@@ -64,13 +64,11 @@ class ResponsiveGrid extends React.Component {
         const {layouts} = props;
 
         let additionalInfo = {};
-        layouts['lg'].map(elem => {
-            let newElem = {...elem};
-            newElem.additionalInfo.id = newElem.i; // = (newElem.additionalInfo.id || newElem.additionalInfo.boxType+guid());
-            additionalInfo[newElem.i] = {...newElem.additionalInfo};
-            return newElem;
-        });
 
+        // layouts['lg'].forEach((elem)=>{
+        //     additionalInfo.push(elem.additionalInfo);
+        // });
+        //
         this.state = {
             breakpoint: 'lg',
             layouts: layouts,
@@ -78,12 +76,51 @@ class ResponsiveGrid extends React.Component {
         }
     }
 
+    addNewItem = (elem) => {
+        // console.log('adding', divUniqueId);
+        if (elem.id in this.state.additionalInfo) {
+            throw "Elemento già presente!";
+            // return;
+        }
+
+        let newLayouts = {...this.state.layouts};
+        Object.keys(newLayouts).forEach((key) => {
+            let total = 0;
+
+            let layout = newLayouts[key];
+
+            if (layout.length > 0) total += layout[layout.length - 1].w + layout[layout.length - 1].x;
+
+            if (total + elem.w > this.props.gridConfig.cols[key]) {
+                total = 0;
+            }
+
+            layout.push({...elem, ...{x: total % (this.props.gridConfig.cols[key]), y: Infinity}/*, additionalInfo: {...elem.additionalInfo, ...{id: elem.i}}*/});
+            newLayouts[key] = layout;
+        });
+
+        this.setState({layouts: newLayouts});
+    };
+
+    componentDidMount(){
+
+        let newAdditionalInfo = {...this.state.additionalInfo};
+
+        this.props.newElements.forEach((elem)=>{
+            this.addNewItem(elem);
+            elem.additionalInfo.id = elem.i;
+            newAdditionalInfo[elem.i] = elem.additionalInfo;
+        });
+
+        this.setState({additionalInfo: newAdditionalInfo});
+    }
+
     onBreakpointChange = (breakpoint) => {
         this.setState({breakpoint});
     };
 
     onLayoutChange = (layout, layouts) => {
-        this.setState({layouts:layouts});
+        this.setState({tmpLayouts:layouts});
     };
 
     onResizeStart = (layout, from, to) => {
@@ -146,9 +183,11 @@ class ResponsiveGrid extends React.Component {
     getAllDivs = () => {
         let {layouts, breakpoint, additionalInfo} = this.state;
         let alldivs = [];
-        layouts[breakpoint].forEach(elem => {
-            alldivs.push(<div id={elem.i} key={elem.i}>{this.getCard(additionalInfo[elem.i])}</div>)
-        });
+        if (layouts[breakpoint]) {
+            layouts[breakpoint].forEach(elem => {
+                alldivs.push(<div id={elem.i} key={elem.i}>{this.getCard(additionalInfo[elem.i])}</div>)
+            });
+        }
         return alldivs;
     };
 
@@ -195,7 +234,8 @@ ResponsiveGrid.propTypes = {
             }
             validateLayout(props.layouts[key], "layouts." + key);
         });
-    }
+    },
+    newElements: PropTypes.array
 };
 
 ResponsiveGrid.defaultProps = {
@@ -203,7 +243,7 @@ ResponsiveGrid.defaultProps = {
         // draggableHandle: '.dragHeader',
         draggableHandle: '.dragHeader',
         className: "responsive-grid-layout",
-        rowHeight: 350,
+        rowHeight: 175,
         // currentBreakpoint: this.previousLayoutBreakpoint,
         // Various layout that can be present on windows size change
         cols: {lg: 5, md: 4, sm: 3, xs: 2, xxs: 1},
@@ -225,31 +265,34 @@ ResponsiveGrid.defaultProps = {
         ,isDraggable: true
         ,isResizable: true
     },
-    layouts: {lg: [
-            {i: guid(), ...{...boxes['chartBoxProductionPower']}, ...{y: Infinity,x: 0}}
-            ,{i: guid(), ...{...boxes['chartBoxProductionCurrent']}, ...{y: Infinity,x: 0}}
-            ,{i: guid(), ...{...boxes['chartBoxProductionVoltage']}, ...{additionalInfo: {...boxes['chartBoxProductionVoltage'].additionalInfo,
-                        settingsProps: {
-                            day: "20181018"
-                        }
-                    }}, ...{y: Infinity,x: 0}}
-            , {
-                i: guid(),
-                additionalInfo: {},
-                w: 2,
-                h: 2,
-                y: Infinity,
-                x: 0,
-                maxH: 2,
-                maxW: 4,
-                minH: 2,
-                minW: 1,
-                isDraggable: true,
-                isResizable: true,
-                static: false
+    layouts: {lg: [], md: [], sm: [], xs: [], xxs: []},
 
-            }
-            ], md: [], sm: [], xs: [], xxs: []}
+    newElements: [
+        {i: guid(), ...{...boxes['informativeBoxTotalProductionContainer']}, ...{y: Infinity,x: 0}}
+        ,{i: guid(), ...{...boxes['chartBoxProductionPower']}, ...{y: Infinity,x: 0}}
+        ,{i: guid(), ...{...boxes['chartBoxProductionCurrent']}, ...{y: Infinity,x: 0}}
+        ,{i: guid(), ...{...boxes['chartBoxProductionVoltage']}, ...{additionalInfo: {...boxes['chartBoxProductionVoltage'].additionalInfo,
+                    settingsProps: {
+                        day: "20181019"
+                    }
+                }}, ...{y: Infinity,x: 0}}
+        , {
+            i: guid(),
+            additionalInfo: {},
+            w: 2,
+            h: 2,
+            y: Infinity,
+            x: 0,
+            maxH: 2,
+            maxW: 4,
+            minH: 2,
+            minW: 1,
+            isDraggable: true,
+            isResizable: true,
+            static: false
+
+        }
+    ]
 };
 
 export default  withStyles(classes)(ResponsiveGrid);

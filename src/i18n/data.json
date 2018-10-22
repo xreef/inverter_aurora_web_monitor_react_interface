@@ -1,8 +1,34 @@
 {
   "en": {
+    "date.label": "Date",
 
+    "chart.no_data": "No data",
+    "chart.loading": "Loading...",
+
+    "chart.production.power.title": "Daily power production",
+    "chart.production.voltage.title": "Daily voltage trend",
+    "chart.production.current.title": "Daily current trend",
+    "chart.production.power.subtitle": "Day {day}",
+    "chart.production.voltage.subtitle": "Day {day}",
+    "chart.production.current.subtitle": "Day {day}",
+    "chart.production.power.label": "Power",
+    "chart.production.voltage.label": "Volts",
+    "chart.production.current.label": "Current"
   },
   "it": {
+    "date.label": "Data",
 
+    "chart.no_data": "Nessund dato",
+    "chart.loading": "Caricamento",
+
+    "chart.production.power.title": "Produzione giornaliera",
+    "chart.production.voltage.title": "Andamento del voltaggio",
+    "chart.production.current.title": "Andamento degli ampere",
+    "chart.production.power.subtitle": "Giorno {day}",
+    "chart.production.voltage.subtitle": "Giorno {day}",
+    "chart.production.current.subtitle": "Giorno {day}",
+    "chart.production.power.label": "Watt",
+    "chart.production.voltage.label": "Volts",
+    "chart.production.current.label": "Ampere"
   }
 }

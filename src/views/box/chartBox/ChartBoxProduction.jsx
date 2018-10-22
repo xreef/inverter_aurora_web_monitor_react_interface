@@ -15,7 +15,11 @@ import boxStyle from '../style/boxStyle'
 import Table from "../../../component/table/Table";
 import AreaChart from "../../../component/charts/AreaChart";
 
-import { FormattedMessage } from 'react-intl';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as colorMod from '../../../component/style/material-dashboard-react'
+import {injectIntl} from 'react-intl';
+
+import { FormattedMessage, FormattedDate } from 'react-intl';
 
 class ChartBoxProduction extends React.Component {
     constructor(props) {
@@ -29,21 +33,39 @@ class ChartBoxProduction extends React.Component {
         const {data, day, dataType} = this.props;
         const {color, title, subtitle} = this.props;
 
+        const dayFormatted = this.props.intl.formatDate(new Date(moment(day, "YYYYMMDD").valueOf()), {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+
         return <Card id={id} key={id}>
             <CardHeader color={color} className="dragHeader">
-                <h4 className={classes.cardTitleWhite}>{title}</h4>
+                <h4 className={classes.cardTitleWhite}><FormattedMessage
+                                                            id={ 'chart.production.'+dataType+'.title' }
+                                                            defaultMessage={ title }
+                                                            values={{ day: day }}
+                                                        />
+                </h4>
                 <p className={classes.cardCategoryWhite}>
                     <FormattedMessage
-                        id={ 'chart.searchMessage.'+dataType }
+                        id={ 'chart.production.'+dataType+'.subtitle' }
                         defaultMessage={ subtitle }
-                        values={{ day: day }}
+                        values={{ day: dayFormatted }}
                     />
                 </p>
             </CardHeader>
             <CardBody>
                 {(data && data.length>0)?
-                        <AreaChart data={data} color={color} ratio={1} type="hybrid"/>
-                    :null}
+                        <AreaChart data={data} color={color} ratio={1} dataType={dataType} type="hybrid"/>
+                    :
+                    <div className={classes.progress}>
+                        <CircularProgress style={{ color: colorMod[color+'Color'] }} size={50} />
+                    </div>
+
+
+
+                }
             </CardBody>
         </Card>;
     }
@@ -74,4 +96,4 @@ ChartBoxProduction.defaultProps = {
     subtitle: "Data of {day}"
 };
 
-export default withStyles(boxStyle)(ChartBoxProduction);
+export default withStyles(boxStyle)(injectIntl(ChartBoxProduction));

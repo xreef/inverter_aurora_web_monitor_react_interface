@@ -30,13 +30,18 @@ class ChartBoxProduction extends React.Component {
 
     render() {
         const {classes, id} = this.props;
-        const {data, day, dataType} = this.props;
+        const {data, day, dataType, isFetching} = this.props;
         const {color, title, subtitle} = this.props;
 
         const dayFormatted = this.props.intl.formatDate(new Date(moment(day, "YYYYMMDD").valueOf()), {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
+        });
+
+        let production0 = true;
+        data.forEach(elem => {
+            if (elem.val>0) production0 = false;
         });
 
         return <Card id={id} key={id}>
@@ -56,15 +61,16 @@ class ChartBoxProduction extends React.Component {
                 </p>
             </CardHeader>
             <CardBody>
-                {(data && data.length>0)?
-                        <AreaChart data={data} color={color} ratio={1} dataType={dataType} type="hybrid"/>
+                {(!isFetching)?
+                        (data && data.length>1)?
+                            (!production0)?
+                                <AreaChart data={data} color={color} ratio={1} dataType={dataType} type="hybrid"/>
+                            :
+                                <div className={classes.progress}><FormattedMessage id={'chart.no_production'}/></div>
+                        :
+                            <div className={classes.progress}><FormattedMessage id={'chart.no_data'}/></div>
                     :
-                    <div className={classes.progress}>
-                        <CircularProgress style={{ color: colorMod[color+'Color'] }} size={50} />
-                    </div>
-
-
-
+                    <div className={classes.progress}><CircularProgress style={{color: colorMod[color + 'Color']}} size={50} /></div>
                 }
             </CardBody>
         </Card>;
@@ -86,14 +92,16 @@ ChartBoxProduction.propTypes = {
         "rose"
     ]),
     title: PropTypes.string,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    isFetching: PropTypes.bool
 };
 ChartBoxProduction.defaultProps = {
     day: moment().format('YYYYMMDD'),
     dataType: "power",
     color: "warning",
     title: "Title",
-    subtitle: "Data of {day}"
+    subtitle: "Data of {day}",
+    isFetching: false
 };
 
 export default withStyles(boxStyle)(injectIntl(ChartBoxProduction));

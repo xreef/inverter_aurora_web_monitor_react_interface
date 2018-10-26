@@ -3,6 +3,7 @@
     "date.label": "Date",
 
     "chart.no_data": "No data",
+    "chart.no_production": "No production",
     "chart.loading": "Loading...",
 
     "chart.production.power.title": "Daily power production",
@@ -13,12 +14,20 @@
     "chart.production.current.subtitle": "Day {day}",
     "chart.production.power.label": "Power",
     "chart.production.voltage.label": "Volts",
-    "chart.production.current.label": "Current"
+    "chart.production.current.label": "Current",
+
+    "informative.total.lifetime.title": "Total lifetime production",
+    "informative.total.yearly.title": "Total yearly production",
+    "informative.total.montly.title": "Total montly production",
+    "informative.total.weekly.title": "Total weekly production",
+
+    "last.update": "Last update"
   },
   "it": {
     "date.label": "Data",
 
-    "chart.no_data": "Nessund dato",
+    "chart.no_data": "Nessun dato",
+    "chart.no_production": "Nessuna produzione",
     "chart.loading": "Caricamento",
 
     "chart.production.power.title": "Produzione giornaliera",
@@ -29,6 +38,13 @@
     "chart.production.current.subtitle": "Giorno {day}",
     "chart.production.power.label": "Watt",
     "chart.production.voltage.label": "Volts",
-    "chart.production.current.label": "Ampere"
+    "chart.production.current.label": "Ampere",
+
+    "informative.total.lifetime.title": "Produzione totale",
+    "informative.total.yearly.title": "Produzione annuale",
+    "informative.total.montly.title": "Produzione mensile",
+    "informative.total.weekly.title": "Produzione settimanale",
+
+    "last.update": "Ultimo aggiornamento"
   }
 }

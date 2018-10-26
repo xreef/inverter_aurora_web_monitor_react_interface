@@ -17,7 +17,7 @@ import CardFooter from "../../component/Card/CardFooter.jsx";
 
 import Table from "../../component/table/Table";
 import {withStyles} from "@material-ui/core";
-import boxes from "../../views/box/boxes";
+import boxes from "../../layouts/box/boxes";
 
 const classes = theme => ({
 
@@ -268,21 +268,22 @@ ResponsiveGrid.defaultProps = {
     layouts: {lg: [], md: [], sm: [], xs: [], xxs: []},
 
     newElements: [
-        {i: guid(), ...{...boxes['informativeBoxTotalProductionContainer']}, ...{y: Infinity,x: 0}}
-        ,{i: guid(), ...{...boxes['chartBoxProductionPower']}, ...{y: Infinity,x: 0}}
-        ,{i: guid(), ...{...boxes['chartBoxProductionCurrent']}, ...{y: Infinity,x: 0}}
+        {i: guid(), ...{...boxes['informativeBoxLifetimeProductionContainer']}},
+        {i: guid(), ...{...boxes['informativeBoxYearlyProductionContainer']}},
+        {i: guid(), ...{...boxes['informativeBoxMontlyProductionContainer']}},
+        {i: guid(), ...{...boxes['informativeBoxWeeklyProductionContainer']}}
+        ,{i: guid(), ...{...boxes['chartBoxProductionPower']}}
+        ,{i: guid(), ...{...boxes['chartBoxProductionCurrent']}}
         ,{i: guid(), ...{...boxes['chartBoxProductionVoltage']}, ...{additionalInfo: {...boxes['chartBoxProductionVoltage'].additionalInfo,
                     settingsProps: {
                         day: "20181019"
                     }
-                }}, ...{y: Infinity,x: 0}}
+                }}}
         , {
             i: guid(),
             additionalInfo: {},
             w: 2,
             h: 2,
-            y: Infinity,
-            x: 0,
             maxH: 2,
             maxW: 4,
             minH: 2,

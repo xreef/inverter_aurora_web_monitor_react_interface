@@ -8,6 +8,7 @@ import {setPushNotificationSupported, setServiceWorkerSubscription, setUserSubsc
 import {inverterDailyPowerFetch, inverterDailyPowerFetchCancel, inverterDailyPowerFetchFulfilled, inverterDailyPowerFetchRejected} from './inverterDailyPower';
 import {inverterDailyCurrentFetch, inverterDailyCurrentFetchCancel, inverterDailyCurrentFetchFulfilled, inverterDailyCurrentFetchRejected} from './inverterDailyCurrent';
 import {inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected} from './inverterDailyVoltage';
+import {productionTotalsFetch, productionTotalsFetchCancel, productionTotalsFetchFulfilled, productionTotalsFetchRejected} from './productionTotals';
 
 export {
     setVersion,
@@ -15,5 +16,6 @@ export {
     setPushNotificationSupported, setServiceWorkerSubscription, setUserSubscribedToPushNotification,
     inverterDailyPowerFetch, inverterDailyPowerFetchCancel, inverterDailyPowerFetchFulfilled, inverterDailyPowerFetchRejected,
     inverterDailyCurrentFetch, inverterDailyCurrentFetchCancel, inverterDailyCurrentFetchFulfilled, inverterDailyCurrentFetchRejected,
-    inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected
+    inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected,
+    productionTotalsFetch, productionTotalsFetchCancel, productionTotalsFetchFulfilled, productionTotalsFetchRejected
 }

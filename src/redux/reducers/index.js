@@ -6,6 +6,7 @@ import subscriptionsServiceWorker from './subscriptionsServiceWorker';
 import inverterDailyVoltage from './inverterDailyVoltage';
 import inverterDailyCurrent from './inverterDailyCurrent';
 import inverterDailyPower from './inverterDailyPower';
+import productionTotals from './productionTotals';
 
 const reducersAurora = combineReducers({
     version,
@@ -13,7 +14,8 @@ const reducersAurora = combineReducers({
     subscriptionsServiceWorker,
     inverterDailyVoltage,
     inverterDailyCurrent,
-    inverterDailyPower
+    inverterDailyPower,
+    productionTotals
 });
 
 export default reducersAurora

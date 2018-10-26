@@ -7,7 +7,7 @@ import {MICROCONTROLLER_ADRESS, PRODUCTION_ENDPOINT} from '../config';
 import { INVERTER_DAILY_CURRENT_FETCH, INVERTER_DAILY_CURRENT_FETCH_CANCEL, inverterDailyCurrentFetchFulfilled,
     inverterDailyCurrentFetchRejected, INVERTER_DAILY_CURRENT_FETCH_REJECTED, INVERTER_DAILY_CURRENT_FETCH_FULFILLED } from '../actions/inverterDailyCurrent';
 
-const delay = 4; // 4s delay for interactive use of cancel/take latest
+const delay = 10; // 4s delay for interactive use of cancel/take latest
 
 const inverterDailyCurrentFetchLogic = createLogic({
     type: INVERTER_DAILY_CURRENT_FETCH,

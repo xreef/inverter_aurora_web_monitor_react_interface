@@ -8,9 +8,27 @@ import InformativeBoxMontlyProductionContainer from "../../containers/views/box/
 import InformativeBoxWeeklyProductionContainer from "../../containers/views/box/InformativeBoxWeeklyProductionContainer";
 import ChartBoxMonthlyContainer from "../../containers/views/box/ChartBoxMonthlyContainer";
 import TableBoxInverterInformationContainer from "../../containers/views/box/TableBoxInverterInformationContainer";
+import TableBoxInverterAlarmsContainer from "../../containers/views/box/TableBoxInverterAlarmsContainer";
 import moment from "moment";
 
 const boxes = {
+    'tableBoxInverterAlarmsContainer': {
+        additionalInfo: {
+            classObj: (id, props) => {return (<TableBoxInverterAlarmsContainer key={id} id={id} {...props}/>)},
+            defaultProps: {
+                color: 'danger'
+            },
+            boxType: 'tableBoxInverterAlarmsContainer'
+        },
+        resize: true,
+        close: true,
+        minW: 1,
+        maxW: 4,
+        minH: 1,
+        maxH: 2,
+        w: 1,
+        h: 2
+    },
     'tableBoxInverterInformationContainer': {
         additionalInfo: {
             classObj: (id, props) => {return (<TableBoxInverterInformationContainer key={id} id={id} {...props}/>)},

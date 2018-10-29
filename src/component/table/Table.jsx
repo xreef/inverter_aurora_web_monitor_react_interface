@@ -58,7 +58,7 @@ class CustomTable extends React.Component {
                                 <TableRow key={key}>
                                     {prop.map((prop, key) => {
                                         return (
-                                            <TableCell className={classes.tableCell} key={key}>
+                                            <TableCell className={classes.tableCell +" "+((typeof prop !== 'string')?classes.tableCellSmile:"")} key={key}>
                                                 {prop}
                                             </TableCell>
                                         );
@@ -89,7 +89,7 @@ CustomTable.propTypes = {
         "gray"
     ]),
     tableHead: PropTypes.arrayOf(PropTypes.string),
-    tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
+    tableData: PropTypes.arrayOf(PropTypes.array)
 };
 
 export default withStyles(tableStyle)(fitDimensionTableBox(CustomTable));

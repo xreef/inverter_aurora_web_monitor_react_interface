@@ -51,6 +51,9 @@ const tableStyle = theme => ({
         padding: "4px 2px",
         verticalAlign: "middle"
     },
+    tableCellSmile: {
+        textAlign: "center"
+    },
     tableResponsive: {
         width: "100%",
         marginTop: theme.spacing.unit,

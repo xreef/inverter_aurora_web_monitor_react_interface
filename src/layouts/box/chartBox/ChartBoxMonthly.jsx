@@ -34,6 +34,7 @@ class ChartBoxMonthly extends React.Component {
         const {color} = this.props;
 
         const monthFormatted = this.props.intl.formatDate(new Date(moment(month, "YYYYMM").valueOf()), {
+            year: 'numeric',
             month: 'long'
         });
 

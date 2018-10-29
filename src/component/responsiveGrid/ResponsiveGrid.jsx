@@ -152,32 +152,6 @@ class ResponsiveGrid extends React.Component {
 
         if (additionalInfo.classObj){
             return additionalInfo.classObj(additionalInfo.id , {...(additionalInfo.settingsProps || additionalInfo.defaultProps)});
-        }else {
-
-            return <Card key={additionalInfo.id || additionalInfo.boxType+guid()}>
-                <CardHeader color="warning" className="dragHeader">
-                    <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
-                    <p className={classes.cardCategoryWhite}>
-                        New employees on 15th September, 2016
-                    </p>
-                </CardHeader>
-                <CardBody>
-                    <Table
-                        className={classes.tableSize}
-                        tableHeaderColor="warning"
-                        tableHead={["ID", "Name", "Salary", "Country"]}
-                        tableData={[
-                            ["1", "Dakota Rice", "$36,738", "Niger"],
-                            ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                            ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                            ["4", "Minerva Hooper", "$23,789", "Curaçao"],
-                            ["5", "Sage Rodriguez", "$56,142", "Netherlands"],
-                            ["6", "Minerva Hooper", "$23,789", "Curaçao"],
-                            ["7", "Sage Rodriguez", "$56,142", "Netherlands"]
-                        ]}
-                    />
-                </CardBody>
-            </Card>
         }
     };
     getAllDivs = () => {
@@ -268,6 +242,7 @@ ResponsiveGrid.defaultProps = {
     layouts: {lg: [], md: [], sm: [], xs: [], xxs: []},
 
     newElements: [
+        {i: guid(), ...{...boxes['tableBoxInverterAlarmsContainer']}},
         {i: guid(), ...{...boxes['tableBoxInverterInformationContainer']}},
         {i: guid(), ...{...boxes['chartBoxMonthly']}},
         {i: guid(), ...{...boxes['informativeBoxLifetimeProductionContainer']}},
@@ -281,20 +256,6 @@ ResponsiveGrid.defaultProps = {
                         day: "20181019"
                     }
                 }}}
-        , {
-            i: guid(),
-            additionalInfo: {},
-            w: 2,
-            h: 2,
-            maxH: 2,
-            maxW: 4,
-            minH: 2,
-            minW: 1,
-            isDraggable: true,
-            isResizable: true,
-            static: false
-
-        }
     ]
 };
 

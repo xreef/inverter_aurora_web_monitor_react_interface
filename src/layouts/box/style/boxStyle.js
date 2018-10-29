@@ -60,6 +60,11 @@ const boxStyle = theme => ({
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)"
+    },
+    icons: {
+        width: "17px",
+        height: "17px",
+        color: "#FFFFFF"
     }
 });
 

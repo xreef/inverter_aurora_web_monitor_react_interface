@@ -14,7 +14,7 @@ import { curveMonotoneX } from "d3-shape";
 import { ChartCanvas, Chart } from "react-stockcharts";
 import CustomAreaSeries from "./series/CustomAreaSeries";
 
-import { EdgeIndicator, CurrentCoordinate } from "react-stockcharts/lib/coordinates";
+import {EdgeIndicator, CurrentCoordinate, MouseCoordinateY, MouseCoordinateX} from "react-stockcharts/lib/coordinates";
 
 import CustomImage from './annotation/CustomImage'
 import {Annotate} from "react-stockcharts/lib/annotation";
@@ -34,6 +34,7 @@ const canvasGradient = createVerticalLinearGradient([
 
 import * as grad from '../../component/style/material-dashboard-react'
 import {defineMessages, injectIntl} from 'react-intl';
+import axis from "./config/axis";
 
 class AreaChart extends React.Component {
 	constructor(props){
@@ -129,7 +130,7 @@ class AreaChart extends React.Component {
             },
             singleTooltip: {
                 xDisplayFormatPattern: "%d-%m-%Y %H:%M",
-                yDisplayFormatPattern: ".1f",
+                yDisplayFormatPattern: ".0f",
                 origin: [10, 0],
                 valueStroke: "#fff",
                 // fontFamily: null,
@@ -166,6 +167,18 @@ class AreaChart extends React.Component {
         this.singleTooltip.xDisplayFormat = timeFormat(xDisplayFormatPattern);
         this.singleTooltip.yDisplayFormat = format(yDisplayFormatPattern);
 
+        // Line of grid
+        this.yGrid = axis.yAxis;
+        // yGrid = { innerTickSize: -1 * width/*, tickStrokeOpacity: 0.1*/ };
+        this.xGrid = axis.xAxis;
+
+        this.xGridSeparator = axis.xAxisSeparator;
+
+        this.mouseCoordinateY = axis.mouseCoordinateY;
+
+        let {xMouseDateFormatPatternDay, xMouseDateFormatPatternMin, ...otherMCX} = axis.mouseCoordinateX;
+        this.mouseCoordinateX = otherMCX;
+        this.xMouseDateFormat = timeFormat(xMouseDateFormatPatternMin);
 
     }
     postCalculator = (data, plottedData) => {
@@ -242,7 +255,7 @@ class AreaChart extends React.Component {
 
         return (
 			<ChartCanvas ratio={ratio} width={width-20} height={height}
-				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
+				margin={{ left: 10, right: 50, top: 10, bottom: 30 }}
 				seriesName="MSFT"
 				data={data} type={type}
 				 xScale={xScale}
@@ -252,22 +265,12 @@ class AreaChart extends React.Component {
                  postCalculator={postProcessingCalculator }
             >
 				<Chart id={0} yExtents={d => d.val}>
-					{/*<defs>*/}
-						{/*<linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">*/}
-							{/*<stop offset="0%" stopColor="#b5d0ff" stopOpacity={0.2} />*/}
-							{/*<stop offset="70%" stopColor="#6fa4fc" stopOpacity={0.4} />*/}
-							{/*<stop offset="100%"  stopColor="#4286f4" stopOpacity={0.8} />*/}
-						{/*</linearGradient>*/}
-					{/*</defs>*/}
-					<XAxis axisAt="bottom" orient="bottom" ticks={6} />
-					<YAxis axisAt="left" orient="left"  />
-					{/*<AreaSeries*/}
-						{/*yAccessor={d => d.val}*/}
-						{/*fill="url(#MyGradient)"*/}
-						{/*strokeWidth={2}*/}
-						{/*interpolation={curveMonotoneX}*/}
-						{/*canvasGradient={canvasGradient}*/}
-					{/*/>*/}
+                    <XAxis axisAt="bottom" orient="bottom" ticks={6} />
+
+                    <YAxis key="mcX1" axisAt="right" orient="right" ticks={5} tickFormat={this.singleTooltip.yDisplayFormat} {...this.yGrid} />,
+                    <MouseCoordinateY key="mcCM1" {...this.mouseCoordinateY} displayFormat={this.singleTooltip.yDisplayFormat}/>
+                    <MouseCoordinateX key="mcCM2" {...this.mouseCoordinateX} displayFormat={this.xMouseDateFormat} />
+
                     <CustomAreaSeries key={'lsCAS'} yAccessor={d => d.val} stroke={this.stroke} fill={this.fill} {...this.lineConfig} {...this.areaConfig}/>
                     {/*<EdgeIndicator displayFormat={format(this.edgeTextFormat)} yAccessor={d => d.val} {...this.edgeIndicator} />*/}
                     <CurrentCoordinate key={'ccCAS'} yAccessor={d => d.val} fill={this.currentCoordinateColor} />

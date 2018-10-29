@@ -31,7 +31,7 @@
     "last.update": "Last update",
 
     "table.inverter.info.title": "Inverter info",
-    "table.inverter.info.subtitle": "All data is getting from inverter",
+    "table.inverter.info.subtitle": "All data from the inverter",
     "table.inverter.info.modelName": "Model name",
     "table.inverter.info.modelNameIndoorOutdoorType": "Name indoor o outdoor type",
     "table.inverter.info.gridStandard": "Grid standard",
@@ -41,7 +41,14 @@
     "table.inverter.info.systemSN": "System SN",
     "table.inverter.info.systemPN": "System PN",
     "table.inverter.info.manufactoryDate": "Manufactory date",
-    "table.inverter.info.configStatus": "Config status"
+    "table.inverter.info.configStatus": "Config status",
+
+    "table.inverter.alarm.state": "Alarm state",
+    "table.inverter.channel1.state": "Channel1 state",
+    "table.inverter.channel2.state": "Channel2 state",
+    "table.inverter.inverter.state": "Inverter state",
+    "table.inverter.state.title": "Inverter state",
+    "table.inverter.state.subtitle": "All attention point of the inverter"
   },
   "it": {
     "date.label": "Data",
@@ -75,7 +82,7 @@
     "last.update": "Ultimo aggiornamento",
 
     "table.inverter.info.title": "Informazioni inverter",
-    "table.inverter.info.subtitle": "Tutti i dati sono caricati dall'inverter",
+    "table.inverter.info.subtitle": "Tutti i dati presenti nell'inverter",
     "table.inverter.info.modelName": "Nome modello",
     "table.inverter.info.modelNameIndoorOutdoorType": "Nome indoor o outdoor",
     "table.inverter.info.gridStandard": "Standard di griglia",
@@ -85,7 +92,15 @@
     "table.inverter.info.systemSN": "System SN",
     "table.inverter.info.systemPN": "System PN",
     "table.inverter.info.manufactoryDate": "Data di costruzione",
-    "table.inverter.info.configStatus": "Stato configurazione"
+    "table.inverter.info.configStatus": "Stato configurazione",
+
+    "table.inverter.alarm.state": "Stato allarme",
+    "table.inverter.channel1.state": "Stato canale 1",
+    "table.inverter.channel2.state": "Statp canale 2",
+    "table.inverter.inverter.state": "Stato Inverter",
+    "table.inverter.state.title": "Stato inverter",
+    "table.inverter.state.subtitle": "Tutti i punti di attenzione dell'inverter"
+
 
   }
 }

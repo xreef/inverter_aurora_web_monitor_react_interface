@@ -34,8 +34,10 @@ const canvasGradient = createVerticalLinearGradient([
 
 import * as grad from '../../component/style/material-dashboard-react'
 import {defineMessages, injectIntl} from 'react-intl';
-import { MouseCoordinateY } from "react-stockcharts/lib/coordinates";
+import { MouseCoordinateY, MouseCoordinateX } from "react-stockcharts/lib/coordinates";
 import { BarSeries } from "react-stockcharts/lib/series";
+
+import axis from './config/axis';
 
 class AreaChart extends React.Component {
 	constructor(props){
@@ -150,12 +152,12 @@ class AreaChart extends React.Component {
                     orient: "left"
                 },
                 textFormat:  {
-                    yAxisNumberFormat: ".4s",
-                    yMouseNumberFormat: ".4s"
+                    yAxisNumberFormat: ".0f",
+                    yMouseNumberFormat: ".1f"
                 },
                 stroke: false,
                 barColor: {
-                    closeGTOpen: "#6BA583",
+                    closeGTOpen: "#00a529",
                     closeLEOpen: "#FF0000",
                     opacity: 0.6
                 },
@@ -245,6 +247,19 @@ class AreaChart extends React.Component {
 
         // ---------------------
 
+        // Line of grid
+        this.yGrid = axis.yAxis;
+        // yGrid = { innerTickSize: -1 * width/*, tickStrokeOpacity: 0.1*/ };
+        this.xGrid = axis.xAxis;
+
+        this.xGridSeparator = axis.xAxisSeparator;
+
+        this.mouseCoordinateY = axis.mouseCoordinateY;
+
+        let {xMouseDateFormatPatternDay, xMouseDateFormatPatternMin, ...otherMCX} = axis.mouseCoordinateX;
+        this.mouseCoordinateX = otherMCX;
+        this.xMouseDateFormat = timeFormat(xMouseDateFormatPatternDay);
+
     }
 	render() {
 		const { data: initialData, type, width, ratio, height, dataType } = this.props;
@@ -306,9 +321,11 @@ class AreaChart extends React.Component {
 
         const xExtents = [start, end];
 
+        this.yGrid.innerTickSize= -1 * width;
+
         return (
 			<ChartCanvas ratio={ratio} width={width-20} height={height}
-				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
+				margin={{ left: 50, right: 70, top: 10, bottom: 30 }}
 				seriesName="MSFT"
 				data={data} type={type}
 				 xScale={xScale}
@@ -319,7 +336,11 @@ class AreaChart extends React.Component {
 				<Chart id={0} yExtents={d => d.val}>
                     <XAxis axisAt="bottom" orient="bottom" ticks={6} />
 
-					<YAxis axisAt="right" orient="right" ticks={5} />
+                    <YAxis key="mcX1" axisAt="right" orient="right" ticks={5} tickFormat={format(this.bar.yMouseNumberFormat)} {...this.yGrid} />,
+                    <MouseCoordinateY key="mcCM1" {...this.mouseCoordinateY} displayFormat={format(this.bar.yMouseNumberFormat)}/>
+                    <MouseCoordinateX key="mcCM2" {...this.mouseCoordinateX} displayFormat={this.xMouseDateFormat} />
+
+                    {/*<YAxis axisAt="right" orient="right" ticks={5} />*/}
                     <CustomAreaSeries key={'lsCAS'} yAccessor={d => d.val} stroke={this.area.stroke} fill={this.area.fill} {...this.area.lineConfig} {...this.area.areaConfig}/>
                     {/*<EdgeIndicator displayFormat={format(this.area.edgeTextFormat)} yAccessor={d => d.val} {...this.area.edgeIndicator} />*/}
                     <CurrentCoordinate key={'ccCAS'} yAccessor={d => d.val} fill={this.area.currentCoordinateColor} />
@@ -338,7 +359,7 @@ class AreaChart extends React.Component {
 
                 </Chart>
                 <Chart id={2} key={2}
-                       yExtents={[d => d.powPeak]}
+                       yExtents={[0, d => d.powPeak]}
                        height={this.bar.height}
                        origin={(w, h) => [0, h - this.bar.height]}
                        padding={this.bar.padding} onContextMenu={(e)=>{}}

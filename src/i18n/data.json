@@ -21,7 +21,27 @@
     "informative.total.montly.title": "Total montly production",
     "informative.total.weekly.title": "Total weekly production",
 
-    "last.update": "Last update"
+    "chart.monthly.production.title": "Monthly production chart",
+    "chart.monthly.production.subtitle": "reference month: {month}",
+    "chart.monthly.production.label": "Daily power",
+
+    "chart.monthly.production.tooltip": "Power: {pow}w Peak: {peak}w",
+    "chart.monthly.production.tooltip.label": "Production:",
+
+    "last.update": "Last update",
+
+    "table.inverter.info.title": "Inverter info",
+    "table.inverter.info.subtitle": "All data is getting from inverter",
+    "table.inverter.info.modelName": "Model name",
+    "table.inverter.info.modelNameIndoorOutdoorType": "Name indoor o outdoor type",
+    "table.inverter.info.gridStandard": "Grid standard",
+    "table.inverter.info.trasformerLess": "Trasformer less",
+    "table.inverter.info.windOrPV": "Wind or PV",
+    "table.inverter.info.firmwareRelease": "Firmaware version",
+    "table.inverter.info.systemSN": "System SN",
+    "table.inverter.info.systemPN": "System PN",
+    "table.inverter.info.manufactoryDate": "Manufactory date",
+    "table.inverter.info.configStatus": "Config status"
   },
   "it": {
     "date.label": "Data",
@@ -44,7 +64,28 @@
     "informative.total.yearly.title": "Produzione annuale",
     "informative.total.montly.title": "Produzione mensile",
     "informative.total.weekly.title": "Produzione settimanale",
+    "chart.monthly.production.label": "Watt giornalieri",
 
-    "last.update": "Ultimo aggiornamento"
+    "chart.monthly.production.title": "Grafico andamento mensile della produzione",
+    "chart.monthly.production.subtitle": "Mese di riferimento: {month}",
+
+    "chart.monthly.production.tooltip": "Giornaliero: {pow}w Picco giornaliero: {peak}w",
+    "chart.monthly.production.tooltip.label": "Produzione:",
+
+    "last.update": "Ultimo aggiornamento",
+
+    "table.inverter.info.title": "Informazioni inverter",
+    "table.inverter.info.subtitle": "Tutti i dati sono caricati dall'inverter",
+    "table.inverter.info.modelName": "Nome modello",
+    "table.inverter.info.modelNameIndoorOutdoorType": "Nome indoor o outdoor",
+    "table.inverter.info.gridStandard": "Standard di griglia",
+    "table.inverter.info.trasformerLess": "Presenza trasformatore",
+    "table.inverter.info.windOrPV": "Vento o PV",
+    "table.inverter.info.firmwareRelease": "Versione firmware",
+    "table.inverter.info.systemSN": "System SN",
+    "table.inverter.info.systemPN": "System PN",
+    "table.inverter.info.manufactoryDate": "Data di costruzione",
+    "table.inverter.info.configStatus": "Stato configurazione"
+
   }
 }

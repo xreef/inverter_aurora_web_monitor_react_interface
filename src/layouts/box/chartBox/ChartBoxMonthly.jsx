@@ -24,49 +24,42 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 class ChartBoxMonthly extends React.Component {
     constructor(props) {
         super(props);
-        let { day, dataType} = this.props;
-        props.inverterDailyFetch( day, dataType);
+        let { month, dataType} = this.props;
+        props.inverterDailyFetch( month, dataType);
     }
 
     render() {
         const {classes, id} = this.props;
-        const {data, day, dataType, isFetching} = this.props;
-        const {color, title, subtitle} = this.props;
+        const {data, month, isFetching} = this.props;
+        const {color} = this.props;
 
-        const dayFormatted = this.props.intl.formatDate(new Date(moment(day, "YYYYMMDD").valueOf()), {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+        const monthFormatted = this.props.intl.formatDate(new Date(moment(month, "YYYYMM").valueOf()), {
+            month: 'long'
         });
 
-        let production0 = true;
-        data.forEach(elem => {
-            if (elem.val>0) production0 = false;
-        });
+        // let production0 = true;
+        // data.forEach(elem => {
+        //     if (elem.val>0) production0 = false;
+        // });
 
         return <Card id={id} key={id}>
             <CardHeader color={color} className="dragHeader">
                 <h4 className={classes.cardTitleWhite}><FormattedMessage
-                                                            id={ 'chart.production.'+dataType+'.title' }
-                                                            defaultMessage={ title }
-                                                            values={{ day: day }}
+                                                            id={ 'chart.monthly.production.title' }
+                                                            values={{ month: month }}
                                                         />
                 </h4>
                 <p className={classes.cardCategoryWhite}>
                     <FormattedMessage
-                        id={ 'chart.production.'+dataType+'.subtitle' }
-                        defaultMessage={ subtitle }
-                        values={{ day: dayFormatted }}
+                        id={ 'chart.monthly.production.subtitle' }
+                        values={{ month: monthFormatted }}
                     />
                 </p>
             </CardHeader>
             <CardBody>
                 {(!isFetching)?
                         (data && data.length>1)?
-                            (!production0)?
-                                <AreaBarChart data={data} color={color} ratio={1} dataType={dataType} type="hybrid"/>
-                            :
-                                <div className={classes.progress}><FormattedMessage id={'chart.no_production'}/></div>
+                            <AreaBarChart data={data} color={color} ratio={1} type="hybrid"/>
                         :
                             <div className={classes.progress}><FormattedMessage id={'chart.no_data'}/></div>
                     :
@@ -79,9 +72,9 @@ class ChartBoxMonthly extends React.Component {
 
 ChartBoxMonthly.propTypes = {
     classes: PropTypes.object.isRequired,
+    lastUpdate: PropTypes.instanceOf(Date),
     data: PropTypes.array,
-    year: PropTypes.string,
-    dataType: PropTypes.string,
+    month: PropTypes.string,
     id: PropTypes.string.isRequired,
     color: PropTypes.oneOf([
         "warning",
@@ -94,9 +87,8 @@ ChartBoxMonthly.propTypes = {
     isFetching: PropTypes.bool
 };
 ChartBoxMonthly.defaultProps = {
-    year: moment().format('YYYY'),
-    dataType: "power",
-    color: "warning",
+    month: moment().format('YYYYMM'),
+    color: "rose",
     isFetching: false
 };
 

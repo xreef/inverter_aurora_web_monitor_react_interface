@@ -6,9 +6,47 @@ import InformativeBoxLifetimeProductionContainer from "../../containers/views/bo
 import InformativeBoxYearlyProductionContainer from "../../containers/views/box/InformativeBoxYearlyProductionContainer";
 import InformativeBoxMontlyProductionContainer from "../../containers/views/box/InformativeBoxMontlyProductionContainer";
 import InformativeBoxWeeklyProductionContainer from "../../containers/views/box/InformativeBoxWeeklyProductionContainer";
+import ChartBoxMonthlyContainer from "../../containers/views/box/ChartBoxMonthlyContainer";
+import TableBoxInverterInformationContainer from "../../containers/views/box/TableBoxInverterInformationContainer";
 import moment from "moment";
 
 const boxes = {
+    'tableBoxInverterInformationContainer': {
+        additionalInfo: {
+            classObj: (id, props) => {return (<TableBoxInverterInformationContainer key={id} id={id} {...props}/>)},
+            defaultProps: {
+                color: 'success'
+            },
+            boxType: 'tableBoxInverterInformationContainer'
+        },
+        resize: true,
+        close: true,
+        minW: 1,
+        maxW: 4,
+        minH: 1,
+        maxH: 4,
+        w: 1,
+        h: 4
+    },
+    'chartBoxMonthly': {
+        additionalInfo: {
+            classObj: (id, props) => {return (<ChartBoxMonthlyContainer key={id} id={id} {...props}/>)},
+            defaultProps: {
+                month: moment().format('YYYYMM'),
+                color: 'rose'
+            },
+            boxType: 'chartBoxMonthly',
+            color: 'info'
+        },
+        resize: true,
+        close: true,
+        minW: 2,
+        maxW: 4,
+        minH: 2,
+        maxH: 4,
+        w: 2,
+        h: 2
+    },
     'chartBoxProductionPower': {
         additionalInfo: {
             classObj: (id, props) => {return (<ChartBoxProductionPowerContainer key={id} id={id} {...props}/>)},

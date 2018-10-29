@@ -51,7 +51,7 @@ const boxStyle = theme => ({
         }
     },
     tableSize: {
-        maxHeight: "224px",
+        // maxHeight: "224px",
         overflowY: "auto"
     },
     progress: {

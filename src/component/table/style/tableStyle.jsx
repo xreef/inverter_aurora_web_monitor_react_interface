@@ -58,7 +58,7 @@ const tableStyle = theme => ({
     },
     tableCards1x: {
         overflowY: "auto",
-        maxHeight: "220px",
+        // maxHeight: "220px",
         overflowScrolling: "touch",
         position: "relative"
 

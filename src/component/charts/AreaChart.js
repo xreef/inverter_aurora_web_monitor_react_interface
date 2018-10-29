@@ -168,6 +168,43 @@ class AreaChart extends React.Component {
 
 
     }
+    postCalculator = (data, plottedData) => {
+
+        // if (charts.some((elem)=>{
+        //     return elem.isRefPriceOnPlottedData()
+        //     })) {
+        // Math.max.apply(Math,array.map(function(o){return o.y;}))
+        let lowest = Number.POSITIVE_INFINITY;
+        let highest = Number.NEGATIVE_INFINITY;
+
+        let lowestId = null;
+        let highestId = null;
+        let tmp;
+        for (let i = plottedData.length - 1; i >= 0; i--) {
+            tmp = plottedData[i].val;
+            plottedData[i].maxPlot = undefined;
+            plottedData[i].minPlot = undefined;
+            plottedData[i].refPrice = undefined;
+            if (tmp < lowest) {
+                lowest = tmp;
+                lowestId = i;
+            }
+            if (tmp > highest) {
+                highest = tmp;
+                highestId = i;
+            }
+        }
+        if (plottedData && plottedData.length>0) {
+            plottedData[lowestId]["minPlot"] = true;
+            plottedData[highestId]["maxPlot"] = true;
+
+            // if (charts.some((elem)=>{return elem.isRefPriceOnPlottedData()}) && this.state.refPrice!==plottedData[0].close) {
+            //     this.setState({refPrice: plottedData[0].close})
+            // }
+            this.plottedData = plottedData;
+        }
+        return plottedData;
+    };
 	render() {
 		const { data: initialData, type, width, ratio, height, dataType } = this.props;
         const xScaleProvider = discontinuousTimeScaleProvider
@@ -200,7 +237,10 @@ class AreaChart extends React.Component {
             },
         });
 
-        const xExtents = [start, end];		return (
+        const xExtents = [start, end];
+        let postProcessingCalculator = (plottedData) => this.postCalculator(data, plottedData);
+
+        return (
 			<ChartCanvas ratio={ratio} width={width-20} height={height}
 				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
 				seriesName="MSFT"
@@ -209,7 +249,8 @@ class AreaChart extends React.Component {
 				 xAccessor={xAccessor}
 				 displayXAccessor={displayXAccessor}
 				 xExtents={xExtents}
-			>
+                 postCalculator={postProcessingCalculator }
+            >
 				<Chart id={0} yExtents={d => d.val}>
 					{/*<defs>*/}
 						{/*<linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">*/}

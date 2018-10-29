@@ -11,6 +11,7 @@ import TableCell from "@material-ui/core/TableCell";
 import tableStyle from "./style/tableStyle.jsx";
 import PerfectScrollbar from "perfect-scrollbar";
 
+import fitDimensionTableBox from './utils/fitDimensionsTableBox';
 
 class CustomTable extends React.Component {
     constructor(props) {
@@ -29,9 +30,10 @@ class CustomTable extends React.Component {
 
     render() {
         const {classes, tableHead, tableData, tableHeaderColor} = this.props;
+        const {height} = this.props;
         return (
 
-            <div className={classes.tableResponsive + ' ' + classes.tableCards1x} ref={this.setTableContainerRef}>
+            <div className={classes.tableResponsive + ' ' + classes.tableCards1x} style={{height: height}} ref={this.setTableContainerRef}>
 
                 <Table className={classes.table}>
                     {tableHead !== undefined ? (
@@ -90,4 +92,4 @@ CustomTable.propTypes = {
     tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
 };
 
-export default withStyles(tableStyle)(CustomTable);
+export default withStyles(tableStyle)(fitDimensionTableBox(CustomTable));

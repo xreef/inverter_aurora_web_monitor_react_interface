@@ -34,6 +34,8 @@ const canvasGradient = createVerticalLinearGradient([
 
 import * as grad from '../../component/style/material-dashboard-react'
 import {defineMessages, injectIntl} from 'react-intl';
+import { MouseCoordinateY } from "react-stockcharts/lib/coordinates";
+import { BarSeries } from "react-stockcharts/lib/series";
 
 class AreaChart extends React.Component {
 	constructor(props){
@@ -42,8 +44,8 @@ class AreaChart extends React.Component {
                 yearFormat: "%Y",
                 quarterFormat: "%b %Y",
                 monthFormat: "%b",
-                // weekFormat: "%d %b",
-                // dayFormat: "%a %d",
+                weekFormat: "%d %b",
+                dayFormat: "%a %d",
                 // hourFormat: "%Hh",
                 // minuteFormat: "%H:%M",
                 // secondFormat: "%H:%M:%S",
@@ -129,8 +131,8 @@ class AreaChart extends React.Component {
                     tooltip: "Valore massimo"
                 },
                 singleTooltip: {
-                    xDisplayFormatPattern: "%d-%m-%Y %H:%M",
-                    yDisplayFormatPattern: ".1f",
+                    xDisplayFormatPattern: "%d-%m-%Y",
+                    yDisplayFormatPattern: ".0f",
                     origin: [10, 0],
                     valueStroke: "#fff",
                     // fontFamily: null,
@@ -140,15 +142,15 @@ class AreaChart extends React.Component {
             bar:{
                 position: 'over',
 
-                height: 150,
+                height: 70,
                 padding: {top: 10, bottom: 0},
-                widthRatio: 0.6,
+                widthRatio: 0.2,
                 yMouseCoordinate: {
                     at: "left",
                     orient: "left"
                 },
                 textFormat:  {
-                    yAxisNumberFormat: ".0s",
+                    yAxisNumberFormat: ".4s",
                     yMouseNumberFormat: ".4s"
                 },
                 stroke: false,
@@ -163,7 +165,7 @@ class AreaChart extends React.Component {
                     showTicks: true,
                     showDomain: true,
                     className: "react-stockcharts-y-axis",
-                    ticks: 5,
+                    ticks: 3,
                     outerTickSize: 0,
                     domainClassName: "react-stockcharts-axis-domain",
                     fill: "none",
@@ -179,6 +181,7 @@ class AreaChart extends React.Component {
                     axisAt: "left",
                     orient: "left"
                 }
+
             }
         };
 
@@ -189,7 +192,7 @@ class AreaChart extends React.Component {
         this.area.lineConfig = other;
         this.area.stroke = stroke;
 
-        var {fill, ...other} = this.area.config.area.area;
+        var {fill, ...other} = this.config.area.area;
         this.area.areaConfig = other;
         this.area.fill = fill;
 
@@ -208,14 +211,19 @@ class AreaChart extends React.Component {
         this.area.showMaxValueOnChart = this.config.area.showMaxValueOnChart;
 
         this.area.singleTooltip = null;
+        {
+            let {xDisplayFormatPattern, yDisplayFormatPattern, ...otherSingleTooltipStyle} = this.config.area.singleTooltip;
+            this.area.singleTooltip = otherSingleTooltipStyle;
+            this.area.singleTooltip.xDisplayFormat = timeFormat(xDisplayFormatPattern);
 
-        let {xDisplayFormatPattern, yDisplayFormatPattern, ...otherSingleTooltipStyle} = this.config.area.singleTooltip;
-        this.area.singleTooltip = otherSingleTooltipStyle;
-        this.area.singleTooltip.xDisplayFormat = timeFormat(xDisplayFormatPattern);
-        this.area.singleTooltip.yDisplayFormat = format(yDisplayFormatPattern);
+            this.area.singleTooltip2 = {...this.area.singleTooltip};
+            this.area.singleTooltip2.origin = this.area.singleTooltip2.originVal;
+            this.area.singleTooltip2.yDisplayFormat = format(yDisplayFormatPattern);
+        }
         // ------------------------
 
         // BAR
+        this.bar = {};
         this.bar.height = this.config.bar.height;
         this.bar.padding = this.config.bar.padding;
 
@@ -234,6 +242,7 @@ class AreaChart extends React.Component {
         this.bar.widthRatio = this.config.bar.widthRatio;
 
         this.bar.yMouseCoordinate = this.config.bar.yMouseCoordinate;
+
         // ---------------------
 
     }
@@ -252,20 +261,26 @@ class AreaChart extends React.Component {
         const start = xAccessor(last(data));
         const end = xAccessor(first(data));
 
-
-        const messagesDataTypeLabel = defineMessages({
-            greeting: {
-                id:  'chart.production.'+dataType+'.label',
-                defaultMessage: dataType,
-                description: 'Label of toltip',
-            },
-        });
-
         const messagesDateLabel = defineMessages({
             greeting: {
                 id:  'date.label',
                 defaultMessage: "Date",
                 description: 'Label of toltip',
+            },
+        });
+
+        const messagesTooltip = defineMessages({
+            greeting: {
+                id:  'chart.monthly.production.tooltip',
+                description: 'Label of toltip',
+                defaultMessage: 'Power: {pow}w Peak: {peak}w'
+            },
+        });
+        const messagesLabel = defineMessages({
+            greeting: {
+                id:  'chart.monthly.production.tooltip.label',
+                description: 'Label of toltip',
+                defaultMessage: 'Production:'
             },
         });
 
@@ -289,7 +304,9 @@ class AreaChart extends React.Component {
             position = height;
         }
 
-        const xExtents = [start, end];		return (
+        const xExtents = [start, end];
+
+        return (
 			<ChartCanvas ratio={ratio} width={width-20} height={height}
 				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
 				seriesName="MSFT"
@@ -302,32 +319,39 @@ class AreaChart extends React.Component {
 				<Chart id={0} yExtents={d => d.val}>
                     <XAxis axisAt="bottom" orient="bottom" ticks={6} />
 
-					<YAxis axisAt="left" orient="left"  />
+					<YAxis axisAt="right" orient="right" ticks={5} />
                     <CustomAreaSeries key={'lsCAS'} yAccessor={d => d.val} stroke={this.area.stroke} fill={this.area.fill} {...this.area.lineConfig} {...this.area.areaConfig}/>
                     {/*<EdgeIndicator displayFormat={format(this.area.edgeTextFormat)} yAccessor={d => d.val} {...this.area.edgeIndicator} />*/}
                     <CurrentCoordinate key={'ccCAS'} yAccessor={d => d.val} fill={this.area.currentCoordinateColor} />
                     <Annotate with={CustomImage} when={d => d.maxPlot === true} usingProps={this.area.showMaxValueOnChart}/>
 
                     <SingleValueTooltip
-                        xLabel={this.props.intl.formatMessage(messagesDateLabel.greeting)} /* xLabel is optional, absense will not show the x value */ yLabel={this.props.intl.formatMessage(messagesDataTypeLabel.greeting)}
+                        xLabel={this.props.intl.formatMessage(messagesDateLabel.greeting)}
                         xAccessor={d => d.date}
-                        yAccessor={d => d.val}
-                        {...this.area.singleTooltip}/>
-				</Chart>
+
+                        yDisplayFormat={d => this.props.intl.formatMessage(messagesTooltip.greeting, {pow: this.area.singleTooltip2.yDisplayFormat(d.val), peak: this.area.singleTooltip2.yDisplayFormat(d.powPeak)})}
+                        yAccessor={d => d}
+                        yLabel={this.props.intl.formatMessage(messagesLabel.greeting)}
+                        xDisplayFormat={this.area.singleTooltip.xDisplayFormat}
+                        origin={this.area.singleTooltip.origin}/>
+
+
+                </Chart>
                 <Chart id={2} key={2}
-                       yExtents={[d => d.powerPeak]}
+                       yExtents={[d => d.powPeak]}
                        height={this.bar.height}
-                       origin={(w, h) => [0, h - position]}
+                       origin={(w, h) => [0, h - this.bar.height]}
                        padding={this.bar.padding} onContextMenu={(e)=>{}}
                 >
-                    <YAxis ticks={5} tickFormat={format(this.bar.yAxisNumberFormat)} {...this.bar.yAxis} />
+                    <YAxis ticks={3} tickFormat={format(this.bar.yAxisNumberFormat)} {...this.bar.yAxis} />
 
                     <MouseCoordinateY {...this.bar.yMouseCoordinate} displayFormat={format(this.bar.yMouseNumberFormat)}/>
 
-                    <BarSeries yAccessor={d => d.volume} opacity={this.bar.barOpacity} fill={d => d.close > d.open ? this.bar.closeGTOpen : this.bar.closeLEOpen } stroke={this.bar.stroke} widthRatio={this.bar.widthRatio}/>
-                    <CurrentCoordinate yAccessor={d => d.volume} fill={this.bar.barIndicatorColor}/>
+                    <BarSeries yAccessor={d => d.powPeak} opacity={this.bar.barOpacity} fill={this.bar.closeGTOpen} stroke={this.bar.stroke} widthRatio={this.bar.widthRatio}/>
+                    <CurrentCoordinate yAccessor={d => d.powPeak} fill={this.bar.barIndicatorColor}/>
 
-                </Chart>;
+
+                </Chart>
 			</ChartCanvas>
 		);
 	}

@@ -49,7 +49,7 @@ const classes = theme => ({
         }
     },
     tableSize: {
-        maxHeight: "224px",
+        // maxHeight: "224px",
         overflowY: "auto"
     }
 });
@@ -268,6 +268,8 @@ ResponsiveGrid.defaultProps = {
     layouts: {lg: [], md: [], sm: [], xs: [], xxs: []},
 
     newElements: [
+        {i: guid(), ...{...boxes['tableBoxInverterInformationContainer']}},
+        {i: guid(), ...{...boxes['chartBoxMonthly']}},
         {i: guid(), ...{...boxes['informativeBoxLifetimeProductionContainer']}},
         {i: guid(), ...{...boxes['informativeBoxYearlyProductionContainer']}},
         {i: guid(), ...{...boxes['informativeBoxMontlyProductionContainer']}},

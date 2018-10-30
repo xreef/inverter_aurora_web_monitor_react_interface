@@ -82,6 +82,11 @@ class App extends React.Component {
       const ps = new PerfectScrollbar(this.mainPanel);
     }
     window.addEventListener("resize", this.resizeFunction);
+    //   let resizeTimer;
+    //   window.addEventListener("resize", () => {
+    //       clearTimeout(resizeTimer);
+    //       resizeTimer = setTimeout(this.resizeFunction, 250);
+    //   });
 
     let  registration = null;
     const subscribeServiceWorkerCB = (response) => {

@@ -90,7 +90,16 @@ export default function fitDimensionsBox(WrappedComponent, props = {}) {
 			return 1;
 		}
 		componentDidMount() {
-			window.addEventListener("resize", this.eventResize);
+			window.addEventListener("resize", ()=>{
+				this.eventResize();
+                setTimeout(this.eventResize, 250);
+                setTimeout(this.eventResize, 260);
+            });
+            // let resizeTimer;
+            // window.addEventListener("resize", (e) => {
+            //     clearTimeout(resizeTimer);
+            //     resizeTimer = setTimeout(this.eventResize, 50);
+            // });
 
             let {checkSibling} = this.props;
 

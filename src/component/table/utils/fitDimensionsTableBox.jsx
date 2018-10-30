@@ -38,6 +38,8 @@ export default function fitDimensionsBox(WrappedComponent, props = {}) {
 			}
 		}
 
+        ReactDOM.findDOMNode(el).style = "height: auto;"
+
 		return {
 			width: cw,
 			height: ch-heightOffset-35,

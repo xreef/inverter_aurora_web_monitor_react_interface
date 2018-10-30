@@ -15,23 +15,23 @@ function Footer({ ...props }) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a href="#home" className={classes.block}>
-                Home
+              <a href="https://github.com/xreef" className={classes.block}>
+                GitHub
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#company" className={classes.block}>
-                Company
+              <a href="https://www.instructables.com/member/xxreef/instructables/" className={classes.block}>
+                Instructables
               </a>
             </ListItem>
+              <ListItem className={classes.inlineBlock}>
+                  <a href="https://www.thingiverse.com/xxreef/designs" className={classes.block}>
+                      Thingiverse
+                  </a>
+              </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#portfolio" className={classes.block}>
-                Portfolio
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#blog" className={classes.block}>
-                Blog
+              <a href="https://www.linkedin.com/in/renzo-mischianti/" className={classes.block}>
+                Linkedin
               </a>
             </ListItem>
           </List>

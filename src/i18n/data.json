@@ -1,5 +1,20 @@
 {
   "en": {
+    "menu.sidebar.home": "Home",
+    "menu.navbar.home": "Home",
+
+    "menu.sidebar.daily": "Daily chart",
+    "menu.navbar.daily": "Daily chart",
+
+    "menu.sidebar.monthly": "Monthly chart",
+    "menu.navbar.monthly": "Monthly chart",
+
+    "menu.sidebar.information_state": "Information & state",
+    "menu.navbar.information_state": "Inverter infromation & state",
+
+    "menu.sidebar.introduction": "Introduction",
+    "menu.navbar.introduction": "Introduction",
+
     "date.label": "Date",
 
     "chart.no_data": "No data",
@@ -51,6 +66,21 @@
     "table.inverter.state.subtitle": "All attention point of the inverter"
   },
   "it": {
+    "menu.sidebar.home": "Home",
+    "menu.navbar.home": "Home",
+
+    "menu.sidebar.daily": "Grafici giornalieri",
+    "menu.navbar.daily": "Grafici giornalieri",
+
+    "menu.sidebar.monthly": "Grafici mensili",
+    "menu.navbar.monthly": "Grafici mensili",
+
+    "menu.sidebar.information_state": "Informazioni e stato",
+    "menu.navbar.information_state": "Informazioni e stato dell'inverter",
+
+    "menu.sidebar.introduction": "Introduzione",
+    "menu.navbar.introduction": "Introduzione",
+
     "date.label": "Data",
 
     "chart.no_data": "Nessun dato",

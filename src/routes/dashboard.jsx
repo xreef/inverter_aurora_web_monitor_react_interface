@@ -4,6 +4,12 @@ import Person from "@material-ui/icons/Person";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
+
+import CalendarViewDay from  "@material-ui/icons/CalendarViewDay";
+import Today from  "@material-ui/icons/Today";
+import Info from  "@material-ui/icons/Info";
+import Warning from  "@material-ui/icons/Warning";
+
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
 import Unarchive from "@material-ui/icons/Unarchive";
@@ -17,31 +23,45 @@ import Unarchive from "@material-ui/icons/Unarchive";
 // import NotificationsPage from "views/Notifications/Notifications.jsx";
 // import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 
-import { Home, About } from '../views';
-import GridShowCaseContainer from "../views/GridShowCaseContainer";
-import ChartExamplesContainer from "../views/ChartExamplesContainer";
+import { Home, Daily, Historical, InverterInfoState, Intro, About } from '../views';
+import {FormattedMessage} from "react-intl";
+import React from "react";
 
 const dashboardRoutes = [
   {
     path: "/home",
-    sidebarName: "Home",
-    navbarName: "Material Home",
+    sidebarName: <FormattedMessage id={ 'menu.sidebar.home' } />,
+    navbarName: <FormattedMessage id={ 'menu.navbar.home' } />,
     icon: Dashboard,
     component: Home
   },
   {
-    path: "/grid_showcase",
-    sidebarName: "Grid showcase",
-    navbarName: "Grid showcase",
-    icon: "content_paste",
-    component: GridShowCaseContainer
+    path: "/daily",
+    sidebarName: <FormattedMessage id={ 'menu.sidebar.daily' } />,
+    navbarName: <FormattedMessage id={ 'menu.navbar.daily' }/>,
+    icon: CalendarViewDay, //"content_paste",
+    component: Daily
   },
   {
-    path: "/chart_examples",
-    sidebarName: "Chart Examples Container",
-    navbarName: "Chart Examples Container",
-    icon: LibraryBooks,
-    component: ChartExamplesContainer
+    path: "/montly",
+    sidebarName: <FormattedMessage id={ 'menu.sidebar.monthly' } />,
+    navbarName: <FormattedMessage id={ 'menu.navbar.monthly' }/>,
+    icon: Today ,
+    component: Historical
+  },
+  {
+    path: "/info_state",
+      sidebarName: <FormattedMessage id={ 'menu.sidebar.information_state' } />,
+      navbarName: <FormattedMessage id={ 'menu.navbar.information_state' }/>,
+    icon: Warning,
+    component: InverterInfoState
+  },
+  {
+    path: "/intro",
+      sidebarName: <FormattedMessage id={ 'menu.sidebar.introduction' } />,
+      navbarName: <FormattedMessage id={ 'menu.navbar.introduction' }/>,
+    icon: Info,
+    component: Intro
   },
   {
       path: "/about",

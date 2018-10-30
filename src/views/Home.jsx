@@ -1,17 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ResponsiveGrid from "../component/responsiveGrid/ResponsiveGrid";
+import ResponsiveGrid from '../component/responsiveGrid/ResponsiveGrid';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
-
-    }
-
-    render() {
-        return <ResponsiveGrid />
-    }
+  render() {
+    return <ResponsiveGrid />;
+  }
 }
 
 Home.propTypes = {

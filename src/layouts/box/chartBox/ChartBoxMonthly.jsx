@@ -9,6 +9,9 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+
+import Refresh from '@material-ui/icons/Refresh';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { injectIntl } from 'react-intl';
 import { FormattedMessage, FormattedDate } from 'react-intl';
@@ -24,6 +27,7 @@ import AreaBarChart from '../../../component/charts/AreaBarChart';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
 import TextField from '@material-ui/core/TextField/TextField';
+import Button from '../../../component/customButtons/Button';
 
 
 class ChartBoxMonthly extends React.Component {
@@ -57,6 +61,15 @@ class ChartBoxMonthly extends React.Component {
     this.props.monthlyPowerStatsFetch(momentMonth.format('YYYYMM'));
   };
 
+  refreshData = () => {
+    let my = {
+      month: this.state.month,
+      year: this.state.year
+    };
+    const momentMonth = moment(`${my.year}${my.month}`, 'YYYYMM');
+    this.props.monthlyPowerStatsFetch(momentMonth.format('YYYYMM'));
+  };
+
   render() {
     const { classes, id } = this.props;
     const { data, month, isFetching } = this.props;
@@ -70,6 +83,9 @@ class ChartBoxMonthly extends React.Component {
               id="chart.monthly.production.title"
               values={{ month }}
             />
+            <Button justIcon round color={color} className={classes.buttonHeader} onClick={this.refreshData}>
+              <Refresh/>
+            </Button>
           </h4>
           <div className={classes.cardCategoryWhite} >
             <FormattedMessage

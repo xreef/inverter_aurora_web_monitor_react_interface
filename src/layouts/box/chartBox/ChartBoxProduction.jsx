@@ -14,11 +14,14 @@ import CardHeader from '../../../component/Card/CardHeader.jsx';
 import CardBody from '../../../component/Card/CardBody.jsx';
 // import CardFooter from '../../../component/Card/CardFooter.jsx';
 
+import Refresh from '@material-ui/icons/Refresh';
+
 import boxStyle from '../style/boxStyle';
 // import Table from '../../../component/table/Table';
 import AreaChart from '../../../component/charts/AreaChart';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
+import Button from '../../../component/customButtons/Button';
 
 
 class ChartBoxProduction extends React.Component {
@@ -45,6 +48,10 @@ class ChartBoxProduction extends React.Component {
     this.setState({
       dayTextValue: e.target.value
     });
+  };
+
+  refreshData = () => {
+    this.props.inverterDailyFetch(moment(this.state.dayTextValue, 'YYYY-MM-DD').format('YYYYMMDD'), this.props.dataType);
   };
 
   render() {
@@ -76,6 +83,9 @@ class ChartBoxProduction extends React.Component {
               id={`chart.production.${dataType}.title`}
               defaultMessage={title}
             />
+            <Button justIcon round color={color} className={classes.buttonHeader} onClick={this.refreshData}>
+              <Refresh/>
+            </Button>
           </h4>
           <div className={classes.cardCategoryWhite}>
             <FormattedMessage

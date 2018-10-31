@@ -78,6 +78,11 @@ const boxStyle = theme => ({
   selectInput: {
     paddingRight: '20px',
     marginBottom: '-5px'
+  },
+  buttonHeader: {
+    position: 'absolute',
+    right: '10px',
+    top: '10px'
   }
 });
 

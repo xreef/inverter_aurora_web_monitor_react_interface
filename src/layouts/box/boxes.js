@@ -58,7 +58,7 @@ const boxes = {
     },
     resize: true,
     close: true,
-    minW: 2,
+    minW: 1,
     maxW: 4,
     minH: 2,
     maxH: 4,

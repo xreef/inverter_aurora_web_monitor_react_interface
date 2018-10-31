@@ -103,7 +103,7 @@
     "informative.total.weekly.title": "Produzione settimanale",
     "chart.monthly.production.label": "Watt giornalieri",
 
-    "chart.monthly.production.title": "Grafico andamento mensile della produzione",
+    "chart.monthly.production.title": "Grafico produzione mensile",
     "chart.monthly.production.subtitle": "Mese di riferimento: ",
 
     "chart.monthly.production.tooltip": "Giornaliero: {pow}w Picco giornaliero: {peak}w",

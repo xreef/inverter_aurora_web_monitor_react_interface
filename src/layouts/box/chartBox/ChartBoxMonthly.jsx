@@ -83,6 +83,7 @@ class ChartBoxMonthly extends React.Component {
               //   event.preventDefault(); // Let's stop this event.
               //   event.stopPropagation(); // Really this time.
               // }}
+              disableUnderline = {true}
               inputProps={{
                 name: 'month',
                 id: 'month-simple',
@@ -101,6 +102,7 @@ class ChartBoxMonthly extends React.Component {
             <Select
               value={this.state.year}
               onChange={this.handleChange}
+              disableUnderline = {true}
               inputProps={{
                 name: 'year',
                 id: 'year-simple',

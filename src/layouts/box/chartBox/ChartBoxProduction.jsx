@@ -93,7 +93,8 @@ class ChartBoxProduction extends React.Component {
               required={true}
               InputProps={
                 {
-                  className: classes.cardCategoryWhite
+                  className: classes.cardCategoryWhite,
+                  disableUnderline: true
                 }
               }
               inputProps={

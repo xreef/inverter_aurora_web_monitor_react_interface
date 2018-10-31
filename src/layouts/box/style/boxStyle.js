@@ -73,6 +73,11 @@ const boxStyle = theme => ({
   },
   textFieldInput: {
     padding: '4px 0 7px',
+    marginBottom: '-5px'
+  },
+  selectInput: {
+    paddingRight: '20px',
+    marginBottom: '-5px'
   },
 });
 

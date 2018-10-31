@@ -77,7 +77,7 @@ class ChartBoxProduction extends React.Component {
               defaultMessage={title}
             />
           </h4>
-          <p className={classes.cardCategoryWhite}>
+          <div className={classes.cardCategoryWhite}>
             <FormattedMessage
               id={`chart.production.${dataType}.subtitle`}
               defaultMessage={subtitle}
@@ -88,24 +88,23 @@ class ChartBoxProduction extends React.Component {
               type="date"
               value={dayTextValue}
               onChange={this.onChangeDate}
-
               // defaultValue="2017-05-24"
               className={classes.textField}
-              required="true"
+              required={true}
               InputProps={
                 {
-                  className: classes.cardCategoryWhite,
+                  className: classes.cardCategoryWhite
                 }
               }
               inputProps={
                 {
-                  className: classes.textFieldInput,
+                  className: classes.textFieldInput
                 }
               }
             />
 
 
-          </p>
+          </div>
         </CardHeader>
         <CardBody>
           {(!isFetching)

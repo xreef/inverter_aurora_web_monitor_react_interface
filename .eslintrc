@@ -2,7 +2,9 @@
   "extends": "airbnb",
   "rules": {
     "func-names": ["error", "never"],
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "comma-dangle": "off",
+    "react/forbid-prop-types": "off"
   },
   "env": {
     "es6": true,

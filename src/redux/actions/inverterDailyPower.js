@@ -12,36 +12,36 @@ export const INVERTER_DAILY_POWER_FETCH_FULFILLED = 'INVERTER_DAILY_POWER_FETCH_
 export const INVERTER_DAILY_POWER_FETCH_REJECTED = 'INVERTER_DAILY_POWER_FETCH_REJECTED';
 
 export const actionTypes = {
-    INVERTER_DAILY_POWER_FETCH,
-    INVERTER_DAILY_POWER_FETCH_CANCEL,
-    INVERTER_DAILY_POWER_FETCH_FULFILLED,
-    INVERTER_DAILY_POWER_FETCH_REJECTED
+  INVERTER_DAILY_POWER_FETCH,
+  INVERTER_DAILY_POWER_FETCH_CANCEL,
+  INVERTER_DAILY_POWER_FETCH_FULFILLED,
+  INVERTER_DAILY_POWER_FETCH_REJECTED
 };
 
 // action creators
 export const inverterDailyPowerFetch = (day, dataType) => ({
-            type: INVERTER_DAILY_POWER_FETCH,
-            day: day,
-            dataType: dataType
-        });
-export const inverterDailyPowerFetchCancel = () => (
-    {
-        type: INVERTER_DAILY_POWER_FETCH_CANCEL
-    }
-    );
-export const inverterDailyPowerFetchFulfilled = (list) => ({
-    type: INVERTER_DAILY_POWER_FETCH_FULFILLED,
-    list: list
+  type: INVERTER_DAILY_POWER_FETCH,
+  day,
+  dataType
 });
-export const inverterDailyPowerFetchRejected = (err) => ({
-    type: INVERTER_DAILY_POWER_FETCH_REJECTED,
-    err: err,
-    error: true
+export const inverterDailyPowerFetchCancel = () => (
+  {
+    type: INVERTER_DAILY_POWER_FETCH_CANCEL
+  }
+);
+export const inverterDailyPowerFetchFulfilled = list => ({
+  type: INVERTER_DAILY_POWER_FETCH_FULFILLED,
+  list
+});
+export const inverterDailyPowerFetchRejected = err => ({
+  type: INVERTER_DAILY_POWER_FETCH_REJECTED,
+  err,
+  error: true
 });
 
 export const actions = {
-    inverterDailyPowerFetch,
-    inverterDailyPowerFetchCancel,
-    inverterDailyPowerFetchFulfilled,
-    inverterDailyPowerFetchRejected
+  inverterDailyPowerFetch,
+  inverterDailyPowerFetchCancel,
+  inverterDailyPowerFetchFulfilled,
+  inverterDailyPowerFetchRejected
 };

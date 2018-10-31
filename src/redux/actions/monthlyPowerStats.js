@@ -12,36 +12,36 @@ export const MONTHLY_POWER_STATS_FETCH_FULFILLED = 'MONTHLY_POWER_STATS_FETCH_FU
 export const MONTHLY_POWER_STATS_FETCH_REJECTED = 'MONTHLY_POWER_STATS_FETCH_REJECTED';
 
 export const actionTypes = {
-    MONTHLY_POWER_STATS_FETCH,
-    MONTHLY_POWER_STATS_FETCH_CANCEL,
-    MONTHLY_POWER_STATS_FETCH_FULFILLED,
-    MONTHLY_POWER_STATS_FETCH_REJECTED
+  MONTHLY_POWER_STATS_FETCH,
+  MONTHLY_POWER_STATS_FETCH_CANCEL,
+  MONTHLY_POWER_STATS_FETCH_FULFILLED,
+  MONTHLY_POWER_STATS_FETCH_REJECTED
 };
 
 // action creators
-export const monthlyPowerStatsFetch = (month) => ({
-            type: MONTHLY_POWER_STATS_FETCH,
-            month: month
-        });
-export const monthlyPowerStatsFetchCancel = () => (
-    {
-        type: MONTHLY_POWER_STATS_FETCH_CANCEL
-    }
-    );
-export const monthlyPowerStatsFetchFulfilled = (payload) => ({
-    type: MONTHLY_POWER_STATS_FETCH_FULFILLED,
-    list: payload.data,
-    lastUpdate: payload.lastUpdate
+export const monthlyPowerStatsFetch = month => ({
+  type: MONTHLY_POWER_STATS_FETCH,
+  month
 });
-export const monthlyPowerStatsFetchRejected = (err) => ({
-    type: MONTHLY_POWER_STATS_FETCH_REJECTED,
-    err: err,
-    error: true
+export const monthlyPowerStatsFetchCancel = () => (
+  {
+    type: MONTHLY_POWER_STATS_FETCH_CANCEL
+  }
+);
+export const monthlyPowerStatsFetchFulfilled = payload => ({
+  type: MONTHLY_POWER_STATS_FETCH_FULFILLED,
+  list: payload.data,
+  lastUpdate: payload.lastUpdate
+});
+export const monthlyPowerStatsFetchRejected = err => ({
+  type: MONTHLY_POWER_STATS_FETCH_REJECTED,
+  err,
+  error: true
 });
 
 export const actions = {
-    monthlyPowerStatsFetch,
-    monthlyPowerStatsFetchCancel,
-    monthlyPowerStatsFetchFulfilled,
-    monthlyPowerStatsFetchRejected
+  monthlyPowerStatsFetch,
+  monthlyPowerStatsFetchCancel,
+  monthlyPowerStatsFetchFulfilled,
+  monthlyPowerStatsFetchRejected
 };

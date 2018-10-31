@@ -29,8 +29,8 @@ import TextField from '@material-ui/core/TextField/TextField';
 class ChartBoxMonthly extends React.Component {
   constructor(props) {
     super(props);
-    const { month, dataType } = this.props;
-    props.inverterDailyFetch(month, dataType);
+    const { month } = this.props;
+    props.monthlyPowerStatsFetch(month);
 
     let momentMonth;
     if (month) {
@@ -40,13 +40,21 @@ class ChartBoxMonthly extends React.Component {
     }
 
     this.state = {
-      month: momentMonth.month(),
+      month: momentMonth.month()+1,
       year: momentMonth.year()
     };
   }
 
   handleChange = (e) => {
+    debugger
     this.setState({[e.target.name]: e.target.value});
+    let my = {
+      month: this.state.month,
+      year: this.state.year
+    };
+    my[e.target.name] = e.target.value;
+    const momentMonth = moment(`${my.year}${my.month}`, 'YYYYMM');
+    this.props.monthlyPowerStatsFetch(momentMonth.format('YYYYMM'));
   };
 
   render() {
@@ -63,7 +71,7 @@ class ChartBoxMonthly extends React.Component {
               values={{ month }}
             />
           </h4>
-          <div className={classes.cardCategoryWhite} onClick={(e)=>e.preventDefault()}>
+          <div className={classes.cardCategoryWhite} >
             <FormattedMessage
               id="chart.monthly.production.subtitle"
               // values={{ month: monthFormatted }}
@@ -71,6 +79,10 @@ class ChartBoxMonthly extends React.Component {
             <Select
               value={this.state.month}
               onChange={this.handleChange}
+              // onOpen={(event)=>{
+              //   event.preventDefault(); // Let's stop this event.
+              //   event.stopPropagation(); // Really this time.
+              // }}
               inputProps={{
                 name: 'month',
                 id: 'month-simple',
@@ -78,7 +90,7 @@ class ChartBoxMonthly extends React.Component {
               }}
             >
               {Array.from(Array(12).keys()).map(monthElem => (
-                <MenuItem key={String(monthElem)} value={(monthElem)}>
+                <MenuItem id={String(monthElem)} ey={String(monthElem)} value={(monthElem+1)}>
                   {this.props.intl.formatDate(new Date(moment((monthElem + 1), 'MM').valueOf()), {
                     month: 'long',
                   })}
@@ -98,7 +110,7 @@ class ChartBoxMonthly extends React.Component {
               {Array.from(Array(6).keys())
                 .map(numToYear => (numToYear + this.state.year - 3))
                 .map(yearElem => (
-                  <MenuItem key={String(yearElem)} value={(yearElem)}>
+                  <MenuItem id={String(yearElem)} key={String(yearElem)} value={(yearElem)}>
                     {this.props.intl.formatDate(new Date(moment((yearElem), 'YYYY').valueOf()), {
                       year: 'numeric',
                     })}
@@ -136,7 +148,7 @@ ChartBoxMonthly.propTypes = {
     'rose',
   ]),
   isFetching: PropTypes.bool,
-  inverterDailyFetch: PropTypes.func
+  monthlyPowerStatsFetch: PropTypes.func
 };
 ChartBoxMonthly.defaultProps = {
   month: moment().format('YYYYMM'),
@@ -144,7 +156,7 @@ ChartBoxMonthly.defaultProps = {
   isFetching: false,
   lastUpdate: null,
   data: null,
-  inverterDailyFetch: null
+  monthlyPowerStatsFetch: null
 };
 
 export default withStyles(boxStyle)(injectIntl(ChartBoxMonthly));

@@ -6,22 +6,20 @@ export const SHIFT_NOTIFICATION = 'SHIFT_NOTIFICATION';
 export const GET_CURRENT_NOTIFICATION = 'GET_CURRENT_NOTIFICATION';
 
 export const actionTypes = {
-    ADD_NOTIFICATION,
-    SHIFT_NOTIFICATION,
-    GET_CURRENT_NOTIFICATION
+  ADD_NOTIFICATION,
+  SHIFT_NOTIFICATION,
+  GET_CURRENT_NOTIFICATION
 };
 
-export const addNotification = (notification) => ({
-    type: ADD_NOTIFICATION,
-    notification: notification
+export const addNotification = notification => ({
+  type: ADD_NOTIFICATION,
+  notification
 });
 
 export const shiftNotification = () => ({
-    type: SHIFT_NOTIFICATION
+  type: SHIFT_NOTIFICATION
 });
 
 export const getCurrentNotification = () => ({
-    type: GET_CURRENT_NOTIFICATION
+  type: GET_CURRENT_NOTIFICATION
 });
-
-

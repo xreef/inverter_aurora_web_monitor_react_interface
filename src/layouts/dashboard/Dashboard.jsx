@@ -50,6 +50,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        notificationOpen: true,
         mobileOpen: false,
         serviceWorker: {
           deferredPrompt: null
@@ -59,7 +60,16 @@ class App extends React.Component {
   }
 
   handleCloseNotification = () => {
-    this.props.shiftNotification()
+    this.setState({
+      notificationOpen: false
+    });
+
+    setTimeout(()=>{
+      this.setState({
+        notificationOpen: true
+      });
+      this.props.shiftNotification();
+    }, 700);
   };
 
   handleDrawerToggle = () => {
@@ -194,11 +204,12 @@ class App extends React.Component {
           )}
           {this.getRoute() ? <Footer /> : null}
 
-            {notifications.current!==null?
+            {(notifications.current!==null)?
                 <Snackbar
                     message={notifications.current.message}
-                    open={notifications.current!==null}
+                    open={this.state.notificationOpen && notifications.current!==null}
                     color={notifications.current.variant}
+                    autoHideDuration={(notifications.current.autoHide)?notifications.current.autoHide:null}
                     onClose={this.handleCloseNotification}
                     ClickAwayListenerProps={{mouseEvent: null}}
                 />

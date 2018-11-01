@@ -8,11 +8,11 @@ import TextField from '@material-ui/core/TextField';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Card from '../../../component/Card/Card.jsx';
-import CardHeader from '../../../component/Card/CardHeader.jsx';
-// import CardIcon from '../../../component/Card/CardIcon.jsx';
-import CardBody from '../../../component/Card/CardBody.jsx';
-// import CardFooter from '../../../component/Card/CardFooter.jsx';
+import Card from '../../../component/card/Card.jsx';
+import CardHeader from '../../../component/card/CardHeader.jsx';
+// import CardIcon from '../../../component/card/CardIcon.jsx';
+import CardBody from '../../../component/card/CardBody.jsx';
+// import CardFooter from '../../../component/card/CardFooter.jsx';
 
 import Refresh from '@material-ui/icons/Refresh';
 

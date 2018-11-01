@@ -54,6 +54,10 @@ const boxStyle = theme => ({
     // maxHeight: "224px",
     overflowY: 'auto',
   },
+  divContainer: {
+    width: '100%',
+    minHeight: '250px'
+  },
   progress: {
     margin: 0,
     position: 'absolute',

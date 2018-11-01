@@ -12,6 +12,9 @@
     "menu.sidebar.information_state": "Information & state",
     "menu.navbar.information_state": "Inverter infromation & state",
 
+    "menu.sidebar.configuration": "Configuration",
+    "menu.navbar.configuration": "Configuration",
+
     "menu.sidebar.introduction": "Introduction",
     "menu.navbar.introduction": "Introduction",
 
@@ -63,7 +66,12 @@
     "table.inverter.channel2.state": "Channel2 state",
     "table.inverter.inverter.state": "Inverter state",
     "table.inverter.state.title": "Inverter state",
-    "table.inverter.state.subtitle": "All attention point of the inverter"
+    "table.inverter.state.subtitle": "All attention point of the inverter",
+
+    "configuration.network.title": "Network configuration",
+    "configuration.network.subtitle": "Remember to set a correct static IP",
+
+    "configuration.network.staticIP.label": "Select a static IP"
   },
   "it": {
     "menu.sidebar.home": "Home",
@@ -77,6 +85,9 @@
 
     "menu.sidebar.information_state": "Informazioni e stato",
     "menu.navbar.information_state": "Informazioni e stato dell'inverter",
+
+    "menu.sidebar.configuration": "Configurazione",
+    "menu.navbar.configuration": "Configurazione",
 
     "menu.sidebar.introduction": "Introduzione",
     "menu.navbar.introduction": "Introduzione",
@@ -129,8 +140,12 @@
     "table.inverter.channel2.state": "Statp canale 2",
     "table.inverter.inverter.state": "Stato Inverter",
     "table.inverter.state.title": "Stato inverter",
-    "table.inverter.state.subtitle": "Tutti i punti di attenzione dell'inverter"
+    "table.inverter.state.subtitle": "Tutti i punti di attenzione dell'inverter",
 
+    "configuration.network.title": "Configurazione di rete",
+    "configuration.network.subtitle": "Ricorda di impostare un indirizzo IP statico",
+
+    "configuration.network.staticIP.label": "Seleziona un IP statico"
 
   }
 }

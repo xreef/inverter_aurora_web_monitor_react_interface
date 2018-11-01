@@ -8,11 +8,11 @@ import DateRange from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import boxStyle from '../style/boxStyle';
-import Card from '../../../component/Card/Card.jsx';
-import CardHeader from '../../../component/Card/CardHeader.jsx';
-import CardIcon from '../../../component/Card/CardIcon.jsx';
-import CardBody from '../../../component/Card/CardBody.jsx';
-import CardFooter from '../../../component/Card/CardFooter.jsx';
+import Card from '../../../component/card/Card.jsx';
+import CardHeader from '../../../component/card/CardHeader.jsx';
+import CardIcon from '../../../component/card/CardIcon.jsx';
+import CardBody from '../../../component/card/CardBody.jsx';
+import CardFooter from '../../../component/card/CardFooter.jsx';
 
 
 class InformativeBox extends React.Component {

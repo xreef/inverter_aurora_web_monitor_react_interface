@@ -15,11 +15,11 @@ import SentimentVeryDissatisfied from '@material-ui/icons/SentimentVeryDissatisf
 import Refresh from '@material-ui/icons/Refresh';
 
 import Button from '../../../component/customButtons/Button.jsx';
-import Card from '../../../component/Card/Card.jsx';
-import CardHeader from '../../../component/Card/CardHeader.jsx';
-import CardIcon from '../../../component/Card/CardIcon.jsx';
-import CardBody from '../../../component/Card/CardBody.jsx';
-import CardFooter from '../../../component/Card/CardFooter.jsx';
+import Card from '../../../component/card/Card.jsx';
+import CardHeader from '../../../component/card/CardHeader.jsx';
+import CardIcon from '../../../component/card/CardIcon.jsx';
+import CardBody from '../../../component/card/CardBody.jsx';
+import CardFooter from '../../../component/card/CardFooter.jsx';
 
 import boxStyle from '../style/boxStyle';
 import Table from '../../../component/table/Table';

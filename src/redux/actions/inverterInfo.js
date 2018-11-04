@@ -12,35 +12,35 @@ export const INVERTER_INFO_FETCH_FULFILLED = 'INVERTER_INFO_FETCH_FULFILLED';
 export const INVERTER_INFO_FETCH_REJECTED = 'INVERTER_INFO_FETCH_REJECTED';
 
 export const actionTypes = {
-    INVERTER_INFO_FETCH,
-    INVERTER_INFO_FETCH_CANCEL,
-    INVERTER_INFO_FETCH_FULFILLED,
-    INVERTER_INFO_FETCH_REJECTED
+  INVERTER_INFO_FETCH,
+  INVERTER_INFO_FETCH_CANCEL,
+  INVERTER_INFO_FETCH_FULFILLED,
+  INVERTER_INFO_FETCH_REJECTED
 };
 
 // action creators
 export const inverterInfoFetch = () => ({
-            type: INVERTER_INFO_FETCH
-        });
-export const inverterInfoFetchCancel = () => (
-    {
-        type: INVERTER_INFO_FETCH_CANCEL
-    }
-    );
-export const inverterInfoFetchFulfilled = (payload) => ({
-    type: INVERTER_INFO_FETCH_FULFILLED,
-    data: payload.data,
-    lastUpdate: payload.lastUpdate
+  type: INVERTER_INFO_FETCH
 });
-export const inverterInfoFetchRejected = (err) => ({
-    type: INVERTER_INFO_FETCH_REJECTED,
-    err: err,
-    error: true
+export const inverterInfoFetchCancel = () => (
+  {
+    type: INVERTER_INFO_FETCH_CANCEL
+  }
+);
+export const inverterInfoFetchFulfilled = payload => ({
+  type: INVERTER_INFO_FETCH_FULFILLED,
+  data: payload.data,
+  lastUpdate: payload.lastUpdate
+});
+export const inverterInfoFetchRejected = err => ({
+  type: INVERTER_INFO_FETCH_REJECTED,
+  err,
+  error: true
 });
 
 export const actions = {
-    inverterInfoFetch,
-    inverterInfoFetchCancel,
-    inverterInfoFetchFulfilled,
-    inverterInfoFetchRejected
+  inverterInfoFetch,
+  inverterInfoFetchCancel,
+  inverterInfoFetchFulfilled,
+  inverterInfoFetchRejected
 };

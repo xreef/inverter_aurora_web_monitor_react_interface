@@ -1,7 +1,7 @@
 import {
-  key, INVERTER_INFO_FETCH, INVERTER_INFO_FETCH_CANCEL, INVERTER_INFO_FETCH_FULFILLED,
-  INVERTER_INFO_FETCH_REJECTED
-} from '../actions/inverterInfo';
+  key, CONFIGURATION_FETCH, CONFIGURATION_FETCH_CANCEL, CONFIGURATION_FETCH_FULFILLED,
+  CONFIGURATION_FETCH_REJECTED
+} from '../actions/configuration';
 
 export const selectors = {
   data: state => state,
@@ -17,7 +17,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case INVERTER_INFO_FETCH:
+    case CONFIGURATION_FETCH:
       return {
         ...state,
         isFetching: true,
@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action) {
         data: null,
         lastUpdate: null
       };
-    case INVERTER_INFO_FETCH_FULFILLED:
+    case CONFIGURATION_FETCH_FULFILLED:
       return {
         ...state,
         data: action.data,
@@ -33,13 +33,13 @@ export default function reducer(state = initialState, action) {
         fetchStatus: `Results from ${(new Date()).toLocaleString()}`,
         lastUpdate: action.lastUpdate
       };
-    case INVERTER_INFO_FETCH_REJECTED:
+    case CONFIGURATION_FETCH_REJECTED:
       return {
         ...state,
         isFetching: false,
         fetchStatus: `errored: ${action.payload}`
       };
-    case INVERTER_INFO_FETCH_CANCEL:
+    case CONFIGURATION_FETCH_CANCEL:
       return {
         ...state,
         isFetching: false,

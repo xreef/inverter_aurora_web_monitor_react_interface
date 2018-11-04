@@ -71,7 +71,32 @@
     "configuration.network.title": "Network configuration",
     "configuration.network.subtitle": "Remember to set a correct static IP",
 
-    "configuration.network.staticIP.label": "Select a static IP"
+    "configuration.network.staticIP.label": "Select a static IP",
+
+    "configuration.email.table.email":"EMail",
+    "configuration.email.table.name":"Name",
+    "configuration.email.table.alarms":"Alarm",
+    "configuration.email.table.channel1":"Channel 1",
+    "configuration.email.table.channel2":"Channel 2",
+    "configuration.email.table.states":"State",
+
+    "configuration.email.table.value.alert":"Alarm",
+    "configuration.email.table.value.nothing":"None",
+    "configuration.email.table.value.ever":"All",
+
+    "configuration.network.update": "Update network settings",
+
+    "configuration.email.notification.title": "Notification settings",
+    "configuration.email.notification.subtitle": "Check if you use all channel",
+    "configuration.email.notification.add": "New notification email",
+    "configuration.email.notification.add.modal.title":"Insert",
+    "configuration.email.notification.add.modal.no_email":"None",
+    "configuration.email.notification.add.modal.first_alarm":"First alarm",
+    "configuration.email.notification.add.modal.all_state_change":"At all state change",
+
+    "configuration.email.notification.add.modal.no_run":"No more run",
+    "configuration.email.notification.add.modal.no_MPPT":"No more on MPPT state",
+    "configuration.email.notification.update":"Update notification settings"
   },
   "it": {
     "menu.sidebar.home": "Home",
@@ -145,7 +170,31 @@
     "configuration.network.title": "Configurazione di rete",
     "configuration.network.subtitle": "Ricorda di impostare un indirizzo IP statico",
 
-    "configuration.network.staticIP.label": "Seleziona un IP statico"
+    "configuration.network.staticIP.label": "Seleziona un IP statico",
 
+    "configuration.email.table.email":"EMail",
+    "configuration.email.table.name":"Nome",
+    "configuration.email.table.alarms":"Allarme",
+    "configuration.email.table.channel1":"Canale 1",
+    "configuration.email.table.channel2":"Canale 2",
+    "configuration.email.table.states":"Stato",
+
+    "configuration.email.table.value.alert":"Allarme",
+    "configuration.email.table.value.nothing":"Nessuno",
+    "configuration.email.table.value.ever":"Sempre",
+
+    "configuration.network.update": "Aggiorna dati rete",
+
+    "configuration.email.notification.title": "Impostazioni di notifica",
+    "configuration.email.notification.subtitle": "Verifica se i canali sono usati",
+    "configuration.email.notification.add": "Aggiungi email per notifiche",
+    "configuration.email.notification.add.modal.title":"Inserisci",
+    "configuration.email.notification.add.modal.no_email":"Nessuna",
+    "configuration.email.notification.add.modal.first_alarm":"Primo allarme",
+    "configuration.email.notification.add.modal.all_state_change":"Cambio di qualsiasi stato",
+
+    "configuration.email.notification.add.modal.no_run":"Non più in esecuzione",
+    "configuration.email.notification.add.modal.no_MPPT":"Non più MPPT",
+    "configuration.email.notification.update":"Aggiorna dati notifica"
   }
 }

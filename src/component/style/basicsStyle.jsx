@@ -1,5 +1,6 @@
 import { container, title } from './material-dashboard-react';
 import customCheckboxRadioSwitch from './customCheckboxRadioSwitch';
+import modalStyle from './modalStyle';
 
 const basicsStyle = {
   sections: {
@@ -25,7 +26,14 @@ const basicsStyle = {
     height: '17px',
     color: '#FFFFFF'
   },
-  ...customCheckboxRadioSwitch
+
+  textField: {
+    flexBasis: 200,
+    width: '100%'
+  },
+
+  ...customCheckboxRadioSwitch,
+  ...modalStyle
 };
 
 export default basicsStyle;

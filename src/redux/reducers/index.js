@@ -10,18 +10,20 @@ import productionTotals from './productionTotals';
 import monthlyPowerStats from './monthlyPowerStats';
 import inverterInfo from './inverterInfo';
 import inverterAlarms from './inverterAlarms';
+import configuration from './configuration';
 
 const reducersAurora = combineReducers({
-    version,
-    notifications,
-    subscriptionsServiceWorker,
-    inverterDailyVoltage,
-    inverterDailyCurrent,
-    inverterDailyPower,
-    productionTotals,
-    monthlyPowerStats,
-    inverterInfo,
-    inverterAlarms
+  version,
+  notifications,
+  subscriptionsServiceWorker,
+  inverterDailyVoltage,
+  inverterDailyCurrent,
+  inverterDailyPower,
+  productionTotals,
+  monthlyPowerStats,
+  inverterInfo,
+  inverterAlarms,
+  configuration
 });
 
-export default reducersAurora
+export default reducersAurora;

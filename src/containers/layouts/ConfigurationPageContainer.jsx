@@ -1,18 +1,24 @@
 import { connect } from 'react-redux';
 
 import {
-  configurationFetch
+  configurationFetch,
+  configurationAdd,
+  addNotification,
+  configurationFieldUpdated
 } from '../../redux/actions';
 
 import ConfigurationPage from '../../layouts/configuration/ConfigurationPage';
 
 const mapStateToProps = (state, ownProps) => ({
   configuration: state.configuration.data,
-  isFetching: state.monthlyPowerStats.isFetching
+  isFetching: state.configuration.isFetching
 });
 
 const mapDispatchToProps = {
-  configurationFetch
+  configurationFetch,
+  configurationAdd,
+  configurationFieldUpdated,
+  addNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigurationPage);

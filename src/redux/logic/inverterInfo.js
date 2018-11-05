@@ -22,8 +22,8 @@ const inverterInfoFetchLogic = createLogic({
     failType: inverterInfoFetchRejected // INVERTER_INFO_FETCH_REJECTED //inverterInfoFetchRejecte
   },
 
-  process({ getState, action }, dispatch, done) {
-    return axios.get(`http://${MICROCONTROLLER_ADRESS}/${INVERTER_INFO_ENDPOINT}`)
+  process({ httpClient, getState, action }, dispatch, done) {
+    return httpClient.get(`http://${MICROCONTROLLER_ADRESS}/${INVERTER_INFO_ENDPOINT}`)
       .then((resp) => {
         const lastUpdate = new Date(moment(resp.data.lastUpdate, 'DD/MM/YYYY HH:mm:ss').valueOf());
         const data = resp.data;

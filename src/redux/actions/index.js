@@ -27,7 +27,9 @@ import {
   inverterAlarmsFetch, inverterAlarmsFetchCancel, inverterAlarmsFetchFulfilled, inverterAlarmsFetchRejected
 } from './inverterAlarms';
 import {
-  configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected
+  configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected,
+  configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed
+
 } from './configuration';
 
 export {
@@ -41,6 +43,6 @@ export {
   monthlyPowerStatsFetch, monthlyPowerStatsFetchCancel, monthlyPowerStatsFetchFulfilled, monthlyPowerStatsFetchRejected,
   inverterInfoFetch, inverterInfoFetchCancel, inverterInfoFetchFulfilled, inverterInfoFetchRejected,
   inverterAlarmsFetch, inverterAlarmsFetchCancel, inverterAlarmsFetchFulfilled, inverterAlarmsFetchRejected,
-  configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected
-
+  configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected,
+  configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed
 };

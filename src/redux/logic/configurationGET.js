@@ -22,8 +22,8 @@ const configurationFetchLogic = createLogic({
     failType: configurationFetchRejected // CONFIGURATION_FETCH_REJECTED //configurationFetchRejecte
   },
 
-  process({ getState, action }, dispatch, done) {
-    return axios.get(`http://${MICROCONTROLLER_ADRESS}/${CONFIGURATION_ENDPOINT}`)
+  process({ httpClient, getState, action }, dispatch, done) {
+    return httpClient.get(`http://${MICROCONTROLLER_ADRESS}/${CONFIGURATION_ENDPOINT}`)
       .then((resp) => {
         // const lastUpdate = new Date(moment(resp.data.lastUpdate, 'DD/MM/YYYY HH:mm:ss').valueOf());
         const data = resp.data;

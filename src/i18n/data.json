@@ -96,7 +96,10 @@
 
     "configuration.email.notification.add.modal.no_run":"No more run",
     "configuration.email.notification.add.modal.no_MPPT":"No more on MPPT state",
-    "configuration.email.notification.update":"Update notification settings"
+    "configuration.email.notification.update":"Update notification settings",
+
+    "configuration.save.success": "Configuration saved successfully",
+    "configuration.save.failed": "Failed to save configuration <br>{err}"
   },
   "it": {
     "menu.sidebar.home": "Home",
@@ -195,6 +198,9 @@
 
     "configuration.email.notification.add.modal.no_run":"Non più in esecuzione",
     "configuration.email.notification.add.modal.no_MPPT":"Non più MPPT",
-    "configuration.email.notification.update":"Aggiorna dati notifica"
+    "configuration.email.notification.update":"Aggiorna dati notifica",
+
+    "configuration.save.success": "Configurazione salvata correttamente",
+    "configuration.save.failed": "Errore al salvataggio configurazione {br}{err}"
   }
 }

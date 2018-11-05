@@ -37,7 +37,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Slide from "@material-ui/core/Slide";
 import Add from '@material-ui/icons/Add';
 import Close from "@material-ui/icons/Close";
-import { configurationFetch } from '../../redux/actions';
+import { addNotification, configurationAdd, configurationFetch } from '../../redux/actions';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -49,6 +49,7 @@ import classNames from 'classnames';
 
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Overlay from '../../component/overlay/Overlay';
 
 function Transition(props) {
   return <Slide direction="down" {...props} />;
@@ -89,12 +90,13 @@ class ConfigurationPage extends React.PureComponent  {
         message: "E' stato rilevato un problema all'inverter, per il dettaglio accedere al sito: ",
         emailList: [['renzo.mischianti@gmail.com',"Renzo Mischianti", 1, 0, 0, 2]]
       },
+
       optionAlarm: "none",
       optionState: "none",
       optionChannel1: "none",
       optionChannel2: "none",
       insertEmailModal: false,
-      showPassword: "password"
+      showPassword: false
     };
   }
 
@@ -166,6 +168,14 @@ class ConfigurationPage extends React.PureComponent  {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
+  postConfigurationUpdate = type => event => {
+    let { configuration, configurationFieldUpdated, configurationAdd } = this.props;
+    let {server} = this.state;
+
+    configurationFieldUpdated({[type]: this.state[type]});
+    configurationAdd(event);
+  };
+
   render() {
     const messagesIntl = defineMessages(
       {
@@ -184,9 +194,10 @@ class ConfigurationPage extends React.PureComponent  {
 
     const labelAlertSelected = [messagesIntl.nothing, messagesIntl.alert, messagesIntl.ever];
 
-    const { classes, configuration } = this.props;
+    const { classes, configuration, isFetching } = this.props;
     return (
       <div>
+        <Overlay visible={isFetching}/>
         <GridContainer>
           <GridItem xs={12} sm={12} md={8}>
         <GridContainer>
@@ -298,9 +309,11 @@ class ConfigurationPage extends React.PureComponent  {
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary"><FormattedMessage
-                  id="configuration.network.update"
-                /></Button>
+                <Button color="primary" onClick={this.postConfigurationUpdate("server")}>
+                  <FormattedMessage
+                    id="configuration.network.update"
+                  />
+                </Button>
               </CardFooter>
             </Card>
           </GridItem>
@@ -1089,7 +1102,11 @@ class ConfigurationPage extends React.PureComponent  {
   }
 }
 ConfigurationPage.propTypes = {
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  configurationFetch: PropTypes.func,
+  configurationAdd: PropTypes.func,
+  addNotification: PropTypes.func,
+  configurationFieldUpdated: PropTypes.func
 };
 
 export default withStyles(basicsStyle)(injectIntl(ConfigurationPage));

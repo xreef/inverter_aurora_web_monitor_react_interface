@@ -1,5 +1,4 @@
 import { createLogic } from 'redux-logic';
-import axios from 'axios';
 import moment from 'moment';
 
 import { MICROCONTROLLER_ADRESS, PRODUCTION_ENDPOINT } from '../config';
@@ -22,8 +21,8 @@ const inverterDailyPowerFetchLogic = createLogic({
     failType: inverterDailyPowerFetchRejected
   },
 
-  process({ getState, action }, dispatch, done) {
-    return axios.get(`http://${MICROCONTROLLER_ADRESS}/${PRODUCTION_ENDPOINT}?day=${action.day}&type=${action.dataType}`)
+  process({ httpClient, getState, action }, dispatch, done) {
+    return httpClient.get(`http://${MICROCONTROLLER_ADRESS}/${PRODUCTION_ENDPOINT}?day=${action.day}&type=${action.dataType}`)
       .then(resp => resp.data.data.map((elem) => {
         elem.date = new Date(moment(action.day + elem.h, 'YYYYMMDDHHmm').valueOf());
         elem.power = elem.val;

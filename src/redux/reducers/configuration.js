@@ -6,6 +6,7 @@ import {
 
 export const selectors = {
   data: state => state.configuration.data,
+  dataToUpdate: state => state.configuration.dataToUpdate,
   fetchStatus: state => state.fetchStatus
 };
 
@@ -58,9 +59,10 @@ export default function reducer(state = initialState, action) {
 
     case CONFIGURATION_FIELD_UPDATED:
     { // updates dataToUpdate and clears errors
+      debugger
       const fieldUpdate = action.payload;
       const updatedFields = {
-        ...state.dataToUpdate,
+        ...state.data,
         ...fieldUpdate
       };
       return {

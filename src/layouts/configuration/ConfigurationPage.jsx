@@ -115,21 +115,6 @@ class ConfigurationPage extends React.PureComponent  {
     }
 
   }
-  // static getDerivedStateFromProps(props, state) {
-  //   // Any time the current user changes,
-  //   // Reset any parts of state that are tied to that user.
-  //   // In this simple example, that's just the email.
-  //   if (
-  //     (this.props.configuration===null && props.configuration)
-  //     ||
-  //     props.configuration && props.configuration.server && props.configuration.server.isStatic !== state.staticIP
-  //   ) {
-  //     return {
-  //       staticIP: props.configuration.server.isStatic
-  //     };
-  //   }
-  //   return null;
-  // }
 
   handleSMTPServerChange = event => {
       this.setState({ serverSMTP: {
@@ -145,12 +130,6 @@ class ConfigurationPage extends React.PureComponent  {
 
   };
 
-  // handleChange = event => {
-  //   this.setState({ server: {
-  //       ...this.state.server,
-  //       ...{isStatic: event.target.checked}} });
-  // };
-  //
   handleChangeEnabled = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -169,6 +148,7 @@ class ConfigurationPage extends React.PureComponent  {
   };
 
   postConfigurationUpdate = type => event => {
+    debugger
     let { configuration, configurationFieldUpdated, configurationAdd } = this.props;
     let {server} = this.state;
 
@@ -215,106 +195,112 @@ class ConfigurationPage extends React.PureComponent  {
                   />
                 </p>
               </CardHeader>
-              <CardBody>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={5}>
-                      <FormControlLabel
-                        control={(
-                          <Switch
-                            checked={this.state.server.isStatic}
-                            onChange={this.handleServerChange}
-                            value="isStatic"
-                            name="isStatic"
-                            color="primary"
+              <form onSubmit={this.postConfigurationUpdate("server")}>
+                <CardBody>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={5}>
+                          <FormControlLabel
+                            control={(
+                              <Switch
+                                checked={this.state.server.isStatic}
+                                onChange={this.handleServerChange}
+                                value="isStatic"
+                                name="isStatic"
+                                color="primary"
+                                classes={{
+                                  switchBase: classes.switchBase,
+                                  checked: classes.switchChecked,
+                                  icon: classes.switchIcon,
+                                  iconChecked: classes.switchIconChecked,
+                                  bar: classes.switchBar
+                                }}
+                              />
+    )}
                             classes={{
-                              switchBase: classes.switchBase,
-                              checked: classes.switchChecked,
-                              icon: classes.switchIcon,
-                              iconChecked: classes.switchIconChecked,
-                              bar: classes.switchBar
+                              label: classes.label
                             }}
+                            label={ <FormattedMessage id="configuration.network.staticIP.label" />}
                           />
-)}
-                        classes={{
-                          label: classes.label
-                        }}
-                        label={ <FormattedMessage id="configuration.network.staticIP.label" />}
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <TextField
+                        required
+                        id="address"
+                        name="address"
+                        label="IP"
+                        fullWidth
+                        className={classes.textField}
+                        value={this.state.server.address}
+                        onChange={this.handleServerChange}
+                        margin="normal"
+                        variant="standard"
                       />
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <TextField
-                      id="address"
-                      name="address"
-                      label="IP"
-                      fullWidth
-                      className={classes.textField}
-                      value={this.state.server.address}
-                      onChange={this.handleServerChange}
-                      margin="normal"
-                      variant="standard"
-                    />
 
-                    {/*<CustomInput*/}
-                      {/*labelText="IP"*/}
-                      {/*id="ip_address"*/}
-                      {/*formControlProps={{*/}
-                        {/*fullWidth: true*/}
-                      {/*}}*/}
-                    {/*/>*/}
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <TextField
-                      id="gatway"
-                      name="gatway"
-                      label="Gatway"
-                      fullWidth
-                      className={classes.textField}
-                      value={this.state.server.gatway}
-                      onChange={this.handleServerChange}
-                      margin="normal"
-                      variant="standard"
-                    />
+                      {/*<CustomInput*/}
+                        {/*labelText="IP"*/}
+                        {/*id="ip_address"*/}
+                        {/*formControlProps={{*/}
+                          {/*fullWidth: true*/}
+                        {/*}}*/}
+                      {/*/>*/}
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <TextField
+                        required
+                        id="gatway"
+                        name="gatway"
+                        label="Gatway"
+                        fullWidth
+                        className={classes.textField}
+                        value={this.state.server.gatway}
+                        onChange={this.handleServerChange}
+                        margin="normal"
+                        variant="standard"
+                      />
 
-                    {/*<CustomInput*/}
-                      {/*labelText="Gatway"*/}
-                      {/*id="gatway"*/}
-                      {/*formControlProps={{*/}
-                        {/*fullWidth: true*/}
-                      {/*}}*/}
-                    {/*/>*/}
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <TextField
-                      id="netMask"
-                      name="netMask"
-                      label="SubNet Mask"
-                      fullWidth
-                      className={classes.textField}
-                      value={this.state.server.netMask}
-                      onChange={this.handleServerChange}
-                      margin="normal"
-                      variant="standard"
-                    />
+                      {/*<CustomInput*/}
+                        {/*labelText="Gatway"*/}
+                        {/*id="gatway"*/}
+                        {/*formControlProps={{*/}
+                          {/*fullWidth: true*/}
+                        {/*}}*/}
+                      {/*/>*/}
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <TextField
+                        required
+                        id="netMask"
+                        name="netMask"
+                        label="SubNet Mask"
+                        fullWidth
+                        className={classes.textField}
+                        value={this.state.server.netMask}
+                        onChange={this.handleServerChange}
+                        margin="normal"
+                        variant="standard"
+                      />
 
-                    {/*<CustomInput*/}
-                      {/*labelText="Subnet Mask"*/}
-                      {/*id="subnet_mask"*/}
-                      {/*formControlProps={{*/}
-                        {/*fullWidth: true*/}
-                      {/*}}*/}
-                    {/*/>*/}
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-              <CardFooter>
-                <Button color="primary" onClick={this.postConfigurationUpdate("server")}>
-                  <FormattedMessage
-                    id="configuration.network.update"
-                  />
-                </Button>
-              </CardFooter>
+                      {/*<CustomInput*/}
+                        {/*labelText="Subnet Mask"*/}
+                        {/*id="subnet_mask"*/}
+                        {/*formControlProps={{*/}
+                          {/*fullWidth: true*/}
+                        {/*}}*/}
+                      {/*/>*/}
+                    </GridItem>
+                  </GridContainer>
+                </CardBody>
+                <CardFooter>
+                  <Button color="primary" type="submit">
+                    <FormattedMessage
+                      id="configuration.network.update"
+                    />
+                  </Button>
+                </CardFooter>
+              </form>
+
             </Card>
           </GridItem>
         </GridContainer>
@@ -334,105 +320,118 @@ class ConfigurationPage extends React.PureComponent  {
                       />
                     </p>
                   </CardHeader>
-                  <CardBody>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={8}>
-                        <TextField
-                          id="server"
-                          name="server"
-                          label="SMTP Server"
-                          fullWidth
-                          className={classes.textField}
-                          value={this.state.serverSMTP.server}
-                          onChange={this.handleSMTPServerChange}
-                          margin="normal"
-                          variant="standard"
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          id="SMTPPort"
-                          name="SMTPPort"
-                          label="SMTP Port"
-                          type="number"
-                          fullWidth
-                          className={classes.textField}
-                          value={this.state.serverSMTP.port}
-                          onChange={this.handleSMTPServerChange}
-                          margin="normal"
-                          variant="standard"
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={6}>
-                          <Grid container spacing={8} alignItems="flex-end">
-                            <Grid item>
-                              <AccountCircle />
-                            </Grid>
-                            <Grid item style={{width: "calc(100% - 32px)"}}>
-                              <TextField
-                                id="login"
-                                name="login"
-                                label="Login"
-                                fullWidth
-                                className={classes.textField}
-                                value={this.state.serverSMTP.login}
-                                onChange={this.handleSMTPServerChange}
-                                // margin="normal"
-                                variant="standard"
-                              />
-                            </Grid>
-                          </Grid>
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <FormControl className={classNames(classes.margin, classes.textField)}>
-                          <InputLabel htmlFor="password">Password</InputLabel>
-                          <Input
-                            id="password"
-                            name="password"
-                            type={this.state.showPassword ? 'text' : 'password'}
-                            value={this.state.serverSMTP.password}
+                  <form onSubmit={this.postConfigurationUpdate("serverSMTP")}>
+                    <CardBody>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={8}>
+                          <TextField
+                            required
+
+                            id="server"
+                            name="server"
+                            label="SMTP Server"
+                            fullWidth
+                            className={classes.textField}
+                            value={this.state.serverSMTP.server}
                             onChange={this.handleSMTPServerChange}
-                            endAdornment={
-                              <InputAdornment position="end">
-                                <IconButton
-                                  aria-label="Toggle password visibility"
-                                  onClick={this.handleClickShowPassword}
-                                >
-                                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                              </InputAdornment>
-                            }
+                            margin="normal"
+                            variant="standard"
                           />
-                        </FormControl>
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <TextField
-                          id="email-from-input"
-                          label="EMail from"
-                          value={this.state.serverSMTP.from}
-                          onChange={this.handleSMTPServerChange}
-                          fullWidth
-                          className={classes.textField}
-                          type="email"
-                          name="from"
-                          autoComplete="email"
-                          margin="normal"
-                          variant="standard"
-                        />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <TextField
+                            required
 
-                      </GridItem>
+                            id="SMTPPort"
+                            name="SMTPPort"
+                            label="SMTP Port"
+                            type="number"
+                            fullWidth
+                            className={classes.textField}
+                            value={this.state.serverSMTP.port}
+                            onChange={this.handleSMTPServerChange}
+                            margin="normal"
+                            variant="standard"
+                          />
+                        </GridItem>
+                      </GridContainer>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={6}>
+                            <Grid container spacing={8} alignItems="flex-end">
+                              <Grid item>
+                                <AccountCircle />
+                              </Grid>
+                              <Grid item style={{width: "calc(100% - 32px)"}}>
+                                <TextField
+                                  required
 
-                    </GridContainer>
-                  </CardBody>
-                  <CardFooter>
-                    <Button color="primary"><FormattedMessage
-                      id="configuration.smtpserver.update"
-                    /></Button>
-                  </CardFooter>
+                                  id="login"
+                                  name="login"
+                                  label="Login"
+                                  fullWidth
+                                  className={classes.textField}
+                                  value={this.state.serverSMTP.login}
+                                  onChange={this.handleSMTPServerChange}
+                                  // margin="normal"
+                                  variant="standard"
+                                />
+                              </Grid>
+                            </Grid>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={6}>
+                          <FormControl required className={classNames(classes.margin, classes.textField)}>
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input
+
+
+                              id="password"
+                              name="password"
+                              type={this.state.showPassword ? 'text' : 'password'}
+                              value={this.state.serverSMTP.password}
+                              onChange={this.handleSMTPServerChange}
+                              endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="Toggle password visibility"
+                                    onClick={this.handleClickShowPassword}
+                                  >
+                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            />
+                          </FormControl>
+                        </GridItem>
+                      </GridContainer>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={6}>
+                          <TextField
+                            required
+
+                            id="email-from-input"
+                            label="EMail from"
+                            value={this.state.serverSMTP.from}
+                            onChange={this.handleSMTPServerChange}
+                            fullWidth
+                            className={classes.textField}
+                            type="email"
+                            name="from"
+                            autoComplete="email"
+                            margin="normal"
+                            variant="standard"
+                          />
+
+                        </GridItem>
+
+                      </GridContainer>
+                    </CardBody>
+                    <CardFooter>
+                      <Button color="primary" type="submit">
+                        <FormattedMessage
+                        id="configuration.smtpserver.update"
+                      /></Button>
+                    </CardFooter>
+                  </form>
                 </Card>
               </GridItem>
 

@@ -1,4 +1,4 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { createLogic } from 'redux-logic';
 import React from 'react';
@@ -22,6 +22,7 @@ export function validateFields(data) {
   const errors = [];
   if (data.server && (data.server.isStatic === undefined || data.server.isStatic === null)) { errors.push('Server is required!'); }
   if (data.emailNotification && !data.serverSMTP) { errors.push('SMTP configuration is required'); }
+  if (data.serverSMTP && (!data.serverSMTP.from || !data.serverSMTP.password || !data.serverSMTP.port || !data.serverSMTP.server || !data.serverSMTP.login)) { errors.push('SMTP configuration not correct'); }
   return errors;
 }
 
@@ -33,21 +34,30 @@ export function validateFields(data) {
  */
 export const configurationUpdateValidationLogic = createLogic({
   type: CONFIGURATION_FIELD_UPDATED,
-  validate({ getState, action }, allow, reject) {
+  validate({ getState, action, storeDispatch }, allow, reject) {
+    debugger
     const state = getState();
     const dataToUpdate = configurationSel.data(state); // use selector to find dataToUpdate
+
     const fieldUpdate = action.payload;
-    // let's get all the current dataToUpdate and this update
-    // and we can see if this is going to pass our all field validation
     const updatedFields = {
       ...dataToUpdate,
       ...fieldUpdate
     };
+
+    // const fieldUpdate = action.payload;
+    // // let's get all the current dataToUpdate and this update
+    // // and we can see if this is going to pass our all field validation
+    // const updatedFields = {
+    //   ...dataToUpdate,
+    //   ...fieldUpdate
+    // };
     // validating
     const errors = validateFields(updatedFields);
     if (!errors.length) {
       allow(action); // no errors, let CONFIGURATION_FIELD_UPDATED go through
     } else { // errors, send a CONFIGURATION_FIELD_INVALID action instead
+      storeDispatch(addNotification({ message: <FormattedMessage id="configuration.save.failed" values={{ err: errors.map((errElem, idx) => (errElem.toLocaleString() + ((idx) ? ' - ' : ''))), br: <br /> }} />, variant: 'error', autoHide: false }));
       reject(configurationFieldInvalid(errors, fieldUpdate));
     }
   }
@@ -64,8 +74,9 @@ export const configurationUpdateValidationLogic = createLogic({
 export const configurationAddLogic = createLogic({
   type: CONFIGURATION_ADD,
   validate({ getState, action }, allow, reject) {
+    debugger
     const state = getState();
-    const dataToUpdate = configurationSel.data(state);
+    const dataToUpdate = configurationSel.dataToUpdate(state);
     const errors = validateFields(dataToUpdate);
     if (!errors.length) {
       allow(action); // no errors, let CONFIGURATION_ADD go through
@@ -80,7 +91,7 @@ export const configurationAddLogic = createLogic({
   // if it passed the validation hook then this will be executed
   process({ httpClient, getState }, dispatch, done) {
     const state = getState();
-    const dataToUpdate = configurationSel.data(state);
+    const dataToUpdate = configurationSel.dataToUpdate(state);
     httpClient.post(`http://${MICROCONTROLLER_ADRESS}/${CONFIGURATION_ENDPOINT}`, dataToUpdate)
       .then(resp => resp.data) // new user created is returned
       .then((respData) => {

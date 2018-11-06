@@ -8,6 +8,7 @@ import 'intl';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import it from 'react-intl/locale-data/it';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 
 // Our translated strings
 import localeData from './i18n/data.json';
@@ -17,9 +18,7 @@ import localeData from './i18n/data.json';
 import './style/app.less';
 import configureStore from './utils/configureStore';
 
-import { HashRouter, Switch, Route } from 'react-router-dom';
-
-import indexRoutes from './routes/index.jsx';
+import indexRoutes from './routes/index';
 
 String.prototype.toCamelCase = function () {
   return this.replace(/\b(\w)/g, (match, capture) => capture.toUpperCase()).replace(/\s+/g, '');
@@ -49,7 +48,7 @@ class App extends React.Component {
           <HashRouter>
             {/* <ResponsiveContainer/> */}
             <Switch>
-              {indexRoutes.map((prop, key) => <Route path={prop.path} component={prop.component} key={key} />)}
+              {indexRoutes.map((prop, key) => <Route path={prop.path} component={prop.component} key={key.toString()} />)}
             </Switch>
           </HashRouter>
         </IntlProvider>

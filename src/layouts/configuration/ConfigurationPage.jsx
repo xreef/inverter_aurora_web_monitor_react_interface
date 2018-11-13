@@ -87,13 +87,14 @@ class ConfigurationPage extends React.PureComponent {
 
       },
       serverSMTP: {
-        server: 'smtp.google.com',
+        server: 'smtp.gmail.com',
         port: 465,
         login: '',
         password: '',
         from: ''
       },
       emailNotification: {
+        isNotificationEnabled: false,
         subject: this.props.intl.formatMessage(messagesIntl.subject),
         messageProblem: this.props.intl.formatMessage(messagesIntl.notificationProblem),
         messageNoProblem: this.props.intl.formatMessage(messagesIntl.notificationNoProblem),
@@ -173,7 +174,6 @@ class ConfigurationPage extends React.PureComponent {
   };
 
   postConfigurationUpdate = type => event => {
-    debugger;
     let { configuration, configurationFieldUpdated, configurationAdd } = this.props;
     let { server } = this.state;
 
@@ -186,6 +186,7 @@ class ConfigurationPage extends React.PureComponent {
 
     this.setState({
       emailNotification: {
+        ...this.state.emailNotification,
         emailList: [
           ...this.state.emailNotification.emailList,
           {
@@ -211,8 +212,17 @@ class ConfigurationPage extends React.PureComponent {
     this.handleClose('insertEmailModal');
   };
 
+  handleEmailNotificationChange = event => {
+    this.setState({
+      emailNotification: {
+        ...this.state.emailNotification,
+        ...{ [event.target.name]: (event.target.name === 'isNotificationEnabled') ? event.target.checked : event.target.value }
+      }
+    });
+
+  };
+
   deleteModalTableElement = idElement => {
-    debugger
     let el = this.state.emailNotification.emailList;
     el.splice(idElement,1);
     this.setState({
@@ -1062,6 +1072,33 @@ class ConfigurationPage extends React.PureComponent {
                 <form onSubmit={this.postConfigurationUpdate('emailNotification')}>
 
                   <CardBody>
+
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <FormControlLabel
+                          control={(
+                            <Switch
+                              checked={this.state.emailNotification.isNotificationEnabled}
+                              onChange={this.handleEmailNotificationChange}
+                              value="isNotificationEnabled"
+                              name="isNotificationEnabled"
+                              color="primary"
+                              classes={{
+                                switchBase: classes.switchBase,
+                                checked: classes.switchChecked,
+                                icon: classes.switchIcon,
+                                iconChecked: classes.switchIconChecked,
+                                bar: classes.switchBar
+                              }}
+                            />
+                          )}
+                          classes={{
+                            label: classes.label
+                          }}
+                          label={<FormattedMessage id="configuration.email.notification.enabled.label"/>}
+                        />
+                      </GridItem>
+                    </GridContainer>
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={12}>
                         <Table

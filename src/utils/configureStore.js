@@ -44,13 +44,25 @@ const configureStore = (id, initialConfig, autoSaveToLocalStorage) => {
 
   if (autoSaveToLocalStorage) {
     const loadedState = { ...initialConfig, ...loadState(`currState${id}`) };
+    console.log('LOAD STATE ', `currState${id}`, loadedState);
 
     store = createStore(reducer, loadedState, applyMiddleware(...middlewares));
 
     logicMiddleware.addDeps({ storeDispatch: store.dispatch });
 
     store.subscribe(throttle(() => {
-      saveState(`currState${id}`, {});
+      saveState(`currState${id}`, {
+        home:
+          {
+            ...{
+              layouts: {
+                lg: [], md: [], sm: [], xs: [], xxs: [],
+              },
+              elements: []
+            },
+            ...store.getState().home
+          }
+      });
     }), 1000);
   } else {
     const loadedState = { ...initialConfig };

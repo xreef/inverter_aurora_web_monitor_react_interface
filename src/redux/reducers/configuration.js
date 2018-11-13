@@ -59,7 +59,6 @@ export default function reducer(state = initialState, action) {
 
     case CONFIGURATION_FIELD_UPDATED:
     { // updates dataToUpdate and clears errors
-      debugger
       const fieldUpdate = action.payload;
       const updatedFields = {
         ...state.data,

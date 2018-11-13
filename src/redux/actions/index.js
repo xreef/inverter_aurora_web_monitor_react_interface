@@ -31,7 +31,9 @@ import {
   configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed
 
 } from './configuration';
-
+import {
+  setHomeLayout, addElementToHome, removeElementFromHome
+} from './home'
 export {
   setVersion,
   addNotification, shiftNotification,
@@ -44,5 +46,6 @@ export {
   inverterInfoFetch, inverterInfoFetchCancel, inverterInfoFetchFulfilled, inverterInfoFetchRejected,
   inverterAlarmsFetch, inverterAlarmsFetchCancel, inverterAlarmsFetchFulfilled, inverterAlarmsFetchRejected,
   configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected,
-  configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed
+  configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed,
+  setHomeLayout, addElementToHome, removeElementFromHome
 };

@@ -87,6 +87,11 @@ const boxStyle = theme => ({
     position: 'absolute',
     right: '10px',
     top: '10px'
+  },
+  buttonHeader2: {
+    position: 'absolute',
+    right: '60px',
+    top: '10px'
   }
 });
 

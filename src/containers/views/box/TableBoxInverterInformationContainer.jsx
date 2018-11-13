@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
 
 import {
-    inverterInfoFetch
+  inverterInfoFetch
 } from '../../../redux/actions';
 
-import TableBoxInverterInformation from "../../../layouts/box/tableBox/TableBoxInverterInformation";
+import TableBoxInverterInformation from '../../../layouts/box/tableBox/TableBoxInverterInformation';
 
 const mapStateToProps = (state, ownProps) => ({
-    data: state.inverterInfo.data,
-    isFetching: state.inverterInfo.isFetching,
-    lastUpdate: state.inverterInfo.lastUpdate
+  data: state.inverterInfo.data,
+  isFetching: state.inverterInfo.isFetching,
+  lastUpdate: state.inverterInfo.lastUpdate
 });
 
 const mapDispatchToProps = {
-    inverterInfoFetch: inverterInfoFetch
+  inverterInfoFetch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableBoxInverterInformation);

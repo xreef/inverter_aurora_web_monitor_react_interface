@@ -41,13 +41,15 @@
     "react-stockcharts": "file:react-stockcharts-0.7.8.tgz",
     "redux": "^3.6.0",
     "redux-logic": "^2.0.1",
-    "save-svg-as-png": "=1.2.0"
+    "save-svg-as-png": "=1.2.0",
+    "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
     "@material-ui/core": "^3.1.1",
     "@material-ui/icons": "^3.0.1",
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.24.1",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^6.4.1",
     "babel-plugin-react-intl": "^2.3.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -80,7 +82,6 @@
     "less-loader": "^4.0.3",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
     "raw-loader": "^0.5.1",
     "rgbcolor": "^1.0.1",
     "stackblur": "^1.0.0",

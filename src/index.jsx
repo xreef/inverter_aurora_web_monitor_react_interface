@@ -32,7 +32,17 @@ class App extends React.Component {
 
     // let data = dataFile;
 
-    this.store = configureStore('aurora', {}, true);
+    this.store = configureStore('aurora',
+      {
+        home: {
+          layouts: {
+            lg: [], md: [], sm: [], xs: [], xxs: [],
+          },
+          elements: []
+        }
+
+      },
+      true);
   }
 
   // Change flux for correct data name

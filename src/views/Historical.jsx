@@ -7,7 +7,7 @@ class Historical extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newElements: [
+      elements: [
         // {i: guid(), ...{...boxes['tableBoxInverterAlarmsContainer']}},
         // {i: guid(), ...{...boxes['tableBoxInverterInformationContainer']}},
         { i: guid(), ...{ ...boxes.chartBoxMonthly } },
@@ -30,7 +30,7 @@ class Historical extends React.Component {
   render() {
     return (
       <ResponsiveGrid
-        newElements={[...this.state.newElements]}
+        elements={[...this.state.elements]}
         layouts={{
           lg: [], md: [], sm: [], xs: [], xxs: [],
         }}

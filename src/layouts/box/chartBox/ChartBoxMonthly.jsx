@@ -50,7 +50,6 @@ class ChartBoxMonthly extends React.Component {
   }
 
   handleChange = (e) => {
-    debugger
     this.setState({[e.target.name]: e.target.value});
     let my = {
       month: this.state.month,

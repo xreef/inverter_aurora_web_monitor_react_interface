@@ -114,9 +114,9 @@
 
     "configuration.email.notification.no_problem.label": "Message for problem solved",
     "configuration.email.notification.no_problem.helper": "This is the text sended when problem is solved on your inverter!",
-    "configuration.email.notification.no_problem.default": "A problem is restored on your inverter:"
+    "configuration.email.notification.no_problem.default": "A problem is restored on your inverter:",
 
-
+    "home.fab.tooltip": "Locally save current layouts of this page"
   },
   "it": {
     "menu.sidebar.home": "Home",
@@ -233,7 +233,8 @@
 
     "configuration.email.notification.no_problem.label": "Messaggio per ripristino problema",
     "configuration.email.notification.no_problem.helper": "Questo testo viene inviato quando un problema al tuo inverter viene ripristinato!",
-    "configuration.email.notification.no_problem.default": "E' stato ripristinato lo stato del tuo inverter:"
+    "configuration.email.notification.no_problem.default": "E' stato ripristinato lo stato del tuo inverter:",
 
+    "home.fab.tooltip": "Salva localmente i layouts di questa pagina"
   }
 }

@@ -22,6 +22,8 @@ import AreaChart from '../../../component/charts/AreaChart';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
 import Button from '../../../component/customButtons/Button';
+import FavoriteIconSelected from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 
 
 class ChartBoxProduction extends React.Component {
@@ -54,8 +56,17 @@ class ChartBoxProduction extends React.Component {
     this.props.inverterDailyFetch(moment(this.state.dayTextValue, 'YYYY-MM-DD').format('YYYYMMDD'), this.props.dataType);
   };
 
+  handleHome = () => {
+    const {isInHome, removeElementFromHome, addElementToHome, boxType} = this.props;
+    if (this.props.isInHome){
+      removeElementFromHome(boxType);
+    }else{
+      addElementToHome(boxType);
+    }
+  };
+
   render() {
-    const { classes, id } = this.props;
+    const { classes, id, isInHome } = this.props;
     const {
       data, dataType, isFetching,
     } = this.props;
@@ -83,7 +94,10 @@ class ChartBoxProduction extends React.Component {
               id={`chart.production.${dataType}.title`}
               defaultMessage={title}
             />
-            <Button justIcon round color={color} className={classes.buttonHeader} onClick={this.refreshData}>
+            <Button justIcon round color={color}  className={classes.buttonHeader2} onClick={this.handleHome}>
+              {isInHome?<FavoriteIconSelected />:<FavoriteIcon/>}
+            </Button>
+            <Button justIcon round color={color}  className={classes.buttonHeader} onClick={this.refreshData}>
               <Refresh/>
             </Button>
           </h4>
@@ -150,6 +164,10 @@ ChartBoxProduction.propTypes = {
   subtitle: PropTypes.string,
   isFetching: PropTypes.bool,
   inverterDailyFetch: PropTypes.func,
+  addElementToHome: PropTypes.func,
+  removeElementFromHome: PropTypes.func,
+  boxType: PropTypes.string,
+  isInHome: PropTypes.bool
 };
 ChartBoxProduction.defaultProps = {
   day: moment().format('YYYYMMDD'),

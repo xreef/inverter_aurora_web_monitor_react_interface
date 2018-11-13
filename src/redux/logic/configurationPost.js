@@ -35,7 +35,6 @@ export function validateFields(data) {
 export const configurationUpdateValidationLogic = createLogic({
   type: CONFIGURATION_FIELD_UPDATED,
   validate({ getState, action, storeDispatch }, allow, reject) {
-    debugger
     const state = getState();
     const dataToUpdate = configurationSel.data(state); // use selector to find dataToUpdate
 
@@ -74,7 +73,6 @@ export const configurationUpdateValidationLogic = createLogic({
 export const configurationAddLogic = createLogic({
   type: CONFIGURATION_ADD,
   validate({ getState, action }, allow, reject) {
-    debugger
     const state = getState();
     const dataToUpdate = configurationSel.dataToUpdate(state);
     const errors = validateFields(dataToUpdate);

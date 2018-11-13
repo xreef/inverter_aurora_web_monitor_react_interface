@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
 import {
-    productionTotalsFetch
+  productionTotalsFetch
 } from '../../../redux/actions';
 
-import InformativeBox from "../../../layouts/box/informativeBox/InformativeBox";
+import InformativeBox from '../../../layouts/box/informativeBox/InformativeBox';
 
 /*
 lifetime
@@ -13,13 +13,13 @@ montly
 weekly
  */
 const mapStateToProps = (state, ownProps) => ({
-    dataType: 'yearly',
-    lastUpdate: state.productionTotals.lastUpdate,
-    value: state.productionTotals.energyYearly
+  dataType: 'yearly',
+  lastUpdate: state.productionTotals.lastUpdate,
+  value: state.productionTotals.energyYearly
 });
 
 const mapDispatchToProps = {
-    productionTotalsFetch
+  productionTotalsFetch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InformativeBox);

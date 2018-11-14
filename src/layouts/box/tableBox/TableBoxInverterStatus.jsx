@@ -1,29 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
-
 import { withStyles } from '@material-ui/core';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { defineMessages, injectIntl } from 'react-intl';
-import { FormattedMessage, FormattedDate } from 'react-intl';
-import SentimentSatisfied from '@material-ui/icons/SentimentSatisfied';
-import SentimentDissatisfied from '@material-ui/icons/SentimentDissatisfied';
-import SentimentVeryDissatisfied from '@material-ui/icons/SentimentVeryDissatisfied';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import FavoriteIconSelected from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 
 import Refresh from '@material-ui/icons/Refresh';
 
-import Button from '../../../component/customButtons/Button.jsx';
-import Card from '../../../component/card/Card.jsx';
-import CardHeader from '../../../component/card/CardHeader.jsx';
-import CardIcon from '../../../component/card/CardIcon.jsx';
-import CardBody from '../../../component/card/CardBody.jsx';
-import CardFooter from '../../../component/card/CardFooter.jsx';
+import Button from '../../../component/customButtons/Button';
+import Card from '../../../component/card/Card';
+import CardHeader from '../../../component/card/CardHeader';
+import CardBody from '../../../component/card/CardBody';
 
 import boxStyle from '../style/boxStyle';
 import Table from '../../../component/table/Table';
-import AreaChart from '../../../component/charts/AreaChart';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
 
@@ -35,13 +28,25 @@ class TableBoxInverterInformation extends React.Component {
     super(props);
     props.inverterAlarmsFetch();
   }
+
   refreshData = () => {
     this.props.inverterAlarmsFetch();
   };
 
+  handleHome = () => {
+    const {
+      isInHome, removeElementFromHome, addElementToHome, boxType
+    } = this.props;
+    if (isInHome) {
+      removeElementFromHome(boxType);
+    } else {
+      addElementToHome(boxType);
+    }
+  };
+
   render() {
     const { classes, id } = this.props;
-    const { data, isFetching } = this.props;
+    const { data, isFetching, isInHome } = this.props;
     const { color } = this.props;
 
     const messagesIntl = defineMessages(
@@ -61,6 +66,9 @@ class TableBoxInverterInformation extends React.Component {
             <FormattedMessage
               id="table.inverter.state.title"
             />
+            <Button justIcon round color={color} className={classes.buttonHeader2} onClick={this.handleHome}>
+              {isInHome ? <FavoriteIconSelected /> : <FavoriteIcon />}
+            </Button>
             <Button justIcon round color={color} className={classes.buttonHeader} onClick={this.refreshData}>
               <Refresh />
             </Button>
@@ -109,11 +117,18 @@ TableBoxInverterInformation.propTypes = {
     'primary',
     'rose'
   ]),
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  inverterAlarmsFetch: PropTypes.func.isRequired,
+  addElementToHome: PropTypes.func.isRequired,
+  removeElementFromHome: PropTypes.func.isRequired,
+  boxType: PropTypes.string.isRequired,
+  isInHome: PropTypes.bool.isRequired
+
 };
 TableBoxInverterInformation.defaultProps = {
   color: 'warning',
-  isFetching: false
+  isFetching: false,
+  data: null
 };
 
 export default withStyles(boxStyle)(injectIntl(TableBoxInverterInformation));

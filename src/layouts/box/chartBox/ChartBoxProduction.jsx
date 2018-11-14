@@ -8,13 +8,15 @@ import TextField from '@material-ui/core/TextField';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Card from '../../../component/card/Card.jsx';
-import CardHeader from '../../../component/card/CardHeader.jsx';
+import Refresh from '@material-ui/icons/Refresh';
+import FavoriteIconSelected from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
+import Card from '../../../component/card/Card';
+import CardHeader from '../../../component/card/CardHeader';
 // import CardIcon from '../../../component/card/CardIcon.jsx';
-import CardBody from '../../../component/card/CardBody.jsx';
+import CardBody from '../../../component/card/CardBody';
 // import CardFooter from '../../../component/card/CardFooter.jsx';
 
-import Refresh from '@material-ui/icons/Refresh';
 
 import boxStyle from '../style/boxStyle';
 // import Table from '../../../component/table/Table';
@@ -22,8 +24,6 @@ import AreaChart from '../../../component/charts/AreaChart';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
 import Button from '../../../component/customButtons/Button';
-import FavoriteIconSelected from '@material-ui/icons/Favorite';
-import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 
 
 class ChartBoxProduction extends React.Component {
@@ -32,16 +32,16 @@ class ChartBoxProduction extends React.Component {
     const { day, dataType } = this.props;
 
     let momentDay;
-    if (day && day!=="") {
+    if (day && day !== '') {
       momentDay = moment(day, 'YYYYMMDD');
-    }else{
+    } else {
       momentDay = moment();
     }
     props.inverterDailyFetch(momentDay.format('YYYYMMDD'), dataType);
 
     this.state = {
       dayTextValue: momentDay.format('YYYY-MM-DD')
-    }
+    };
   }
 
   onChangeDate = (e) => {
@@ -57,10 +57,12 @@ class ChartBoxProduction extends React.Component {
   };
 
   handleHome = () => {
-    const {isInHome, removeElementFromHome, addElementToHome, boxType} = this.props;
-    if (this.props.isInHome){
+    const {
+      isInHome, removeElementFromHome, addElementToHome, boxType
+    } = this.props;
+    if (isInHome) {
       removeElementFromHome(boxType);
-    }else{
+    } else {
       addElementToHome(boxType);
     }
   };
@@ -70,7 +72,7 @@ class ChartBoxProduction extends React.Component {
     const {
       data, dataType, isFetching,
     } = this.props;
-    const {dayTextValue} = this.state;
+    const { dayTextValue } = this.state;
     const { color, title, subtitle } = this.props;
 
     const momentDay = moment(dayTextValue, 'YYYY-MM-DD');
@@ -94,11 +96,11 @@ class ChartBoxProduction extends React.Component {
               id={`chart.production.${dataType}.title`}
               defaultMessage={title}
             />
-            <Button justIcon round color={color}  className={classes.buttonHeader2} onClick={this.handleHome}>
-              {isInHome?<FavoriteIconSelected />:<FavoriteIcon/>}
+            <Button justIcon round color={color} className={classes.buttonHeader2} onClick={this.handleHome}>
+              {isInHome ? <FavoriteIconSelected /> : <FavoriteIcon />}
             </Button>
-            <Button justIcon round color={color}  className={classes.buttonHeader} onClick={this.refreshData}>
-              <Refresh/>
+            <Button justIcon round color={color} className={classes.buttonHeader} onClick={this.refreshData}>
+              <Refresh />
             </Button>
           </h4>
           <div className={classes.cardCategoryWhite}>
@@ -114,7 +116,7 @@ class ChartBoxProduction extends React.Component {
               onChange={this.onChangeDate}
               // defaultValue="2017-05-24"
               className={classes.textField}
-              required={true}
+              required
               InputProps={
                 {
                   className: classes.cardCategoryWhite,
@@ -163,11 +165,11 @@ ChartBoxProduction.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   isFetching: PropTypes.bool,
-  inverterDailyFetch: PropTypes.func,
-  addElementToHome: PropTypes.func,
-  removeElementFromHome: PropTypes.func,
-  boxType: PropTypes.string,
-  isInHome: PropTypes.bool
+  inverterDailyFetch: PropTypes.func.isRequired,
+  addElementToHome: PropTypes.func.isRequired,
+  removeElementFromHome: PropTypes.func.isRequired,
+  boxType: PropTypes.string.isRequired,
+  isInHome: PropTypes.bool.isRequired
 };
 ChartBoxProduction.defaultProps = {
   day: moment().format('YYYYMMDD'),

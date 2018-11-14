@@ -4,7 +4,7 @@ import { selectors as homeSelector } from '../../../redux/reducers/home';
 import {
   productionTotalsFetch,
   addElementToHome,
-  removeElementFromHome, inverterDailyVoltageFetch
+  removeElementFromHome
 } from '../../../redux/actions';
 
 import InformativeBox from '../../../layouts/box/informativeBox/InformativeBox';

@@ -8,11 +8,14 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Card from '../../../component/card/Card';
 import CardHeader from '../../../component/card/CardHeader';
 import CardBody from '../../../component/card/CardBody';
+import FavoriteIconSelected from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 
 import boxStyle from '../style/boxStyle';
 import Table from '../../../component/table/Table';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
+import Button from '../../../component/customButtons/Button';
 
 class TableBoxInverterInformation extends React.Component {
   constructor(props) {
@@ -20,9 +23,20 @@ class TableBoxInverterInformation extends React.Component {
     props.inverterInfoFetch();
   }
 
+  handleHome = () => {
+    const {
+      isInHome, removeElementFromHome, addElementToHome, boxType
+    } = this.props;
+    if (isInHome) {
+      removeElementFromHome(boxType);
+    } else {
+      addElementToHome(boxType);
+    }
+  };
+
   render() {
     const { classes, id } = this.props;
-    const { data, isFetching } = this.props;
+    const { data, isFetching, isInHome } = this.props;
     const { color } = this.props;
 
     const messagesIntl = defineMessages(
@@ -48,6 +62,9 @@ class TableBoxInverterInformation extends React.Component {
             <FormattedMessage
               id="table.inverter.info.title"
             />
+            <Button justIcon round color={color} className={classes.buttonHeader} onClick={this.handleHome}>
+              {isInHome ? <FavoriteIconSelected /> : <FavoriteIcon />}
+            </Button>
           </h4>
           <p className={classes.cardCategoryWhite}>
             <FormattedMessage
@@ -102,11 +119,16 @@ TableBoxInverterInformation.propTypes = {
     'rose'
   ]),
   isFetching: PropTypes.bool,
-  inverterInfoFetch: PropTypes.funct
+  inverterInfoFetch: PropTypes.func.isRequired,
+  addElementToHome: PropTypes.func.isRequired,
+  removeElementFromHome: PropTypes.func.isRequired,
+  boxType: PropTypes.string.isRequired,
+  isInHome: PropTypes.bool.isRequired
 };
 TableBoxInverterInformation.defaultProps = {
   color: 'warning',
-  isFetching: false
+  isFetching: false,
+  data: null
 };
 
 export default withStyles(boxStyle)(injectIntl(TableBoxInverterInformation));

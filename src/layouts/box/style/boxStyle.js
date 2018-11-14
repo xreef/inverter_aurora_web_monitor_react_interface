@@ -83,6 +83,12 @@ const boxStyle = theme => ({
     paddingRight: '20px',
     marginBottom: '-5px'
   },
+  buttonFooter: {
+    right: '10px',
+    position: 'absolute',
+    padding: '0px 0px 7px',
+    margin: '0px'
+  },
   buttonHeader: {
     position: 'absolute',
     right: '10px',

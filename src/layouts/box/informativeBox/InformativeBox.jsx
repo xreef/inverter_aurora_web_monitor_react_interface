@@ -6,25 +6,39 @@ import {
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import DateRange from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+
+import FavoriteIconSelected from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import boxStyle from '../style/boxStyle';
-import Card from '../../../component/card/Card.jsx';
-import CardHeader from '../../../component/card/CardHeader.jsx';
-import CardIcon from '../../../component/card/CardIcon.jsx';
-import CardBody from '../../../component/card/CardBody.jsx';
-import CardFooter from '../../../component/card/CardFooter.jsx';
+import Card from '../../../component/card/Card';
+import CardHeader from '../../../component/card/CardHeader';
+import CardIcon from '../../../component/card/CardIcon';
+import CardFooter from '../../../component/card/CardFooter';
+import Button from '../../../component/customButtons/Button';
 
 
 class InformativeBox extends React.Component {
   constructor(props) {
     super(props);
-    const { dataType } = this.props;
     props.productionTotalsFetch();
   }
 
+  handleHome = () => {
+    const {
+      isInHome, removeElementFromHome, addElementToHome, boxType
+    } = this.props;
+    if (isInHome) {
+      removeElementFromHome(boxType);
+    } else {
+      addElementToHome(boxType);
+    }
+  };
+
   render() {
     const { classes, id, color } = this.props;
-    const { value, dataType, lastUpdate } = this.props;
+    const {
+      value, dataType, lastUpdate, isInHome
+    } = this.props;
 
     return (
       <Card>
@@ -52,6 +66,9 @@ Kw
             {' '}
             {(lastUpdate) ? [<FormattedDate key={0} value={lastUpdate} />, ' ', <FormattedTime key={1} value={lastUpdate} />] : '-'}
           </div>
+          <Button color="transparent" className={classes.buttonFooter} onClick={this.handleHome}>
+            {isInHome ? <FavoriteIconSelected /> : <FavoriteIcon />}
+          </Button>
         </CardFooter>
       </Card>
     );
@@ -66,7 +83,8 @@ InformativeBox.propTypes = {
     'lifetime',
     'yearly',
     'montly',
-    'weekly'
+    'weekly',
+    'daily'
   ]),
   id: PropTypes.string.isRequired,
   color: PropTypes.oneOf([
@@ -77,12 +95,17 @@ InformativeBox.propTypes = {
     'primary',
     'rose'
   ]),
-  productionTotalsFetch: PropTypes.func
+  productionTotalsFetch: PropTypes.func.isRequired,
+  addElementToHome: PropTypes.func.isRequired,
+  removeElementFromHome: PropTypes.func.isRequired,
+  boxType: PropTypes.string.isRequired,
+  isInHome: PropTypes.bool.isRequired
 };
 InformativeBox.defaultProps = {
-  day: moment().format('YYYYMMDD'),
   dataType: 'lifetime',
-  color: 'warning'
+  color: 'warning',
+  value: null,
+  lastUpdate: null
 };
 
 

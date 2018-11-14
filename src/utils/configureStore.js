@@ -61,6 +61,33 @@ const configureStore = (id, initialConfig, autoSaveToLocalStorage) => {
               elements: []
             },
             ...store.getState().home
+          },
+        daily:
+          {
+            ...{
+              layouts: {
+                lg: [], md: [], sm: [], xs: [], xxs: [],
+              }
+            },
+            ...store.getState().daily
+          },
+        historical:
+          {
+            ...{
+              layouts: {
+                lg: [], md: [], sm: [], xs: [], xxs: [],
+              }
+            },
+            ...store.getState().historical
+          },
+        inverterInfoState:
+          {
+            ...{
+              layouts: {
+                lg: [], md: [], sm: [], xs: [], xxs: [],
+              }
+            },
+            ...store.getState().inverterInfoState
           }
       });
     }), 1000);

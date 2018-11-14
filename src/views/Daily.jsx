@@ -1,7 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import connect from 'react-redux/es/connect/connect';
 import ResponsiveGrid from '../component/responsiveGrid/ResponsiveGrid';
-import guid from '../utils/math/guid';
 import boxes from '../layouts/box/boxes';
+
+import {
+  setDailyLayout
+} from '../redux/actions';
+import { selectors as dailySelector } from '../redux/reducers/daily';
+
 
 class Daily extends React.Component {
   constructor(props) {
@@ -16,17 +23,18 @@ class Daily extends React.Component {
         // {i: guid(), ...{...boxes['informativeBoxYearlyProductionContainer']}},
         // {i: guid(), ...{...boxes['informativeBoxMontlyProductionContainer']}},
         // {i: guid(), ...{...boxes['informativeBoxWeeklyProductionContainer']}}
-        { i: guid(), ...{ ...boxes.chartBoxProductionPower } },
-        { i: guid(), ...{ ...boxes.chartBoxProductionCurrent } },
+        { i: 'informativeBoxDailyProductionContainerId', ...{ ...boxes.informativeBoxDailyProductionContainer } },
+        { i: 'chartBoxProductionPowerId', ...{ ...boxes.chartBoxProductionPower } },
+        { i: 'chartBoxProductionCurrentId', ...{ ...boxes.chartBoxProductionCurrent } },
         {
-          i: guid(),
+          i: 'chartBoxProductionVoltageId',
           ...{ ...boxes.chartBoxProductionVoltage },
           ...{
             additionalInfo: {
               ...boxes.chartBoxProductionVoltage.additionalInfo,
-              settingsProps: {
-                day: '20181019',
-              },
+              // settingsProps: {
+              //   day: '20181019',
+              // },
             },
           },
         },
@@ -35,19 +43,38 @@ class Daily extends React.Component {
   }
 
   render() {
+    const { layouts, saveLayouts } = this.props;
+
     return (
       <ResponsiveGrid
         elements={[...this.state.elements]}
-        layouts={{
-          lg: [], md: [], sm: [], xs: [], xxs: [],
-        }}
+        layouts={layouts}
+        showSaveLayoutsButton
+        saveLayouts={saveLayouts}
       />
     );
   }
 }
 
 Daily.propTypes = {
+  layouts: PropTypes.object,
 
+  saveLayouts: PropTypes.func
 };
 
-export default Daily;
+Daily.defaultProps = {
+  layouts: {
+    lg: [], md: [], sm: [], xs: [], xxs: [],
+  },
+  saveLayouts: () => console.log('Save layout')
+};
+
+const mapStateToProps = (state, ownProps) => ({
+  layouts: dailySelector.layouts(state),
+});
+
+const mapDispatchToProps = {
+  saveLayouts: setDailyLayout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Daily);

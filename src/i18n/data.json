@@ -1,5 +1,9 @@
 {
   "en": {
+    "layouts.set": "Layouts of the page are saved on device",
+    "layouts.home.add": "Element added to home page",
+    "layouts.home.remove": "Element removed from home page",
+
     "menu.sidebar.home": "Home",
     "menu.navbar.home": "Home",
 
@@ -38,6 +42,7 @@
     "informative.total.yearly.title": "Total yearly production",
     "informative.total.montly.title": "Total montly production",
     "informative.total.weekly.title": "Total weekly production",
+    "informative.total.daily.title": "Total daily production",
 
     "chart.monthly.production.title": "Monthly production chart",
     "chart.monthly.production.subtitle": "Reference month: ",
@@ -119,6 +124,10 @@
     "home.fab.tooltip": "Locally save current layouts of this page"
   },
   "it": {
+    "layouts.set": "Il layout è stato salvato sul dispositivo",
+    "layouts.home.add": "Elemento aggiunto alla home page",
+    "layouts.home.remove": "Elemento rimosso dalla home page",
+
     "menu.sidebar.home": "Home",
     "menu.navbar.home": "Home",
 
@@ -157,6 +166,8 @@
     "informative.total.yearly.title": "Produzione annuale",
     "informative.total.montly.title": "Produzione mensile",
     "informative.total.weekly.title": "Produzione settimanale",
+    "informative.total.daily.title": "Produzione giornaliera",
+
     "chart.monthly.production.label": "Watt giornalieri",
 
     "chart.monthly.production.title": "Grafico produzione mensile",

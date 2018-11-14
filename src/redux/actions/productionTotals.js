@@ -12,38 +12,39 @@ export const PRODUCTION_TOTALS_FETCH_FULFILLED = 'PRODUCTION_TOTALS_FETCH_FULFIL
 export const PRODUCTION_TOTALS_FETCH_REJECTED = 'PRODUCTION_TOTALS_FETCH_REJECTED';
 
 export const actionTypes = {
-    PRODUCTION_TOTALS_FETCH,
-    PRODUCTION_TOTALS_FETCH_CANCEL,
-    PRODUCTION_TOTALS_FETCH_FULFILLED,
-    PRODUCTION_TOTALS_FETCH_REJECTED
+  PRODUCTION_TOTALS_FETCH,
+  PRODUCTION_TOTALS_FETCH_CANCEL,
+  PRODUCTION_TOTALS_FETCH_FULFILLED,
+  PRODUCTION_TOTALS_FETCH_REJECTED
 };
 
 // action creators
 export const productionTotalsFetch = () => ({
-            type: PRODUCTION_TOTALS_FETCH
-        });
-export const productionTotalsFetchCancel = () => (
-    {
-        type: PRODUCTION_TOTALS_FETCH_CANCEL
-    }
-    );
-export const productionTotalsFetchFulfilled = (payload) => ({
-    type: PRODUCTION_TOTALS_FETCH_FULFILLED,
-    energyLifetime:payload.energyLifetime,
-    energyYearly:payload.energyYearly,
-    energyMonthly:payload.energyMonthly,
-    energyWeekly:payload.energyWeekly,
-    lastUpdate:payload.lastUpdate
+  type: PRODUCTION_TOTALS_FETCH
 });
-export const productionTotalsFetchRejected = (err) => ({
-    type: PRODUCTION_TOTALS_FETCH_REJECTED,
-    err: err,
-    error: true
+export const productionTotalsFetchCancel = () => (
+  {
+    type: PRODUCTION_TOTALS_FETCH_CANCEL
+  }
+);
+export const productionTotalsFetchFulfilled = payload => ({
+  type: PRODUCTION_TOTALS_FETCH_FULFILLED,
+  energyLifetime: payload.energyLifetime,
+  energyYearly: payload.energyYearly,
+  energyMonthly: payload.energyMonthly,
+  energyWeekly: payload.energyWeekly,
+  energyDaily: payload.energyDaily,
+  lastUpdate: payload.lastUpdate
+});
+export const productionTotalsFetchRejected = err => ({
+  type: PRODUCTION_TOTALS_FETCH_REJECTED,
+  err,
+  error: true
 });
 
 export const actions = {
-    productionTotalsFetch,
-    productionTotalsFetchCancel,
-    productionTotalsFetchFulfilled,
-    productionTotalsFetchRejected
+  productionTotalsFetch,
+  productionTotalsFetchCancel,
+  productionTotalsFetchFulfilled,
+  productionTotalsFetchRejected
 };

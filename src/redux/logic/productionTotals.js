@@ -24,12 +24,14 @@ const productionTotalsFetchLogic = createLogic({
 
   process({ httpClient, getState, action }, dispatch, done) {
     return axios.get(`http://${MICROCONTROLLER_ADRESS}/${PRODUCTION_TOTALS_ENDPOINT}`)
-      .then((resp) => {
+      .then((respOri) => {
+        const resp = { ...respOri };
         resp.data.lastUpdate = new Date(moment(resp.data.lastUpdate, 'DD/MM/YYYY HH:mm:ss').valueOf());
         resp.data.energyLifetime = parseInt(resp.data.energyLifetime);
         resp.data.energyYearly = parseInt(resp.data.energyYearly);
         resp.data.energyMonthly = parseInt(resp.data.energyMonthly);
         resp.data.energyWeekly = parseInt(resp.data.energyWeekly);
+        resp.data.energyDaily = parseInt(resp.data.energyDaily);
         return resp.data;
       });
     // .then(data => dispatch({ type:PRODUCTION_TOTALS_FETCH_FULFILLED, payload: data }))

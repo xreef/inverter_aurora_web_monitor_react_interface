@@ -7,6 +7,7 @@ import InformativeBoxLifetimeProductionContainer from '../../containers/views/bo
 import InformativeBoxYearlyProductionContainer from '../../containers/views/box/InformativeBoxYearlyProductionContainer';
 import InformativeBoxMontlyProductionContainer from '../../containers/views/box/InformativeBoxMontlyProductionContainer';
 import InformativeBoxWeeklyProductionContainer from '../../containers/views/box/InformativeBoxWeeklyProductionContainer';
+import InformativeBoxDailyProductionContainer from '../../containers/views/box/InformativeBoxDailyProductionContainer';
 import ChartBoxMonthlyContainer from '../../containers/views/box/ChartBoxMonthlyContainer';
 import TableBoxInverterInformationContainer from '../../containers/views/box/TableBoxInverterInformationContainer';
 import TableBoxInverterAlarmsContainer from '../../containers/views/box/TableBoxInverterAlarmsContainer';
@@ -190,11 +191,31 @@ const boxes = {
       classObj: (id, props) => (<InformativeBoxWeeklyProductionContainer key={id} id={id} {...props} />),
       defaultProps: {
         dataType: 'weekly',
-        color: 'danger',
+        color: 'success',
         value: 0,
         lastUpdate: null,
       },
       boxType: 'informativeBoxWeeklyProductionContainer',
+    },
+    resize: true,
+    close: true,
+    minW: 1,
+    maxW: 1,
+    minH: 1,
+    maxH: 1,
+    w: 1,
+    h: 1,
+  },
+  informativeBoxDailyProductionContainer: {
+    additionalInfo: {
+      classObj: (id, props) => (<InformativeBoxDailyProductionContainer key={id} id={id} {...props} />),
+      defaultProps: {
+        dataType: 'weekly',
+        color: 'danger',
+        value: 0,
+        lastUpdate: null,
+      },
+      boxType: 'informativeBoxDailyProductionContainer',
     },
     resize: true,
     close: true,

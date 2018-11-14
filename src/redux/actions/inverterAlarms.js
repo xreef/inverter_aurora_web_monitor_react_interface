@@ -12,35 +12,35 @@ export const INVERTER_ALARMS_FETCH_FULFILLED = 'INVERTER_ALARMS_FETCH_FULFILLED'
 export const INVERTER_ALARMS_FETCH_REJECTED = 'INVERTER_ALARMS_FETCH_REJECTED';
 
 export const actionTypes = {
-    INVERTER_ALARMS_FETCH,
-    INVERTER_ALARMS_FETCH_CANCEL,
-    INVERTER_ALARMS_FETCH_FULFILLED,
-    INVERTER_ALARMS_FETCH_REJECTED
+  INVERTER_ALARMS_FETCH,
+  INVERTER_ALARMS_FETCH_CANCEL,
+  INVERTER_ALARMS_FETCH_FULFILLED,
+  INVERTER_ALARMS_FETCH_REJECTED
 };
 
 // action creators
 export const inverterAlarmsFetch = () => ({
-            type: INVERTER_ALARMS_FETCH
-        });
-export const inverterAlarmsFetchCancel = () => (
-    {
-        type: INVERTER_ALARMS_FETCH_CANCEL
-    }
-    );
-export const inverterAlarmsFetchFulfilled = (payload) => ({
-    type: INVERTER_ALARMS_FETCH_FULFILLED,
-    data: payload.data,
-    lastUpdate: payload.lastUpdate
+  type: INVERTER_ALARMS_FETCH
 });
-export const inverterAlarmsFetchRejected = (err) => ({
-    type: INVERTER_ALARMS_FETCH_REJECTED,
-    err: err,
-    error: true
+export const inverterAlarmsFetchCancel = () => (
+  {
+    type: INVERTER_ALARMS_FETCH_CANCEL
+  }
+);
+export const inverterAlarmsFetchFulfilled = payload => ({
+  type: INVERTER_ALARMS_FETCH_FULFILLED,
+  data: payload.data,
+  lastUpdate: payload.lastUpdate
+});
+export const inverterAlarmsFetchRejected = err => ({
+  type: INVERTER_ALARMS_FETCH_REJECTED,
+  err,
+  error: true
 });
 
 export const actions = {
-    inverterAlarmsFetch,
-    inverterAlarmsFetchCancel,
-    inverterAlarmsFetchFulfilled,
-    inverterAlarmsFetchRejected
+  inverterAlarmsFetch,
+  inverterAlarmsFetchCancel,
+  inverterAlarmsFetchFulfilled,
+  inverterAlarmsFetchRejected
 };

@@ -1,6 +1,6 @@
 const responsiveGridLayoutStyle = theme => ({
   fab: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing.unit * 3,
     right: theme.spacing.unit * 2,
   }

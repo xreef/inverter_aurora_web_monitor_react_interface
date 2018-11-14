@@ -12,6 +12,9 @@ import inverterInfo from './inverterInfo';
 import inverterAlarms from './inverterAlarms';
 import configuration from './configuration';
 import home from './home';
+import daily from './daily';
+import historical from './historical';
+import inverterInfoState from './inverterInfoState';
 
 const reducersAurora = combineReducers({
   version,
@@ -25,7 +28,10 @@ const reducersAurora = combineReducers({
   inverterInfo,
   inverterAlarms,
   configuration,
-  home
+  home,
+  daily,
+  historical,
+  inverterInfoState
 });
 
 export default reducersAurora;

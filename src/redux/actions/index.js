@@ -33,7 +33,17 @@ import {
 } from './configuration';
 import {
   setHomeLayout, addElementToHome, removeElementFromHome
-} from './home'
+} from './home';
+import {
+  setDailyLayout
+} from './daily';
+import {
+  setHistoricalLayout
+} from './historical';
+import {
+  setInverterInfoStateLayout
+} from './inverterInfoState';
+
 export {
   setVersion,
   addNotification, shiftNotification,
@@ -47,5 +57,8 @@ export {
   inverterAlarmsFetch, inverterAlarmsFetchCancel, inverterAlarmsFetchFulfilled, inverterAlarmsFetchRejected,
   configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected,
   configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed,
-  setHomeLayout, addElementToHome, removeElementFromHome
+  setHomeLayout, addElementToHome, removeElementFromHome,
+  setDailyLayout,
+  setHistoricalLayout,
+  setInverterInfoStateLayout
 };

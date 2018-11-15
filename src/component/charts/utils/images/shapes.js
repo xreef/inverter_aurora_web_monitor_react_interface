@@ -4,7 +4,7 @@
 import circleSonarGreen from './shapes/circleSonarGreen.svg';
 import circleSonarRed from './shapes/circleSonarRed.svg';
 
-module.exports = {
-    "circleSonarGreen": circleSonarGreen,
-    "circleSonarRed": circleSonarRed
-}
+export {
+  circleSonarGreen,
+  circleSonarRed
+};

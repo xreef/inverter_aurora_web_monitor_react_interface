@@ -10,6 +10,9 @@ import en from 'react-intl/locale-data/en';
 import it from 'react-intl/locale-data/it';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+
 // Our translated strings
 import localeData from './i18n/data.json';
 
@@ -19,6 +22,15 @@ import './style/app.less';
 import configureStore from './utils/configureStore';
 
 import indexRoutes from './routes/index';
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: blue,
+  },
+});
 
 String.prototype.toCamelCase = function () {
   return this.replace(/\b(\w)/g, (match, capture) => capture.toUpperCase()).replace(/\s+/g, '');
@@ -55,12 +67,16 @@ class App extends React.Component {
     return (
       <Provider store={this.store}>
         <IntlProvider locale={language} messages={messages}>
-          <HashRouter>
-            {/* <ResponsiveContainer/> */}
-            <Switch>
-              {indexRoutes.map((prop, key) => <Route path={prop.path} component={prop.component} key={key.toString()} />)}
-            </Switch>
-          </HashRouter>
+          <MuiThemeProvider theme={theme}>
+
+            <HashRouter>
+              {/* <ResponsiveContainer/> */}
+              <Switch>
+                {indexRoutes.map((prop, key) => <Route path={prop.path} component={prop.component} key={key.toString()} />)}
+              </Switch>
+            </HashRouter>
+
+          </MuiThemeProvider>
         </IntlProvider>
       </Provider>
     );

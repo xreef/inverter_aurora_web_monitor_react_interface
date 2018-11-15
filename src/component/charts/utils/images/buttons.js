@@ -3,6 +3,6 @@
  */
 import buttonBuy from './buttons/buttonBuy.svg';
 
-module.exports = {
-    "buttonBuy": buttonBuy
-}
+export {
+  buttonBuy
+};

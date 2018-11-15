@@ -44,8 +44,8 @@ class ResponsiveGrid extends React.PureComponent {
       const isAlreadyInLayout = layouts[firstKey].some(elemLay => elemLay.i === elem.i) || false;
       if (!isAlreadyInLayout) {
         layouts = this.addNewItem(elem, layouts, additionalInfo, gridConfig);
-        elem.additionalInfo.id = elem.i;
       }
+      elem.additionalInfo.id = elem.i;
       additionalInfo[elem.i] = elem.additionalInfo;
     });
 

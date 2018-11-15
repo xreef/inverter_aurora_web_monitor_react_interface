@@ -10,8 +10,8 @@ const AUTOPREFIXER_LOADER = 'autoprefixer-loader?{browsers:['
 module.exports = function (env) {
   return {
     entry: {
-      'aurora-web.min': ['babel-polyfill', './src/index.jsx'],
-      'aurora-web': ['babel-polyfill', './src/index.jsx']
+      'aurora-web.min': ['babel-polyfill', './src/index-web.jsx'],
+      'aurora-web': ['babel-polyfill', './src/index-web.jsx']
     },
     // watch: true,
     // watchOptions: {
@@ -41,15 +41,23 @@ module.exports = function (env) {
 
     module: {
 
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loader: `style-loader!css-loader!${AUTOPREFIXER_LOADER}`
+          use: [
+            { loader: 'style-loader', options: { sourceMap: true } },
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+          ]
         },
         {
           test: /\.less$/,
-          loader: `style-loader!css-loader!${AUTOPREFIXER_LOADER
-          }!less-loader`
+          use: [
+            { loader: 'style-loader', options: { sourceMap: true } },
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+            { loader: 'less-loader', options: { sourceMap: true } }
+          ]
         },
         {
           test: /\.gif/,
@@ -68,16 +76,18 @@ module.exports = function (env) {
           loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
         }, {
           test: /\.json$/,
-          use: 'json-loader'
+          type: 'javascript/auto',
+          loader: 'json-loader'
         },
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
           query: {
-            presets: ['react', 'es2015'],
-            plugins: ['transform-object-rest-spread', 'transform-class-properties',
-              ['transform-runtime', {
+            presets: ['@babel/react', '@babel/preset-env'],
+            plugins: [['@babel/plugin-proposal-object-rest-spread', { loose: true, useBuiltIns: true }],
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+              ['@babel/transform-runtime', {
                 'react-intl': {
                   messagesDir: './build/messages',
                   enforceDescriptions: false

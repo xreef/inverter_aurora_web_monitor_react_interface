@@ -119,7 +119,7 @@ class ChartBoxMonthly extends React.Component {
               }}
             >
               {Array.from(Array(12).keys()).map(monthElem => (
-                <MenuItem id={String(monthElem)} ey={String(monthElem)} value={(monthElem + 1)}>
+                <MenuItem id={String(monthElem)} key={String(monthElem)} value={(monthElem + 1)}>
                   {this.props.intl.formatDate(new Date(moment((monthElem + 1), 'MM').valueOf()), {
                     month: 'long',
                   })}

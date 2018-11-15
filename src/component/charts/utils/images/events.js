@@ -4,7 +4,7 @@
 import globe from './events/globe.svg';
 import journal from './events/journal.svg';
 
-module.exports = {
-    "globe": globe,
-    "journal": journal
-}
+export {
+  globe,
+  journal
+};

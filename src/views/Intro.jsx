@@ -1,15 +1,8 @@
 import React from 'react';
+import { FormattedHTMLMessage } from 'react-intl';
 
 const Home = () => (
-  <div>
-    <h2>Home Page</h2>
-    <div>
-To install this Web App activate the chrome features
-      <b>Desktop PWAs</b>
-    </div>
-    <div>Copy this link and paste in your browser</div>
-    <div>chrome://flags/#enable-desktop-pwas</div>
-  </div>
+  <FormattedHTMLMessage id="page.intro"/>
 );
 
 export default Home;

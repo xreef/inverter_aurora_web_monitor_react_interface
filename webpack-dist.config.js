@@ -38,16 +38,16 @@ const polyfillExternal = {
 };
 
 const externalmw = {
-  react: reactExternal,
-  'react-dom': reactDOMExternal,
-  'babel-polyfill': polyfillExternal
+  // react: reactExternal,
+  // 'react-dom': reactDOMExternal,
+  // 'babel-polyfill': polyfillExternal
 };
 
 const externalisp = {
-  react: reactExternal,
-  'react-dom': reactDOMExternal
-
-  // , 'babel-polyfill': polyfillExternal
+  // react: reactExternal,
+  // 'react-dom': reactDOMExternal
+  //
+  // // , 'babel-polyfill': polyfillExternal
 };
 
 module.exports = function (env) {
@@ -68,28 +68,25 @@ module.exports = function (env) {
     devtool: 'source-map',
 
     module: {
+
       rules: [
         {
           test: /\.css$/,
-          loader: `style-loader!css-loader!${AUTOPREFIXER_LOADER}`
+          use: [
+            { loader: 'style-loader', options: { sourceMap: true } },
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+          ]
         },
         {
           test: /\.less$/,
-          loader: `style-loader!css-loader!${AUTOPREFIXER_LOADER
-          }!less-loader`
+          use: [
+            { loader: 'style-loader', options: { sourceMap: true } },
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+            { loader: 'less-loader', options: { sourceMap: true } }
+          ]
         },
-        // {
-        //     test: /\.(css|less)$/,
-        //     use: ExtractTextPlugin.extract({
-        //         use: [{
-        //             loader: "css-loader"
-        //         }, {
-        //             loader: "less-loader"
-        //         }],
-        //         // use style-loader in development
-        //         fallback: "style-loader"
-        //     })
-        // },
         {
           test: /\.gif/,
           loader: 'url-loader?limit=10000&mimetype=image/gif'
@@ -107,16 +104,18 @@ module.exports = function (env) {
           loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
         }, {
           test: /\.json$/,
-          use: 'json-loader'
+          type: 'javascript/auto',
+          loader: 'json-loader'
         },
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
           query: {
-            presets: ['react', 'es2015'],
-            plugins: ['transform-object-rest-spread', 'transform-class-properties',
-              ['transform-runtime', {
+            presets: ['@babel/react', '@babel/preset-env'],
+            plugins: [['@babel/plugin-proposal-object-rest-spread', { loose: true, useBuiltIns: true }],
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+              ['@babel/transform-runtime', {
                 'react-intl': {
                   messagesDir: './build/messages',
                   enforceDescriptions: false
@@ -138,6 +137,14 @@ module.exports = function (env) {
         }, {
           test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
           loader: 'file-loader'
+        },
+        {
+          test: /\.txt$/,
+          loader: 'raw-loader'
+        },
+        {
+          test: /\.CSV$/,
+          loader: 'raw-loader'
         }
       ]
     },
@@ -152,11 +159,6 @@ module.exports = function (env) {
     },
 
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      }),
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin(),
       new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(it|en)$/),

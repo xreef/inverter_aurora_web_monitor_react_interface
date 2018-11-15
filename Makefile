@@ -20,5 +20,5 @@ dev:
 
 build:
 	rm -rf $(DIST)
-	webpack --config webpack-dist.config.js
+	webpack --config webpack-dist.config.js --env.distType web --json > $(DIST)/stats.json
 	sed -i 's/define\&\&define\.amd/define\&\&define\.amd\&\&\!window\.dojo\&\&\!window\.requirejs/' $(PACKAGE_MIN)

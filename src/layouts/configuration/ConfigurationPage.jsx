@@ -8,25 +8,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import GridItem from '../../component/grid/GridItem';
-import GridContainer from '../../component/grid/GridContainer';
-import CustomInput from '../../component/customInput/CustomInput';
-import Button from '../../component/customButtons/Button';
-import Card from '../../component/card/Card';
-import CardHeader from '../../component/card/CardHeader';
-import CardAvatar from '../../component/card/CardAvatar';
-import CardBody from '../../component/card/CardBody';
-import CardFooter from '../../component/card/CardFooter';
 
 import TextField from '@material-ui/core/TextField';
 
-import avatar from '../../resources/images/bill.jpg';
-import Table from '../../component/table/TableGrid';
 
 import Radio from '@material-ui/core/Radio';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 
-import basicsStyle from '../../component/style/basicsStyle.jsx';
 
 import IconButton from '@material-ui/core/IconButton';
 
@@ -38,7 +26,6 @@ import Slide from '@material-ui/core/Slide';
 import Add from '@material-ui/icons/Add';
 import Close from '@material-ui/icons/Close';
 import Delete from '@material-ui/icons/DeleteOutline';
-import { addNotification, configurationAdd, configurationFetch } from '../../redux/actions';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -50,14 +37,31 @@ import classNames from 'classnames';
 
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { addNotification, configurationAdd, configurationFetch } from '../../redux/actions';
+import basicsStyle from '../../component/style/basicsStyle.jsx';
+import Table from '../../component/table/TableGrid';
+import avatar from '../../resources/images/bill.jpg';
+import CardFooter from '../../component/card/CardFooter';
+import CardBody from '../../component/card/CardBody';
+import CardAvatar from '../../component/card/CardAvatar';
+import CardHeader from '../../component/card/CardHeader';
+import Card from '../../component/card/Card';
+import Button from '../../component/customButtons/Button';
+import CustomInput from '../../component/customInput/CustomInput';
+import GridContainer from '../../component/grid/GridContainer';
+import GridItem from '../../component/grid/GridItem';
 import Overlay from '../../component/overlay/Overlay';
+
+import GTMs from '../../utils/locale/GTMs';
 
 function Transition(props) {
   return <Slide direction="down" {...props} />;
 }
 
 function shallowCompare(newObj, prevObj) {
-  for (let key in newObj) {
+  for (const key in newObj) {
     if (newObj[key] !== prevObj[key]) return true;
   }
   return false;
@@ -71,20 +75,27 @@ class ConfigurationPage extends React.PureComponent {
 
     const messagesIntl = defineMessages(
       {
-        subject: {id: 'configuration.email.notification.subject.default'},
-        notificationProblem: {id: 'configuration.email.notification.problem.default'},
-        notificationNoProblem: {id: 'configuration.email.notification.no_problem.default'}
+        subject: { id: 'configuration.email.notification.subject.default' },
+        notificationProblem: { id: 'configuration.email.notification.problem.default' },
+        notificationNoProblem: { id: 'configuration.email.notification.no_problem.default' }
       }
     );
 
 
     this.state = {
+      preferences: {
+        GTM: {
+          timeZoneId: 30, gmtAdjustment: 'GMT+00:00', useDaylightTime: 1, value: 0, description: '(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London'
+        }
+      },
       server: {
         isStatic: false,
         address: '',
         gatway: '',
-        netMask: ''
+        netMask: '',
 
+        dns1: '',
+        dns2: ''
       },
       serverSMTP: {
         server: 'smtp.gmail.com',
@@ -98,7 +109,7 @@ class ConfigurationPage extends React.PureComponent {
         subject: this.props.intl.formatMessage(messagesIntl.subject),
         messageProblem: this.props.intl.formatMessage(messagesIntl.notificationProblem),
         messageNoProblem: this.props.intl.formatMessage(messagesIntl.notificationNoProblem),
-        emailList: [/*['renzo.mischianti@gmail.com',"Renzo Mischianti", 1, 0, 0, 2]*/]
+        emailList: [/* ['renzo.mischianti@gmail.com',"Renzo Mischianti", 1, 0, 0, 2] */]
       },
 
       // MODAL DATA
@@ -125,57 +136,65 @@ class ConfigurationPage extends React.PureComponent {
   componentDidUpdate(oldProps) {
     if
     ((this.props.configuration != null && oldProps.configuration === null)
-      ||
-      (this.props.configuration != null && oldProps.configuration != null && shallowCompare(this.props.configuration.server, oldProps.configuration.server))) {
+      || (this.props.configuration != null && oldProps.configuration != null && shallowCompare(this.props.configuration.server, oldProps.configuration.server))) {
       this.setState({
         server: { ...this.state.server, ...this.props.configuration.server },
         serverSMTP: { ...this.state.serverSMTP, ...this.props.configuration.serverSMTP },
         emailNotification: { ...this.state.emailNotification, ...this.props.configuration.emailNotification }
       });
     }
-
   }
 
-  handleSMTPServerChange = event => {
+  handlePreferencesChange = (event) => {
+    this.setState({
+      preferences: {
+        ...this.state.preferences,
+        ...{ [event.target.name]: GTMs[GTMs.findIndex(g => g.timeZoneId === event.target.value)] }
+      }
+    });
+  };
+
+  handleSMTPServerChange = (event) => {
     this.setState({
       serverSMTP: {
         ...this.state.serverSMTP,
         ...{ [event.target.name]: event.target.value }
       }
     });
-
   };
 
-  handleServerChange = event => {
+  handleServerChange = (event) => {
     this.setState({
       server: {
         ...this.state.server,
         ...{ [event.target.name]: (event.target.name === 'isStatic') ? event.target.checked : event.target.value }
       }
     });
-
   };
 
   handleChangeEnabled = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
   handleClickOpen = (modal) => {
-    var x = [];
+    const x = [];
     x[modal] = true;
     this.setState(x);
   };
+
   handleClose = (modal) => {
-    var x = [];
+    const x = [];
     x[modal] = false;
     this.setState(x);
   };
+
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
-  postConfigurationUpdate = type => event => {
-    let { configuration, configurationFieldUpdated, configurationAdd } = this.props;
-    let { server } = this.state;
+  postConfigurationUpdate = type => (event) => {
+    const { configuration, configurationFieldUpdated, configurationAdd } = this.props;
+    const { server } = this.state;
 
     configurationFieldUpdated({ [type]: this.state[type] });
     configurationAdd(event);
@@ -212,19 +231,18 @@ class ConfigurationPage extends React.PureComponent {
     this.handleClose('insertEmailModal');
   };
 
-  handleEmailNotificationChange = event => {
+  handleEmailNotificationChange = (event) => {
     this.setState({
       emailNotification: {
         ...this.state.emailNotification,
         ...{ [event.target.name]: (event.target.name === 'isNotificationEnabled') ? event.target.checked : event.target.value }
       }
     });
-
   };
 
-  deleteModalTableElement = idElement => {
-    let el = this.state.emailNotification.emailList;
-    el.splice(idElement,1);
+  deleteModalTableElement = (idElement) => {
+    const el = this.state.emailNotification.emailList;
+    el.splice(idElement, 1);
     this.setState({
       emailNotification: {
         emailList: [
@@ -250,14 +268,65 @@ class ConfigurationPage extends React.PureComponent {
       }
     );
 
-    const labelAlertSelected = {'none': messagesIntl.nothing, 'on_problem': messagesIntl.alert, 'all': messagesIntl.ever};
+    const labelAlertSelected = { none: messagesIntl.nothing, on_problem: messagesIntl.alert, all: messagesIntl.ever };
 
     const { classes, configuration, isFetching } = this.props;
     return (
       <div>
-        <Overlay visible={isFetching}/>
+        <Overlay visible={isFetching} />
         <GridContainer>
           <GridItem xs={12} sm={12} md={8}>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4 className={classes.cardTitleWhite}>
+                      <FormattedMessage
+                        id="configuration.preferences.title"
+                      />
+                    </h4>
+                    <p className={classes.cardCategoryWhite}>
+                      <FormattedMessage
+                        id="configuration.preferences.subtitle"
+                      />
+                    </p>
+                  </CardHeader>
+                  <form onSubmit={this.postConfigurationUpdate('preferences')}>
+                    <CardBody>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                          <FormControl className={classNames(classes.margin, classes.textField)}>
+                            <InputLabel htmlFor="age-simple">
+                              <FormattedMessage id="configuration.preferences.timesones.label" />
+                            </InputLabel>
+                            <Select
+                              value={this.state.preferences.GTM.timeZoneId}
+                              onChange={this.handlePreferencesChange}
+
+                              inputProps={{
+                                name: 'GTM',
+                                id: 'GTM',
+                              }}
+                            >
+                              {GTMs.map(t => <MenuItem key={t.timeZoneId} value={t.timeZoneId}>{t.description}</MenuItem>)}
+                            </Select>
+                          </FormControl>
+                        </GridItem>
+                      </GridContainer>
+
+                    </CardBody>
+                    <CardFooter>
+                      <Button color="primary" type="submit">
+                        <FormattedMessage
+                          id="configuration.preferences.update"
+                        />
+                      </Button>
+                    </CardFooter>
+                  </form>
+
+                </Card>
+              </GridItem>
+            </GridContainer>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -297,7 +366,7 @@ class ConfigurationPage extends React.PureComponent {
                             classes={{
                               label: classes.label
                             }}
-                            label={<FormattedMessage id="configuration.network.staticIP.label"/>}
+                            label={<FormattedMessage id="configuration.network.staticIP.label" />}
                           />
                         </GridItem>
                       </GridContainer>
@@ -315,14 +384,6 @@ class ConfigurationPage extends React.PureComponent {
                             margin="normal"
                             variant="standard"
                           />
-
-                          {/*<CustomInput*/}
-                          {/*labelText="IP"*/}
-                          {/*id="ip_address"*/}
-                          {/*formControlProps={{*/}
-                          {/*fullWidth: true*/}
-                          {/*}}*/}
-                          {/*/>*/}
                         </GridItem>
                         <GridItem xs={12} sm={12} md={4}>
                           <TextField
@@ -337,14 +398,6 @@ class ConfigurationPage extends React.PureComponent {
                             margin="normal"
                             variant="standard"
                           />
-
-                          {/*<CustomInput*/}
-                          {/*labelText="Gatway"*/}
-                          {/*id="gatway"*/}
-                          {/*formControlProps={{*/}
-                          {/*fullWidth: true*/}
-                          {/*}}*/}
-                          {/*/>*/}
                         </GridItem>
                         <GridItem xs={12} sm={12} md={4}>
                           <TextField
@@ -359,14 +412,39 @@ class ConfigurationPage extends React.PureComponent {
                             margin="normal"
                             variant="standard"
                           />
-
-                          {/*<CustomInput*/}
-                          {/*labelText="Subnet Mask"*/}
-                          {/*id="subnet_mask"*/}
-                          {/*formControlProps={{*/}
-                          {/*fullWidth: true*/}
-                          {/*}}*/}
-                          {/*/>*/}
+                        </GridItem>
+                      </GridContainer>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <TextField
+                            required
+                            id="dns1"
+                            name="dns1"
+                            label="DNS 1"
+                            fullWidth
+                            className={classes.textField}
+                            value={this.state.server.dns1}
+                            onChange={this.handleServerChange}
+                            margin="normal"
+                            variant="standard"
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <TextField
+                            required
+                            id="dns2"
+                            name="dns2"
+                            label="DNS 2"
+                            fullWidth
+                            className={classes.textField}
+                            value={this.state.server.dns2}
+                            onChange={this.handleServerChange}
+                            margin="normal"
+                            variant="standard"
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          &nbsp;
                         </GridItem>
                       </GridContainer>
                     </CardBody>
@@ -437,7 +515,7 @@ class ConfigurationPage extends React.PureComponent {
                         <GridItem xs={12} sm={12} md={6}>
                           <Grid container spacing={8} alignItems="flex-end">
                             <Grid item>
-                              <AccountCircle/>
+                              <AccountCircle />
                             </Grid>
                             <Grid item style={{ width: 'calc(100% - 32px)' }}>
                               <TextField
@@ -457,8 +535,10 @@ class ConfigurationPage extends React.PureComponent {
                           </Grid>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6}>
-                          <FormControl required
-                                       className={classNames(classes.margin, classes.textField)}>
+                          <FormControl
+                            required
+                            className={classNames(classes.margin, classes.textField)}
+                          >
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <Input
 
@@ -468,16 +548,16 @@ class ConfigurationPage extends React.PureComponent {
                               type={this.state.showPassword ? 'text' : 'password'}
                               value={this.state.serverSMTP.password}
                               onChange={this.handleSMTPServerChange}
-                              endAdornment={
+                              endAdornment={(
                                 <InputAdornment position="end">
                                   <IconButton
                                     aria-label="Toggle password visibility"
                                     onClick={this.handleClickShowPassword}
                                   >
-                                    {this.state.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
                                   </IconButton>
                                 </InputAdornment>
-                              }
+)}
                             />
                           </FormControl>
                         </GridItem>
@@ -508,7 +588,8 @@ class ConfigurationPage extends React.PureComponent {
                       <Button color="primary" type="submit">
                         <FormattedMessage
                           id="configuration.smtpserver.update"
-                        /></Button>
+                        />
+                      </Button>
                     </CardFooter>
                   </form>
                 </Card>
@@ -553,11 +634,13 @@ class ConfigurationPage extends React.PureComponent {
                       color="inherit"
                       onClick={() => this.handleClose('insertEmailModal')}
                     >
-                      <Close className={classes.modalClose}/>
+                      <Close className={classes.modalClose} />
                     </IconButton>
-                    <h4 className={classes.modalTitle}><FormattedMessage
-                      id="configuration.email.notification.add.modal.title"
-                    /></h4>
+                    <h4 className={classes.modalTitle}>
+                      <FormattedMessage
+                        id="configuration.email.notification.add.modal.title"
+                      />
+                    </h4>
                   </DialogTitle>
                   <form onSubmit={this.addEmailToListNotification}>
 
@@ -605,110 +688,116 @@ class ConfigurationPage extends React.PureComponent {
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionAlarm === 'none'}
                                   onChange={this.handleChangeEnabled}
                                   value="none"
                                   name="optionAlarm"
                                   aria-label="Email allarme"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_email"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_email"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionAlarm === 'on_problem'}
                                   onChange={this.handleChangeEnabled}
                                   value="on_problem"
                                   name="optionAlarm"
                                   aria-label="Email allarme"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.first_alarm"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.first_alarm"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionAlarm === 'all'}
                                   onChange={this.handleChangeEnabled}
                                   value="all"
                                   name="optionAlarm"
                                   aria-label="Email allarme"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.all_state_change"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.all_state_change"
+                                />
+)}
                             />
                           </div>
                         </GridItem>
@@ -718,110 +807,116 @@ class ConfigurationPage extends React.PureComponent {
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionState === 'none'}
                                   onChange={this.handleChangeEnabled}
                                   value="none"
                                   name="optionState"
                                   aria-label="Email state"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_email"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_email"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionState === 'on_problem'}
                                   onChange={this.handleChangeEnabled}
                                   value="on_problem"
                                   name="optionState"
                                   aria-label="Email state"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_run"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_run"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionState === 'all'}
                                   onChange={this.handleChangeEnabled}
                                   value="all"
                                   name="optionState"
                                   aria-label="Email state"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.all_state_change"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.all_state_change"
+                                />
+)}
                             />
                           </div>
                         </GridItem>
@@ -831,110 +926,116 @@ class ConfigurationPage extends React.PureComponent {
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionChannel1 === 'none'}
                                   onChange={this.handleChangeEnabled}
                                   value="none"
                                   name="optionChannel1"
                                   aria-label="Email channel1"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_email"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_email"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionChannel1 === 'on_problem'}
                                   onChange={this.handleChangeEnabled}
                                   value="on_problem"
                                   name="optionChannel1"
                                   aria-label="Email channel1"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_MPPT"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_MPPT"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionChannel1 === 'all'}
                                   onChange={this.handleChangeEnabled}
                                   value="all"
                                   name="optionChannel1"
                                   aria-label="Email channel 1"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.all_state_change"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.all_state_change"
+                                />
+)}
                             />
                           </div>
                         </GridItem>
@@ -944,110 +1045,116 @@ class ConfigurationPage extends React.PureComponent {
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionChannel2 === 'none'}
                                   onChange={this.handleChangeEnabled}
                                   value="none"
                                   name="optionChannel2"
                                   aria-label="Email chanel 2"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_email"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_email"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionChannel2 === 'on_problem'}
                                   onChange={this.handleChangeEnabled}
                                   value="on_problem"
                                   name="optionChannel2"
                                   aria-label="Email chanel 2"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.no_MPPT"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.no_MPPT"
+                                />
+)}
                             />
                           </div>
                           <div
                             className={
-                              classes.checkboxAndRadio +
-                              ' ' +
-                              classes.checkboxAndRadioHorizontal
+                              `${classes.checkboxAndRadio
+                              } ${
+                                classes.checkboxAndRadioHorizontal}`
                             }
                           >
                             <FormControlLabel
-                              control={
+                              control={(
                                 <Radio
                                   checked={this.state.optionChannel2 === 'all'}
                                   onChange={this.handleChangeEnabled}
                                   value="all"
                                   name="optionChannel2"
                                   aria-label="Email state"
-                                  icon={
+                                  icon={(
                                     <FiberManualRecord
                                       className={classes.radioUnchecked}
                                     />
-                                  }
+)}
                                   checkedIcon={
-                                    <FiberManualRecord className={classes.radioChecked}/>
+                                    <FiberManualRecord className={classes.radioChecked} />
                                   }
                                   classes={{
                                     checked: classes.radio
                                   }}
                                 />
-                              }
+)}
                               classes={{
                                 label: classes.label
                               }}
-                              label={<FormattedMessage
-                                id="configuration.email.notification.add.modal.all_state_change"
-                              />}
+                              label={(
+                                <FormattedMessage
+                                  id="configuration.email.notification.add.modal.all_state_change"
+                                />
+)}
                             />
                           </div>
                         </GridItem>
@@ -1095,7 +1202,7 @@ class ConfigurationPage extends React.PureComponent {
                           classes={{
                             label: classes.label
                           }}
-                          label={<FormattedMessage id="configuration.email.notification.enabled.label"/>}
+                          label={<FormattedMessage id="configuration.email.notification.enabled.label" />}
                         />
                       </GridItem>
                     </GridContainer>
@@ -1111,18 +1218,17 @@ class ConfigurationPage extends React.PureComponent {
                             this.props.intl.formatMessage(messagesIntl.channel1),
                             this.props.intl.formatMessage(messagesIntl.channel2),
                             this.props.intl.formatMessage(messagesIntl.states),
-                            ""
+                            ''
                           ]}
-                          tableData={this.state.emailNotification.emailList.map((elem, idx) => {
-                            return [
-                              elem.email,
-                              elem.name,
-                              this.props.intl.formatMessage({ ...labelAlertSelected[elem.alarm] }),
-                              this.props.intl.formatMessage({ ...labelAlertSelected[elem.ch1] }),
-                              this.props.intl.formatMessage({ ...labelAlertSelected[elem.ch2] }),
-                              this.props.intl.formatMessage({ ...labelAlertSelected[elem.state] }),
-                              <Delete onClick={() => this.deleteModalTableElement(idx)}/>
-                            ];
+                          tableData={this.state.emailNotification.emailList.map((elem, idx) => [
+                            elem.email,
+                            elem.name,
+                            this.props.intl.formatMessage({ ...labelAlertSelected[elem.alarm] }),
+                            this.props.intl.formatMessage({ ...labelAlertSelected[elem.ch1] }),
+                            this.props.intl.formatMessage({ ...labelAlertSelected[elem.ch2] }),
+                            this.props.intl.formatMessage({ ...labelAlertSelected[elem.state] }),
+                            <Delete onClick={() => this.deleteModalTableElement(idx)} />
+                          ]
                             // return elem.map((valueRow, index)=>{
                             //   if (index>1){
                             //     return this.props.intl.formatMessage({...labelAlertSelected[valueRow]});
@@ -1130,7 +1236,7 @@ class ConfigurationPage extends React.PureComponent {
                             //     return valueRow;
                             //   }
                             // })
-                          })}
+                          )}
                         />
                       </GridItem>
                     </GridContainer>
@@ -1142,9 +1248,10 @@ class ConfigurationPage extends React.PureComponent {
                           block
                           onClick={() => this.handleClickOpen('insertEmailModal')}
                         >
-                          <Add className={classes.icon}/><FormattedMessage
-                          id="configuration.email.notification.add"
-                        />
+                          <Add className={classes.icon} />
+                          <FormattedMessage
+                            id="configuration.email.notification.add"
+                          />
                         </Button>
                       </GridItem>
                     </GridContainer>
@@ -1153,9 +1260,11 @@ class ConfigurationPage extends React.PureComponent {
                         <TextField
                           required
                           id="subject"
-                          label={<FormattedMessage
-                                  id="configuration.email.notification.subject.label"
-                                />}
+                          label={(
+                            <FormattedMessage
+                              id="configuration.email.notification.subject.label"
+                            />
+)}
                           style={{ margin: 8 }}
                           fullWidth
                           margin="normal"
@@ -1170,13 +1279,17 @@ class ConfigurationPage extends React.PureComponent {
                         <TextField
                           required
                           id="problem-find"
-                          label={<FormattedMessage
-                                id="configuration.email.notification.problem.label"
-                              />}
+                          label={(
+                            <FormattedMessage
+                              id="configuration.email.notification.problem.label"
+                            />
+)}
                           style={{ margin: 8 }}
-                          helperText={<FormattedMessage
-                            id="configuration.email.notification.problem.helper"
-                          />}
+                          helperText={(
+                            <FormattedMessage
+                              id="configuration.email.notification.problem.helper"
+                            />
+)}
                           fullWidth
                           margin="normal"
                           variant="outlined"
@@ -1192,14 +1305,18 @@ class ConfigurationPage extends React.PureComponent {
                         <TextField
                           required
                           id="problem-resolved"
-                          label={<FormattedMessage
-                            id="configuration.email.notification.no_problem.label"
-                          />}
+                          label={(
+                            <FormattedMessage
+                              id="configuration.email.notification.no_problem.label"
+                            />
+)}
                           style={{ margin: 8 }}
                           // placeholder="Placeholder"
-                          helperText={<FormattedMessage
-                            id="configuration.email.notification.no_problem.helper"
-                          />}
+                          helperText={(
+                            <FormattedMessage
+                              id="configuration.email.notification.no_problem.helper"
+                            />
+)}
                           fullWidth
                           margin="normal"
                           variant="outlined"
@@ -1213,9 +1330,11 @@ class ConfigurationPage extends React.PureComponent {
                     </GridContainer>
                   </CardBody>
                   <CardFooter>
-                    <Button color="primary" type="submit"><FormattedMessage
-                      id="configuration.email.notification.update"
-                    /></Button>
+                    <Button color="primary" type="submit">
+                      <FormattedMessage
+                        id="configuration.email.notification.update"
+                      />
+                    </Button>
                   </CardFooter>
                 </form>
               </Card>
@@ -1225,7 +1344,7 @@ class ConfigurationPage extends React.PureComponent {
             <Card profile>
               <CardAvatar profile>
                 <a href="#pablo" onClick={e => e.preventDefault()}>
-                  <img src={avatar} alt="..."/>
+                  <img src={avatar} alt="..." />
                 </a>
               </CardAvatar>
               <CardBody profile>
@@ -1248,11 +1367,11 @@ class ConfigurationPage extends React.PureComponent {
 }
 
 ConfigurationPage.propTypes = {
-  classes: PropTypes.object,
-  configurationFetch: PropTypes.func,
-  configurationAdd: PropTypes.func,
-  addNotification: PropTypes.func,
-  configurationFieldUpdated: PropTypes.func
+  classes: PropTypes.object.isRequired,
+  configurationFetch: PropTypes.func.isRequired,
+  configurationAdd: PropTypes.func.isRequired,
+  // addNotification: PropTypes.func.isRequired,
+  configurationFieldUpdated: PropTypes.func.isRequired
 };
 
 export default withStyles(basicsStyle)(injectIntl(ConfigurationPage));

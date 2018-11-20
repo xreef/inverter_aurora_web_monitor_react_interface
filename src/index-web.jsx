@@ -27,9 +27,18 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
   },
-  palette: {
-    primary: blue,
-  },
+  overrides: {
+    MuiInput: {
+      underline: {
+        // '&:before': { //underline color when textfield is inactive
+        //   backgroundColor: 'red',
+        // },
+        // '&:hover:not($disabled):before': { //underline color when hovered
+        //   backgroundColor: 'green',
+        // },
+      }
+    }
+  }
 });
 
 String.prototype.toCamelCase = function () {

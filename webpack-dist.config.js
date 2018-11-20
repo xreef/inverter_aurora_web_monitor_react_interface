@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const Visualizer = require('webpack-visualizer-plugin');
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 // let ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -150,10 +151,15 @@ module.exports = function (env) {
     },
 
     optimization: {
+      nodeEnv: 'production',
+      noEmitOnErrors: true,
       minimizer: [
         new UglifyJsPlugin({
           include: /\.min\.js$/,
-          sourceMap: true
+          sourceMap: true,
+          parallel: 8,
+
+          cache: true
         })
       ]
     },
@@ -166,6 +172,14 @@ module.exports = function (env) {
         filename: `./statistics-${env.distType}.html`
       }),
       // new ExtractTextPlugin("styles.css"),
+      new CompressionPlugin({
+        // asset: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 8192
+        // minRatio: 0.8
+      })
+
     ],
 
     resolve: {

@@ -89,6 +89,7 @@ class ConfigurationPage extends React.PureComponent {
         }
       },
       server: {
+        hostname: '',
         isStatic: false,
         address: '',
         gatway: '',
@@ -344,6 +345,23 @@ class ConfigurationPage extends React.PureComponent {
                   </CardHeader>
                   <form onSubmit={this.postConfigurationUpdate('server')}>
                     <CardBody>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={8}>
+                          <TextField
+                            required
+                            id="hostname"
+                            name="hostname"
+                            label="Hostname"
+                            fullWidth
+                            className={classes.textField}
+                            value={this.state.server.hostname}
+                            onChange={this.handleServerChange}
+                            margin="normal"
+                            variant="standard"
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}/>
+                      </GridContainer>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={5}>
                           <FormControlLabel

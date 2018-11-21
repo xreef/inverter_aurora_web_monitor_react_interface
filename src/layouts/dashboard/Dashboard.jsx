@@ -16,8 +16,8 @@ import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "./style/dashboardStyle.jsx";
 
-import image from "../../resources/images/sidebar-solar.jpg";
-import logo from "../../resources/images/bill.jpg";
+import image from "../../resources/images/sidebar-solar.png";
+import logo from "../../resources/images/bill.png";
 import Snackbar from "../../component/snackbars/Snackbar";
 
 import {subscribeServiceWorker} from "../../utils/serviceWorker/subscribeServiceWorker"

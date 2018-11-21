@@ -90,19 +90,19 @@ module.exports = function (env) {
         },
         {
           test: /\.gif/,
-          loader: 'url-loader?limit=10000&mimetype=image/gif'
+          loader: 'url-loader?mimetype=image/gif'
         },
         {
           test: /\.jpg/,
-          loader: 'url-loader?limit=10000&mimetype=image/jpg'
+          loader: 'url-loader?mimetype=image/jpg'
         },
         {
           test: /\.png/,
-          loader: 'url-loader?limit=10000&mimetype=image/png'
+          loader: 'url-loader?mimetype=image/png'
         },
         {
           test: /\.svg/,
-          loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+          loader: 'url-loader?mimetype=image/svg+xml'
         }, {
           test: /\.json$/,
           type: 'javascript/auto',

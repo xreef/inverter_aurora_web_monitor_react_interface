@@ -36,5 +36,16 @@ export const subscribeServiceWorker = (callBack) => {
         );
       });
     });
+  } else {
+    console.log('Service Worker not present');
+    callBack(
+      {
+        variant: 'error',
+        message: 'ServiceWorker not found',
+        title: 'ServiceWorker registration failed',
+        exitStatus: false,
+        registration: null
+      }
+    );
   }
 };

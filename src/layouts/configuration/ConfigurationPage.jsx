@@ -1370,11 +1370,11 @@ class ConfigurationPage extends React.PureComponent {
                 <h6 className={classes.cardCategory}>CREATOR</h6>
                 <h4 className={classes.cardTitle}>Renzo Mischianti</h4>
                 <p className={classes.description}>
-                  Ciao
+                  renzo.mischianti@gmail.com
                 </p>
-                <Button color="primary" round>
-                  Follow
-                </Button>
+                {/*<Button color="primary" round>*/}
+                  {/*Follow*/}
+                {/*</Button>*/}
               </CardBody>
             </Card>
           </GridItem>

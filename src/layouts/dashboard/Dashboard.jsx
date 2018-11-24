@@ -16,8 +16,8 @@ import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "./style/dashboardStyle.jsx";
 
-import image from "../../resources/images/sidebar-solar.png";
-import logo from "../../resources/images/bill.png";
+import image from "../../resources/images/sidebar-solar.jpg";
+import logo from "../../resources/images/favicon/launcher-icon-trasp.png";
 import Snackbar from "../../component/snackbars/Snackbar";
 
 import {subscribeServiceWorker} from "../../utils/serviceWorker/subscribeServiceWorker"
@@ -175,7 +175,7 @@ class App extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText={"REEF"}
+          logoText={"Aurora"}
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}

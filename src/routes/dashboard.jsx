@@ -50,20 +50,20 @@ const dashboardRoutes = [
     icon: Settings,
     component: Configuration
   },
-  {
-    path: '/intro',
-    sidebarName: <FormattedMessage id="menu.sidebar.introduction" />,
-    navbarName: <FormattedMessage id="menu.navbar.introduction" />,
-    icon: Info,
-    component: Intro
-  },
-  {
-    path: '/about',
-    sidebarName: 'About',
-    navbarName: 'About',
-    icon: Person,
-    component: About
-  },
+  // {
+  //   path: '/intro',
+  //   sidebarName: <FormattedMessage id="menu.sidebar.introduction" />,
+  //   navbarName: <FormattedMessage id="menu.navbar.introduction" />,
+  //   icon: Info,
+  //   component: Intro
+  // },
+  // {
+  //   path: '/about',
+  //   sidebarName: 'About',
+  //   navbarName: 'About',
+  //   icon: Person,
+  //   component: About
+  // },
   //  {
   //   path: "/icons",
   //   sidebarName: "Icons",

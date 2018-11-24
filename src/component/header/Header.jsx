@@ -1,23 +1,23 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Hidden from "@material-ui/core/Hidden";
+import withStyles from '@material-ui/core/styles/withStyles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
 // @material-ui/icons
-import Menu from "@material-ui/icons/Menu";
+import Menu from '@material-ui/icons/Menu';
 // core components
-import HeaderLinks from "./HeaderLinks.jsx";
-import Button from "../customButtons/Button.jsx";
+import HeaderLinks from './HeaderLinks.jsx';
+import Button from '../customButtons/Button.jsx';
 
-import headerStyle from "./style/headerStyle.jsx";
+import headerStyle from './style/headerStyle.jsx';
 
 function Header({ ...props }) {
   function makeBrand() {
-    var name;
+    let name;
     props.routes.map((prop, key) => {
       if (prop.path === props.location.pathname) {
         name = prop.navbarName;
@@ -29,7 +29,7 @@ function Header({ ...props }) {
   const { classes, color } = props;
   const { notifications } = props;
   const appBarClasses = classNames({
-    [" " + classes[color]]: color
+    [` ${classes[color]}`]: color
   });
   return (
     <AppBar className={classes.appBar + appBarClasses}>
@@ -41,7 +41,7 @@ function Header({ ...props }) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          <HeaderLinks notifications={notifications}/>
+          <HeaderLinks notifications={notifications} />
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton
@@ -59,7 +59,7 @@ function Header({ ...props }) {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
+  color: PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
   notifications: PropTypes.object.isRequired
 };
 

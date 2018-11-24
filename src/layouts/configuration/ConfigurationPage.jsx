@@ -139,6 +139,7 @@ class ConfigurationPage extends React.PureComponent {
     ((this.props.configuration != null && oldProps.configuration === null)
       || (this.props.configuration != null && oldProps.configuration != null && shallowCompare(this.props.configuration.server, oldProps.configuration.server))) {
       this.setState({
+        preferences: {...this.state.preferences, ...this.props.configuration.preferences },
         server: { ...this.state.server, ...this.props.configuration.server },
         serverSMTP: { ...this.state.serverSMTP, ...this.props.configuration.serverSMTP },
         emailNotification: { ...this.state.emailNotification, ...this.props.configuration.emailNotification }
@@ -298,7 +299,7 @@ class ConfigurationPage extends React.PureComponent {
                         <GridItem xs={12} sm={12} md={12}>
                           <FormControl className={classNames(classes.margin, classes.textField)}>
                             <InputLabel htmlFor="age-simple">
-                              <FormattedMessage id="configuration.preferences.timesones.label" />
+                              <FormattedMessage id="configuration.preferences.GTM.label" />
                             </InputLabel>
                             <Select
                               value={this.state.preferences.GTM.timeZoneId}

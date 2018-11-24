@@ -73,6 +73,11 @@
     "table.inverter.state.title": "Inverter state",
     "table.inverter.state.subtitle": "All attention point of the inverter",
 
+    "configuration.preferences.title": "Settings",
+    "configuration.preferences.subtitle": "Generic settings",
+    "configuration.preferences.GTM.label": "GTM offset",
+    "configuration.preferences.update": "Update preferences",
+
     "configuration.network.title": "Network configuration",
     "configuration.network.subtitle": "Remember to set a correct static IP",
 
@@ -199,6 +204,11 @@
     "table.inverter.inverter.state": "Stato Inverter",
     "table.inverter.state.title": "Stato inverter",
     "table.inverter.state.subtitle": "Tutti i punti di attenzione dell'inverter",
+
+    "configuration.preferences.title": "Preferenze",
+    "configuration.preferences.subtitle": "Preferenze generiche",
+    "configuration.preferences.GTM.label": "GTM offset",
+    "configuration.preferences.update": "Aggiorna preferenze",
 
     "configuration.network.title": "Configurazione di rete",
     "configuration.network.subtitle": "Ricorda di impostare un indirizzo IP statico",

@@ -40,6 +40,7 @@ const mapStateToProps = (state, ownProps) => ({
   elements: homeSelector.elements(state).map((elementHS) => {
     const eHS = { ...elementHS };
     eHS.additionalInfo.classObj = boxes[eHS.additionalInfo.boxType].additionalInfo.classObj;
+    eHS.additionalInfo.defaultProps = boxes[eHS.additionalInfo.boxType].additionalInfo.defaultProps;
     return eHS;
   })
 });

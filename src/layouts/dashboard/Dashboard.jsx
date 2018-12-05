@@ -173,8 +173,12 @@ class App extends React.Component {
     const {notifications, serverState} = this.props;
 
     let ss = -100;
-    if (serverState && serverState.data && serverState.data.network &&serverState.data.network.signalStrengh){
+    if (serverState && serverState.data && serverState.data.network && serverState.data.network.signalStrengh){
       ss = serverState.data.network.signalStrengh;
+    }
+    let batteryVoltage = 0;
+    if (serverState && serverState.data && serverState.data.chip && serverState.data.chip.batteryVoltage){
+      batteryVoltage = serverState.data.chip.batteryVoltage;
     }
 
       return (
@@ -198,6 +202,7 @@ class App extends React.Component {
             handleDrawerToggle={this.handleDrawerToggle}
             notifications={notifications}
             signalStrenght={ss}
+            batteryVoltage={batteryVoltage}
             {...rest}
           />
 

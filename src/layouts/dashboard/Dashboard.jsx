@@ -56,6 +56,7 @@ class App extends React.Component {
           deferredPrompt: null
         }
     };
+    props.serverStateFetch();
     this.resizeFunction = this.resizeFunction.bind(this);
   }
 
@@ -169,7 +170,12 @@ class App extends React.Component {
 
   render() {
     const { classes, ...rest } = this.props;
-    const {notifications} = this.props;
+    const {notifications, serverState} = this.props;
+
+    let ss = -100;
+    if (serverState && serverState.data && serverState.data.network &&serverState.data.network.signalStrengh){
+      ss = serverState.data.network.signalStrengh;
+    }
 
       return (
       <div className={classes.wrapper}>
@@ -191,6 +197,7 @@ class App extends React.Component {
             routes={dashboardRoutes}
             handleDrawerToggle={this.handleDrawerToggle}
             notifications={notifications}
+            signalStrenght={ss}
             {...rest}
           />
 
@@ -225,13 +232,16 @@ class App extends React.Component {
 App.propTypes = {
     classes: PropTypes.object.isRequired,
     notifications: PropTypes.object.isRequired,
+    serverState: PropTypes.object.isRequired,
 
     addNotification: PropTypes.func.isRequired,
     shiftNotification: PropTypes.func.isRequired,
 
     setUserSubscribedToPushNotification: PropTypes.func.isRequired,
     setServiceWorkerSubscription: PropTypes.func.isRequired,
-    setPushNotificationSupported: PropTypes.func.isRequired
+    setPushNotificationSupported: PropTypes.func.isRequired,
+
+    serverStateFetch: PropTypes.func.isRequired
 };
 
 export default withStyles(dashboardStyle)(App);

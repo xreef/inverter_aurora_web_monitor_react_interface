@@ -14,3 +14,5 @@ https://developers.google.com/web/fundamentals/codelabs/push-notifications/
 chrome://flags/#enable-desktop-pwas
 
 Fix
+
+https://www.metageek.com/training/resources/understanding-rssi.html

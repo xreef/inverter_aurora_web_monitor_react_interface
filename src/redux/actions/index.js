@@ -27,6 +27,10 @@ import {
   inverterAlarmsFetch, inverterAlarmsFetchCancel, inverterAlarmsFetchFulfilled, inverterAlarmsFetchRejected
 } from './inverterAlarms';
 import {
+  serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected
+} from './serverState';
+
+import {
   configurationFetch, configurationFetchCancel, configurationFetchFulfilled, configurationFetchRejected,
   configurationFieldUpdated, configurationFieldInvalid, configurationAdd, configurationAddSuccess, configurationAddFailed
 
@@ -60,5 +64,6 @@ export {
   setHomeLayout, addElementToHome, removeElementFromHome,
   setDailyLayout,
   setHistoricalLayout,
-  setInverterInfoStateLayout
+  setInverterInfoStateLayout,
+  serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected,
 };

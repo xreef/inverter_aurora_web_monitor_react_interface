@@ -8,14 +8,28 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 // @material-ui/icons
+import SignalWifi4Bar from '@material-ui/icons/SignalWifi4Bar';
+import SignalWifi3Bar from '@material-ui/icons/SignalWifi3Bar';
+import SignalWifi2Bar from '@material-ui/icons/SignalWifi2Bar';
+import SignalWifi1Bar from '@material-ui/icons/SignalWifi1Bar';
+import SignalWifi0Bar from '@material-ui/icons/SignalWifi0Bar';
 import Menu from '@material-ui/icons/Menu';
 // core components
-import HeaderLinks from './HeaderLinks.jsx';
-import Button from '../customButtons/Button.jsx';
+import HeaderLinks from './HeaderLinks';
+import Button from '../customButtons/Button';
 
-import headerStyle from './style/headerStyle.jsx';
+import headerStyle from './style/headerStyle';
 
 function Header({ ...props }) {
+  function getSignalStrenght(signal) {
+    if (signal < -90) { return <SignalWifi0Bar />; }
+    if (signal < -80) { return <SignalWifi1Bar />; }
+    if (signal < -70) { return <SignalWifi2Bar />; }
+    if (signal < -67) { return <SignalWifi3Bar />; }
+    // if (signal < -30) { return SignalWifi4Bar; }
+    return <SignalWifi4Bar />;
+  }
+
   function makeBrand() {
     let name;
     props.routes.map((prop, key) => {
@@ -27,7 +41,7 @@ function Header({ ...props }) {
     return name;
   }
   const { classes, color } = props;
-  const { notifications } = props;
+  const { notifications, signalStrenght } = props;
   const appBarClasses = classNames({
     [` ${classes[color]}`]: color
   });
@@ -40,6 +54,7 @@ function Header({ ...props }) {
             {makeBrand()}
           </Button>
         </div>
+        {getSignalStrenght(signalStrenght)}
         <Hidden smDown implementation="css">
           <HeaderLinks notifications={notifications} />
         </Hidden>
@@ -52,6 +67,9 @@ function Header({ ...props }) {
             <Menu />
           </IconButton>
         </Hidden>
+
+
+
       </Toolbar>
     </AppBar>
   );
@@ -60,7 +78,12 @@ function Header({ ...props }) {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   color: PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
-  notifications: PropTypes.object.isRequired
+  notifications: PropTypes.object.isRequired,
+  signalStrenght: PropTypes.number
+};
+
+Header.defaultProps = {
+  signalStrenght: -100
 };
 
 export default withStyles(headerStyle)(Header);

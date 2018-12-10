@@ -5,11 +5,12 @@ import { withStyles } from '@material-ui/core';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import FavoriteIconSelected from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
+
 import Card from '../../../component/card/Card';
 import CardHeader from '../../../component/card/CardHeader';
 import CardBody from '../../../component/card/CardBody';
-import FavoriteIconSelected from '@material-ui/icons/Favorite';
-import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 
 import boxStyle from '../style/boxStyle';
 import Table from '../../../component/table/Table';

@@ -86,7 +86,8 @@ class ConfigurationPage extends React.PureComponent {
       preferences: {
         GTM: {
           timeZoneId: 30, gmtAdjustment: 'GMT+00:00', useDaylightTime: 1, value: 0, description: '(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London'
-        }
+        },
+        adminEmail: ''
       },
       server: {
         hostname: '',
@@ -139,7 +140,7 @@ class ConfigurationPage extends React.PureComponent {
     ((this.props.configuration != null && oldProps.configuration === null)
       || (this.props.configuration != null && oldProps.configuration != null && shallowCompare(this.props.configuration.server, oldProps.configuration.server))) {
       this.setState({
-        preferences: {...this.state.preferences, ...this.props.configuration.preferences },
+        preferences: { ...this.state.preferences, ...this.props.configuration.preferences },
         server: { ...this.state.server, ...this.props.configuration.server },
         serverSMTP: { ...this.state.serverSMTP, ...this.props.configuration.serverSMTP },
         emailNotification: { ...this.state.emailNotification, ...this.props.configuration.emailNotification }
@@ -148,6 +149,15 @@ class ConfigurationPage extends React.PureComponent {
   }
 
   handlePreferencesChange = (event) => {
+    this.setState({
+      preferences: {
+        ...this.state.preferences,
+        ...{ [event.target.name]: event.target.value }
+      }
+    });
+  };
+
+  handlePreferencesGTMChange = (event) => {
     this.setState({
       preferences: {
         ...this.state.preferences,
@@ -303,7 +313,7 @@ class ConfigurationPage extends React.PureComponent {
                             </InputLabel>
                             <Select
                               value={this.state.preferences.GTM.timeZoneId}
-                              onChange={this.handlePreferencesChange}
+                              onChange={this.handlePreferencesGTMChange}
 
                               inputProps={{
                                 name: 'GTM',
@@ -315,6 +325,29 @@ class ConfigurationPage extends React.PureComponent {
                           </FormControl>
                         </GridItem>
                       </GridContainer>
+
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                          <TextField
+                            required
+
+                            id="email-admin"
+                            label="Admin email"
+                            value={this.state.preferences.adminEmail}
+                            onChange={this.handlePreferencesChange}
+                            fullWidth
+                            className={classes.textField}
+                            type="email"
+                            name="adminEmail"
+                            autoComplete="email"
+                            margin="normal"
+                            variant="standard"
+                          />
+
+                        </GridItem>
+
+                      </GridContainer>
+
 
                     </CardBody>
                     <CardFooter>
@@ -361,7 +394,7 @@ class ConfigurationPage extends React.PureComponent {
                             variant="standard"
                           />
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4}/>
+                        <GridItem xs={12} sm={12} md={4} />
                       </GridContainer>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={5}>
@@ -1372,9 +1405,9 @@ class ConfigurationPage extends React.PureComponent {
                 <p className={classes.description}>
                   renzo.mischianti@gmail.com
                 </p>
-                {/*<Button color="primary" round>*/}
-                  {/*Follow*/}
-                {/*</Button>*/}
+                {/* <Button color="primary" round> */}
+                {/* Follow */}
+                {/* </Button> */}
               </CardBody>
             </Card>
           </GridItem>

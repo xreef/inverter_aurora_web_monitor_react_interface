@@ -42,13 +42,27 @@ const externalmw = {
   // react: reactExternal,
   // 'react-dom': reactDOMExternal,
   // 'babel-polyfill': polyfillExternal
-};
 
-const externalisp = {
   // react: reactExternal,
   // 'react-dom': reactDOMExternal
   //
   // // , 'babel-polyfill': polyfillExternal
+
+};
+
+// const settings = JSON.parse(fs.readFileSync('./src/settings.json', 'utf8'));
+
+const settings = './src/settings.json';
+
+const settingsExternal = {
+  root: settings,
+  commonjs2: settings,
+  commonjs: settings,
+  amd: settings
+};
+
+const externalFile = {
+  settings: settingsExternal
 };
 
 module.exports = function (env) {
@@ -57,8 +71,7 @@ module.exports = function (env) {
       'aurora-web.min': ['babel-polyfill', `./src/index${(env.distType) ? `-${env.distType}` : ''}.jsx`],
       'aurora-web': ['babel-polyfill', `./src/index${(env.distType) ? `-${env.distType}` : ''}.jsx`]
     },
-    externals: (env.distType === 'wrapper-mw') ? externalmw : externalisp,
-
+    // externals: externalFile,
     output: {
       path: DIST_DIR,
       filename: '[name].js',

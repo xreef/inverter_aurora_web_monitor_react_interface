@@ -1,4 +1,5 @@
-export const MICROCONTROLLER_ADRESS = '192.168.1.11:8080';
+debugger
+export const MICROCONTROLLER_ADRESS = `${settings.localIP}:${settings.localRestPort}`;
 export const PRODUCTION_ENDPOINT = 'production';
 export const PRODUCTION_TOTALS_ENDPOINT = 'productionTotal';
 export const MONTLY_POWER_STATS_ENDPOINT = 'monthly';

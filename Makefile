@@ -30,10 +30,10 @@ build:
 	cp ./src/index.html $(DIST)
 	sed -i -e 's/\.\.\/aurora-web\.js/aurora-web\.min\.js/g'  $(DIST)/index.html
 
-	gzip $(DIST)/*.png
-	gzip $(DIST)/*.jpg
-	gzip $(DIST)/manifest.json
-	gzip $(DIST)/service-worker.js
+#	gzip $(DIST)/*.png
+#	gzip $(DIST)/*.jpg
+#	gzip $(DIST)/manifest.json
+#	gzip $(DIST)/service-worker.js
 	cp ./src/favicon.ico $(DIST)
-	gzip $(DIST)/favicon.ico
+#	gzip $(DIST)/favicon.ico
 #	sed -i 's/define\&\&define\.amd/define\&\&define\.amd\&\&\!window\.dojo\&\&\!window\.requirejs/' $(PACKAGE_MIN)

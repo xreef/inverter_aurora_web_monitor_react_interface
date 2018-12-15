@@ -1,5 +1,7 @@
 <!doctype html>
 <meta charset="utf-8"/>
+
+<meta http-equiv="Cache-Control" content="public">
 <!-- Add manifest -->
 <link rel="manifest" href="manifest.json">
 <!-- Tell the browser it's a PWA -->
@@ -19,6 +21,11 @@
   <div id="container" class="app-container"></div>
 
   <!--<script src="../__build__/shared.js"></script>-->
-  <script src="settings.json"></script>
-  <script src="../aurora-web.js"></script>
+  <script id="settings" src="settings.json"></script>
+  <script language="javascript" type="text/javascript">
+    var d = new Date();
+    document.getElementById("settings").src = "settings.json?v=" +d.getTime();
+  </script>
+
+  <script src="../aurora-web.js?v=22222222"></script>
 

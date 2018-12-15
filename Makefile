@@ -1,5 +1,6 @@
 .DELETE_ON_ERROR:
 
+TIMS = $$(date +%Y%m%d%H%M%S)
 #export BIN := $(shell npm bin)
 #PATH := $(BIN):$(PATH)
 DIST = ./dist
@@ -18,6 +19,9 @@ clean:
 dev:
 	webpack-dev-server --config webpack-examples.config.js
 
+prova:
+	sed -i -e 's/no-cache/public/g'  $(DIST)/index.html
+
 build:
 	rm -rf $(DIST)
 	mkdir $(DIST)
@@ -29,6 +33,8 @@ build:
 	sed -i -e 's/resources\/images\/favicon\///g'  $(DIST)/manifest.json
 	cp ./src/index.html $(DIST)
 	sed -i -e 's/\.\.\/aurora-web\.js/aurora-web\.min\.js/g'  $(DIST)/index.html
+	sed -i -e 's/22222222/'$(TIMS)'/g'  $(DIST)/index.html
+	sed -i -e 's/no-cache/public/g'  $(DIST)/index.html
 
 #	gzip $(DIST)/*.png
 #	gzip $(DIST)/*.jpg

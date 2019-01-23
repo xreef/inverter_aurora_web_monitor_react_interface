@@ -12,6 +12,9 @@ import {
   inverterDailyCurrentFetch, inverterDailyCurrentFetchCancel, inverterDailyCurrentFetchFulfilled, inverterDailyCurrentFetchRejected
 } from './inverterDailyCurrent';
 import {
+  inverterBatteryFetch, inverterBatteryFetchCancel, inverterBatteryFetchFulfilled, inverterBatteryFetchRejected
+} from './inverterDailyBattery';
+import {
   inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected
 } from './inverterDailyVoltage';
 import {
@@ -54,6 +57,7 @@ export {
   setPushNotificationSupported, setServiceWorkerSubscription, setUserSubscribedToPushNotification,
   inverterDailyPowerFetch, inverterDailyPowerFetchCancel, inverterDailyPowerFetchFulfilled, inverterDailyPowerFetchRejected,
   inverterDailyCurrentFetch, inverterDailyCurrentFetchCancel, inverterDailyCurrentFetchFulfilled, inverterDailyCurrentFetchRejected,
+  inverterBatteryFetch, inverterBatteryFetchCancel, inverterBatteryFetchFulfilled, inverterBatteryFetchRejected,
   inverterDailyVoltageFetch, inverterDailyVoltageFetchCancel, inverterDailyVoltageFetchFulfilled, inverterDailyVoltageFetchRejected,
   productionTotalsFetch, productionTotalsFetchCancel, productionTotalsFetchFulfilled, productionTotalsFetchRejected,
   monthlyPowerStatsFetch, monthlyPowerStatsFetchCancel, monthlyPowerStatsFetchFulfilled, monthlyPowerStatsFetchRejected,

@@ -135,7 +135,7 @@ class AreaChart extends React.Component {
       },
       singleTooltip: {
         xDisplayFormatPattern: '%d-%m-%Y %H:%M',
-        yDisplayFormatPattern: '.0f',
+        yDisplayFormatPattern: '.2f',
         origin: [10, 0],
         valueStroke: '#fff',
         // fontFamily: null,
@@ -266,7 +266,7 @@ class AreaChart extends React.Component {
           width={width - 20}
           height={height}
           margin={{
-				  left: 10, right: 50, top: 10, bottom: 30
+				  left: 10, right: 70, top: 10, bottom: 30
           }}
           seriesName="MSFT"
           data={data}

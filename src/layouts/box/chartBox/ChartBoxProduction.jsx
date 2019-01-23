@@ -68,6 +68,7 @@ class ChartBoxProduction extends React.Component {
   };
 
   render() {
+    // debugger
     const { classes, id, isInHome } = this.props;
     const {
       data, dataType, isFetching,

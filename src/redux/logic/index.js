@@ -1,5 +1,6 @@
 import inverterDailyPowerFetchLogic from './inverterDailyPower';
 import inverterDailyCurrentFetchLogic from './inverterDailyCurrent';
+import inverterBatteryFetchLogic from './inverterDailyBattery';
 import inverterDailyVoltageFetchLogic from './inverterDailyVoltage';
 import productionTotalsFetchLogic from './productionTotals';
 import monthlyPowerStatsFetchLogic from './monthlyPowerStats';
@@ -12,6 +13,7 @@ import serverState from './serverState';
 export default [
   ...inverterDailyPowerFetchLogic,
   ...inverterDailyCurrentFetchLogic,
+  ...inverterBatteryFetchLogic,
   ...inverterDailyVoltageFetchLogic,
   ...productionTotalsFetchLogic,
   ...monthlyPowerStatsFetchLogic,

@@ -25,7 +25,6 @@ const serverStateFetchLogic = createLogic({
   process({ httpClient, getState, action }, dispatch, done) {
     return httpClient.get(`http://${MICROCONTROLLER_ADRESS}/${SERVER_STATE_ENDPOINT}`)
       .then((resp) => {
-        debugger
         const lastUpdate = new Date(moment(resp.data.lastUpdate, 'DD/MM/YYYY HH:mm:ss').valueOf());
         const data = resp.data;
 

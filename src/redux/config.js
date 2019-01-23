@@ -1,6 +1,6 @@
-debugger
 export const MICROCONTROLLER_ADRESS = `${settings.localIP}:${settings.localRestPort}`;
 export const PRODUCTION_ENDPOINT = 'production';
+export const BATTERY_ENDPOINT = 'battery';
 export const PRODUCTION_TOTALS_ENDPOINT = 'productionTotal';
 export const MONTLY_POWER_STATS_ENDPOINT = 'monthly';
 export const INVERTER_INFO_ENDPOINT = 'inverterInfo';

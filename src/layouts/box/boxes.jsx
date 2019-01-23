@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import ChartBoxProductionPowerContainer from '../../containers/views/box/ChartBoxProductionPowerContainer';
 import ChartBoxProductionCurrentContainer from '../../containers/views/box/ChartBoxProductionCurrentContainer';
+import ChartBoxBatteryContainer from '../../containers/views/box/ChartBoxBatteryContainer';
 import ChartBoxProductionVoltageContainer from '../../containers/views/box/ChartBoxProductionVoltageContainer';
 import InformativeBoxLifetimeProductionContainer from '../../containers/views/box/InformativeBoxLifetimeProductionContainer';
 import InformativeBoxYearlyProductionContainer from '../../containers/views/box/InformativeBoxYearlyProductionContainer';
@@ -95,6 +96,26 @@ const boxes = {
         color: 'success',
       },
       boxType: 'chartBoxProductionCurrent',
+
+    },
+    resize: true,
+    close: true,
+    minW: 1,
+    maxW: 4,
+    minH: 2,
+    maxH: 4,
+    w: 2,
+    h: 2,
+  },
+  chartBoxBattery: {
+    additionalInfo: {
+      classObj: (id, props) => (<ChartBoxBatteryContainer key={id} id={id} {...props} />),
+      defaultProps: {
+        day: moment().format('YYYYMMDD'),
+        dataType: 'battery',
+        color: 'success',
+      },
+      boxType: 'chartBoxBattery',
 
     },
     resize: true,

@@ -15,8 +15,9 @@ class InverterInfoState extends React.Component {
     super(props);
     this.state = {
       elements: [
-        { i: 'tableBoxInverterAlarmsContainerId', ...{ ...boxes.tableBoxInverterAlarmsContainer } },
+        { i: 'chartBoxBattery', ...{ ...boxes.chartBoxBattery } },
         { i: 'tableBoxInverterInformationContainerId', ...{ ...boxes.tableBoxInverterInformationContainer } },
+        { i: 'tableBoxInverterAlarmsContainerId', ...{ ...boxes.tableBoxInverterAlarmsContainer } },
         // {i: guid(), ...{...boxes['chartBoxMonthly']}},
         // {i: guid(), ...{...boxes['informativeBoxLifetimeProductionContainer']}},
         // {i: guid(), ...{...boxes['informativeBoxYearlyProductionContainer']}},

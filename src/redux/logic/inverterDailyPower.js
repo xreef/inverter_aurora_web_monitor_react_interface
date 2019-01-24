@@ -7,6 +7,7 @@ import {
   INVERTER_DAILY_POWER_FETCH, INVERTER_DAILY_POWER_FETCH_CANCEL, inverterDailyPowerFetchFulfilled,
   inverterDailyPowerFetchRejected
 } from '../actions/inverterDailyPower';
+import dates from '../../utils/date/dates';
 
 const delay = 10; // 4s delay for interactive use of cancel/take latest
 
@@ -27,7 +28,7 @@ const inverterDailyPowerFetchLogic = createLogic({
         elem.date = new Date(moment(action.day + elem.h, 'YYYYMMDDHHmm').valueOf());
         elem.power = elem.val;
         return elem;
-      }));
+      }).sort((a, b) => dates.compare(a.date, b.date)));
     // .then(data => dispatch({ type: INVERTER_DAILY_POWER_FETCH_FULFILLED, payload: data }))
     // .catch(err => {
     //     console.error(err); // log since might be a render err

@@ -8,6 +8,7 @@ import {
   MONTHLY_POWER_STATS_FETCH, MONTHLY_POWER_STATS_FETCH_CANCEL, monthlyPowerStatsFetchFulfilled,
   monthlyPowerStatsFetchRejected, MONTHLY_POWER_STATS_FETCH_REJECTED, MONTHLY_POWER_STATS_FETCH_FULFILLED
 } from '../actions/monthlyPowerStats';
+import dates from '../../utils/date/dates';
 
 const delay = 10; // 4s delay for interactive use of cancel/take latest
 
@@ -32,7 +33,7 @@ const monthlyPowerStatsFetchLogic = createLogic({
           resp.data.series[key].date = new Date(moment(action.month + key, 'YYYYMMDD'));
           data.push(resp.data.series[key]);
         });
-        return { data, lastUpdate };
+        return { data: [...data.sort((a, b) => dates.compare(a.date, b.date))], lastUpdate };
       });
   }
 });

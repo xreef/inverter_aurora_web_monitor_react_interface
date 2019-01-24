@@ -41,7 +41,7 @@ const inverterBatteryFetchLogic = createLogic({
         });
         // debugger
         // data.sort((a, b) => dates.compare(a, b));
-        return { data: [...data.sort((a, b) => dates.compare(a, b))], lastUpdate };
+        return { data: [...data.sort((a, b) => dates.compare(a.date, b.date))], lastUpdate };
       });
     // .then(data => dispatch({ type: INVERTER_BATTERY_FETCH_FULFILLED, payload: data }))
     // .catch(err => {

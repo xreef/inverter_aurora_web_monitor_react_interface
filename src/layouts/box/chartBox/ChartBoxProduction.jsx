@@ -24,6 +24,7 @@ import AreaChart from '../../../component/charts/AreaChart';
 
 import * as colorMod from '../../../component/style/material-dashboard-react';
 import Button from '../../../component/customButtons/Button';
+import dates from '../../../utils/date/dates';
 
 
 class ChartBoxProduction extends React.Component {

@@ -8,6 +8,7 @@ import {
   INVERTER_DAILY_VOLTAGE_FETCH, INVERTER_DAILY_VOLTAGE_FETCH_CANCEL, inverterDailyVoltageFetchFulfilled,
   inverterDailyVoltageFetchRejected, INVERTER_DAILY_VOLTAGE_FETCH_REJECTED, INVERTER_DAILY_VOLTAGE_FETCH_FULFILLED
 } from '../actions/inverterDailyVoltage';
+import dates from '../../utils/date/dates';
 
 const delay = 10; // 4s delay for interactive use of cancel/take latest
 
@@ -28,7 +29,7 @@ const inverterDailyVoltageFetchLogic = createLogic({
         elem.date = new Date(moment(action.day + elem.h, 'YYYYMMDDHHmm').valueOf());
         elem.voltage = elem.val;
         return elem;
-      }));
+      }).sort((a, b) => dates.compare(a.date, b.date)));
     // .then(data => dispatch({ type: INVERTER_DAILY_VOLTAGE_FETCH_FULFILLED, payload: data }))
     // .catch(err => {
     //     console.error(err); // log since might be a render err

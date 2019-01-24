@@ -7,6 +7,7 @@ import {
   INVERTER_DAILY_CURRENT_FETCH, INVERTER_DAILY_CURRENT_FETCH_CANCEL, inverterDailyCurrentFetchFulfilled,
   inverterDailyCurrentFetchRejected, INVERTER_DAILY_CURRENT_FETCH_REJECTED, INVERTER_DAILY_CURRENT_FETCH_FULFILLED
 } from '../actions/inverterDailyCurrent';
+import dates from '../../utils/date/dates';
 
 const delay = 10; // 4s delay for interactive use of cancel/take latest
 
@@ -27,7 +28,7 @@ const inverterDailyCurrentFetchLogic = createLogic({
         elem.date = new Date(moment(action.day + elem.h, 'YYYYMMDDHHmm').valueOf());
         elem.current = elem.val;
         return elem;
-      }));
+      }).sort((a, b) => dates.compare(a.date, b.date)));
     // .then(data => dispatch({ type: INVERTER_DAILY_CURRENT_FETCH_FULFILLED, payload: data }))
     // .catch(err => {
     //     console.error(err); // log since might be a render err

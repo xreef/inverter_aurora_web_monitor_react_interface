@@ -151,7 +151,7 @@
     "menu.navbar.monthly": "Grafici mensili",
 
     "menu.sidebar.information_state": "Informazioni e stato",
-    "menu.navbar.information_state": "Informazioni e stato dell'inverter",
+    "menu.navbar.information_state": "Informazioni e stato",
 
     "menu.sidebar.configuration": "Configurazione",
     "menu.navbar.configuration": "Configurazione",
@@ -165,7 +165,7 @@
     "chart.no_production": "Nessuna produzione",
     "chart.loading": "Caricamento",
 
-    "chart.production.power.title": "Produzione giornaliera",
+    "chart.production.power.title": "Prod. giornaliera",
     "chart.production.voltage.title": "Andamento del voltaggio",
     "chart.production.current.title": "Andamento degli ampere",
     "chart.production.battery.title": "Batteria",
@@ -188,16 +188,16 @@
 
     "chart.monthly.production.label": "Watt giornalieri",
 
-    "chart.monthly.production.title": "Grafico produzione mensile",
-    "chart.monthly.production.subtitle": "Mese di riferimento: ",
+    "chart.monthly.production.title": "Produzione mensile",
+    "chart.monthly.production.subtitle": "Mese: ",
 
     "chart.monthly.production.tooltip": "Giornaliero: {pow}w Picco giornaliero: {peak}w",
     "chart.monthly.production.tooltip.label": "Produzione:",
 
-    "last.update": "Ultimo aggiornamento",
+    "last.update": "Ultimo agg.",
 
     "table.inverter.info.title": "Informazioni inverter",
-    "table.inverter.info.subtitle": "Tutti i dati presenti nell'inverter",
+    "table.inverter.info.subtitle": "Tutti i dati dell'inverter",
     "table.inverter.info.modelName": "Nome modello",
     "table.inverter.info.modelNameIndoorOutdoorType": "Nome indoor o outdoor",
     "table.inverter.info.gridStandard": "Standard di griglia",
@@ -214,7 +214,7 @@
     "table.inverter.channel2.state": "Statp canale 2",
     "table.inverter.inverter.state": "Stato Inverter",
     "table.inverter.state.title": "Stato inverter",
-    "table.inverter.state.subtitle": "Tutti i punti di attenzione dell'inverter",
+    "table.inverter.state.subtitle": "Punti di attenzione dell'inverter",
 
     "configuration.preferences.title": "Preferenze",
     "configuration.preferences.subtitle": "Preferenze generiche",

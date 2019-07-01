@@ -1,1 +1,1 @@
-var settings = {"localIP":"192.168.1.11","localRestPort":8080};
+var settings = {"localIP":"192.168.1.15","localRestPort":8080};

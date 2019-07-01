@@ -82,6 +82,7 @@
     "configuration.preferences.title": "Settings",
     "configuration.preferences.subtitle": "Generic settings",
     "configuration.preferences.GTM.label": "GTM offset",
+    "configuration.preferences.DST.label": "Daylight saving time (Override GTM)",
     "configuration.preferences.update": "Update preferences",
 
     "configuration.network.title": "Network configuration",
@@ -95,6 +96,8 @@
     "configuration.email.table.channel1":"Channel 1",
     "configuration.email.table.channel2":"Channel 2",
     "configuration.email.table.states":"State",
+
+    "configuration.email.notification.enabled.label": "Activate notification",
 
     "configuration.email.table.value.alert":"Alarm",
     "configuration.email.table.value.nothing":"None",
@@ -218,13 +221,16 @@
 
     "configuration.preferences.title": "Preferenze",
     "configuration.preferences.subtitle": "Preferenze generiche",
-    "configuration.preferences.GTM.label": "GTM offset",
+    "configuration.preferences.GTM.label": "GMT offset",
+    "configuration.preferences.DST.label": "Ora legale (sovrascrive GTM)",
     "configuration.preferences.update": "Aggiorna preferenze",
 
     "configuration.network.title": "Configurazione di rete",
     "configuration.network.subtitle": "Ricorda di impostare un indirizzo IP statico",
 
     "configuration.network.staticIP.label": "Seleziona un IP statico",
+
+    "configuration.email.notification.enabled.label": "Attiva notifiche",
 
     "configuration.email.table.email":"EMail",
     "configuration.email.table.name":"Nome",

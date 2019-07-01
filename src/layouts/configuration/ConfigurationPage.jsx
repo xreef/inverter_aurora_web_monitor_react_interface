@@ -55,6 +55,7 @@ import GridItem from '../../component/grid/GridItem';
 import Overlay from '../../component/overlay/Overlay';
 
 import GTMs from '../../utils/locale/GTMs';
+import DSTs from '../../utils/locale/DSTs';
 
 function Transition(props) {
   return <Slide direction="down" {...props} />;
@@ -86,6 +87,11 @@ class ConfigurationPage extends React.PureComponent {
       preferences: {
         GTM: {
           timeZoneId: 30, gmtAdjustment: 'GMT+00:00', useDaylightTime: 1, value: 0, description: '(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London'
+        },
+        DST: {
+          id: 8,
+          code: 'UTC',
+          description: 'UTC'
         },
         adminEmail: ''
       },
@@ -162,6 +168,16 @@ class ConfigurationPage extends React.PureComponent {
       preferences: {
         ...this.state.preferences,
         ...{ [event.target.name]: GTMs[GTMs.findIndex(g => g.timeZoneId === event.target.value)] }
+      }
+    });
+  };
+
+  handlePreferencesDSTChange = (event) => {
+    debugger
+    this.setState({
+      preferences: {
+        ...this.state.preferences,
+        ...{ [event.target.name]: DSTs[DSTs.findIndex(g => g.code === event.target.value)] }
       }
     });
   };
@@ -321,6 +337,27 @@ class ConfigurationPage extends React.PureComponent {
                               }}
                             >
                               {GTMs.map(t => <MenuItem key={t.timeZoneId} value={t.timeZoneId}>{t.description}</MenuItem>)}
+                            </Select>
+                          </FormControl>
+                        </GridItem>
+                      </GridContainer>
+<br/>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                          <FormControl className={classNames(classes.margin, classes.textField)}>
+                            <InputLabel htmlFor="age-simple">
+                              <FormattedMessage id="configuration.preferences.DST.label" />
+                            </InputLabel>
+                            <Select
+                              value={this.state.preferences.DST.code}
+                              onChange={this.handlePreferencesDSTChange}
+
+                              inputProps={{
+                                name: 'DST',
+                                id: 'DST',
+                              }}
+                            >
+                              {DSTs.map(t => <MenuItem key={t.id} value={t.code}>{t.description}</MenuItem>)}
                             </Select>
                           </FormControl>
                         </GridItem>

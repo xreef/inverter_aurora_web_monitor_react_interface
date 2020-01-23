@@ -94,7 +94,7 @@ const dropdownStyle = theme => ({
     ...defaultFont,
     fontSize: '13px',
     padding: '10px 20px',
-    margin: '0 5px',
+    margin: '0 5px 5px 5px',
     borderRadius: '2px',
     WebkitTransition: 'all 150ms linear',
     MozTransition: 'all 150ms linear',
@@ -108,12 +108,24 @@ const dropdownStyle = theme => ({
     color: '#333',
     whiteSpace: 'nowrap',
     height: 'unset',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     '&:hover': {
       backgroundColor: primaryColor,
       color: '#FFFFFF',
       ...primaryBoxShadow,
     },
   },
+  info: {
+    backgroundColor: "#c9e8ff"
+  },
+  warning: {
+    backgroundColor: "#fdffea"
+  },
+  error: {
+    backgroundColor: "#ffe0db"
+  },
+
 });
 
 export default dropdownStyle;

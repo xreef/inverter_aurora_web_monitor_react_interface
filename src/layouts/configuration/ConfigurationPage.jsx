@@ -43,6 +43,7 @@ import { addNotification, configurationAdd, configurationFetch } from '../../red
 import basicsStyle from '../../component/style/basicsStyle.jsx';
 import Table from '../../component/table/TableGrid';
 import avatar from '../../resources/images/bill.jpg';
+import siteLogo from '../../resources/images/logo.jpg';
 import CardFooter from '../../component/card/CardFooter';
 import CardBody from '../../component/card/CardBody';
 import CardAvatar from '../../component/card/CardAvatar';
@@ -173,7 +174,7 @@ class ConfigurationPage extends React.PureComponent {
   };
 
   handlePreferencesDSTChange = (event) => {
-    debugger
+    // debugger;
     this.setState({
       preferences: {
         ...this.state.preferences,
@@ -341,7 +342,7 @@ class ConfigurationPage extends React.PureComponent {
                           </FormControl>
                         </GridItem>
                       </GridContainer>
-<br/>
+                      <br />
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
                           <FormControl className={classNames(classes.margin, classes.textField)}>
@@ -1432,7 +1433,7 @@ class ConfigurationPage extends React.PureComponent {
           <GridItem xs={12} sm={6} md={4}>
             <Card profile>
               <CardAvatar profile>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
+                <a href="https://www.mischianti.org" onClick={e => e.preventDefault()}>
                   <img src={avatar} alt="..." />
                 </a>
               </CardAvatar>
@@ -1442,7 +1443,23 @@ class ConfigurationPage extends React.PureComponent {
                 <p className={classes.description}>
                   renzo.mischianti@gmail.com
                 </p>
-                {/* <Button color="primary" round> */}
+                <p className={classes.description}>
+                  <a href="https://www.mischianti.org">
+                    <img
+                      src={siteLogo}
+                      style={{
+                        width: '50px',
+                        'vertical-align': 'middle',
+                        'padding-right': '10px'
+                      }
+                    }
+                      alt="A blog of digital electronics and programming (Bumblebee can't fly)"
+                    />
+
+                    www.mischianti.org
+                  </a>
+                </p>
+                {/* <Button color="primary" round link="www.mischianti.org"> */}
                 {/* Follow */}
                 {/* </Button> */}
               </CardBody>

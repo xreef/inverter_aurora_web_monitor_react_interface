@@ -137,7 +137,14 @@
 
     "home.fab.tooltip": "Locally save current layouts of this page",
 
-    "page.intro": "<div><h2>Introduction</h2><div>To install this Web App activate the chrome features <b> Desktop PWAs</b></div><div>Copy this link and paste in your browser</div><div>chrome://flags/#enable-desktop-pwas</div></div>"
+    "page.intro": "<div><h2>Introduction</h2><div>To install this Web App activate the chrome features <b> Desktop PWAs</b></div><div>Copy this link and paste in your browser</div><div>chrome://flags/#enable-desktop-pwas</div></div>",
+
+    "websocket.open": "Realtime push notification active",
+    "websocket.close": "Realtime push notification stopped",
+    "websocket.error": "Error on realtime push notification <br>Not connected!",
+
+    "websocket.inverter.message.error": "Inverter change starte <br>Data: {hStr} <br>Alarm: {alarm} - Channel 1: {ch1state} - Channel 2: {ch2state} - Stato: {state}. ",
+    "websocket.centraline.message.error": "Centraline error <br>Data: {hStr} <br>Time settings: {fixedTime} - SD: {sdStarted} - WIFI: {wifiConnected} - File saved: {isFileSaveOK} {sdWrongReadNumber}. "
   },
   "it": {
     "layouts.set": "Il layout è stato salvato sul dispositivo",
@@ -277,6 +284,12 @@
 
     "home.fab.tooltip": "Salva localmente i layouts di questa pagina",
 
-    "page.intro": "<div><h2>Introduzione</h2><div>Per installare questa WebApp è necessario abilitare questa features di Chrome <b> Desktop PWAs</b></div><div>Copia incolla questo link sul browser </div><div>chrome://flags/#enable-desktop-pwas</div></div>"
+    "page.intro": "<div><h2>Introduzione</h2><div>Per installare questa WebApp è necessario abilitare questa features di Chrome <b> Desktop PWAs</b></div><div>Copia incolla questo link sul browser </div><div>chrome://flags/#enable-desktop-pwas</div></div>",
+
+    "websocket.open": "Notifiche push attive",
+    "websocket.close": "Notifiche push disattivate",
+    "websocket.error": "Errore sulle notifiche push <br>Impossibile stabilire una connessione",
+    "websocket.centraline.message.error": "Errore di centralina <br>Data: {hStr} <br>Ora settata: {fixedTime} - SD: {sdStarted} - WIFI: {wifiConnected} - File saved: {isFileSaveOK} {sdWrongReadNumber}. ",
+    "websocket.inverter.message.error": "Cambio stato inverter <br>Data: {hStr} <br>Alarm: {alarm} - Channel 1: {ch1state} - Channel 2: {ch2state} - Stato: {state}. "
   }
 }

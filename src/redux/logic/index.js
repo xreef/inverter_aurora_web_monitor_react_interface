@@ -9,6 +9,7 @@ import inverterAlarms from './inverterAlarms';
 import configurationGET from './configurationGET';
 import configurationPost from './configurationPost';
 import serverState from './serverState';
+import realtimeUpdate from './realtimeUpdate';
 
 export default [
   ...inverterDailyPowerFetchLogic,
@@ -21,5 +22,6 @@ export default [
   ...inverterAlarms,
   ...configurationGET,
   ...configurationPost,
-  ...serverState
+  ...serverState,
+  ...realtimeUpdate
 ];

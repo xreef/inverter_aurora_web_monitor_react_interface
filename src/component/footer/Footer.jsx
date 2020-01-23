@@ -15,13 +15,14 @@ function Footer({ ...props }) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a href="https://github.com/xreef" className={classes.block}>
-                GitHub
+              <a href="https://www.mischianti.org" className={classes.block}>
+                My site
               </a>
             </ListItem>
+
             <ListItem className={classes.inlineBlock}>
-              <a href="https://www.instructables.com/member/xxreef/instructables/" className={classes.block}>
-                Instructables
+              <a href="https://github.com/xreef" className={classes.block}>
+                GitHub
               </a>
             </ListItem>
               <ListItem className={classes.inlineBlock}>

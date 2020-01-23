@@ -30,6 +30,7 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import StoreIcon from "@material-ui/icons/Store";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import { FormattedHTMLMessage } from 'react-intl';
 // import {
 //     setPushNotificationSupported,
 //     setServiceWorkerSubscription,
@@ -57,6 +58,8 @@ class App extends React.Component {
         }
     };
     props.serverStateFetch();
+
+    props.webSocketOpen();
     this.resizeFunction = this.resizeFunction.bind(this);
   }
 
@@ -134,7 +137,14 @@ class App extends React.Component {
             checkPushNotificationSupport(checkPushNotificationSupportCB);
         }
     };
-    subscribeServiceWorker(subscribeServiceWorkerCB);
+    // Remove serviceWorker
+    // subscribeServiceWorker(subscribeServiceWorkerCB);
+
+    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
+    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
+    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
+    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'warning', autoHide: false })
+    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'info', autoHide: false })
   }
 
   addToHomeScreen = () => {
@@ -161,6 +171,7 @@ class App extends React.Component {
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeFunction);
+    this.props.webSocketClose();
   }
 
   setMainPanelRef = (mainPanel) => {
@@ -246,7 +257,9 @@ App.propTypes = {
     setServiceWorkerSubscription: PropTypes.func.isRequired,
     setPushNotificationSupported: PropTypes.func.isRequired,
 
-    serverStateFetch: PropTypes.func.isRequired
+    serverStateFetch: PropTypes.func.isRequired,
+    webSocketOpen: PropTypes.func.isRequired,
+    webSocketClose : PropTypes.func.isRequired
 };
 
 export default withStyles(dashboardStyle)(App);

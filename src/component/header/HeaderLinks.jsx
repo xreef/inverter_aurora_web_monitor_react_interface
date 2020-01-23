@@ -61,9 +61,9 @@ class HeaderLinks extends React.Component {
       <MenuItem
         key={idx}
         onClick={handleClose}
-        className={classes.dropdownItem}
+        className={classes.dropdownItem+' '+classes[notification.variant]}
       >
-        {notification.title}
+          {notification.title || notification.message}
       </MenuItem>
     );
     const arrMI = [];
@@ -80,22 +80,22 @@ class HeaderLinks extends React.Component {
     return (
       <div>
         {/* SEARCH */}
-        {/*<div className={classes.searchWrapper}>*/}
-          {/*<CustomInput*/}
-            {/*formControlProps={{*/}
-              {/*className: `${classes.margin} ${classes.search}`*/}
-            {/*}}*/}
-            {/*inputProps={{*/}
-              {/*placeholder: 'Search',*/}
-              {/*inputProps: {*/}
-                {/*'aria-label': 'Search'*/}
-              {/*}*/}
-            {/*}}*/}
-          {/*/>*/}
-          {/*<Button color="white" aria-label="edit" justIcon round>*/}
-            {/*<Search />*/}
-          {/*</Button>*/}
-        {/*</div>*/}
+        {/* <div className={classes.searchWrapper}> */}
+        {/* <CustomInput */}
+        {/* formControlProps={{ */}
+        {/* className: `${classes.margin} ${classes.search}` */}
+        {/* }} */}
+        {/* inputProps={{ */}
+        {/* placeholder: 'Search', */}
+        {/* inputProps: { */}
+        {/* 'aria-label': 'Search' */}
+        {/* } */}
+        {/* }} */}
+        {/* /> */}
+        {/* <Button color="white" aria-label="edit" justIcon round> */}
+        {/* <Search /> */}
+        {/* </Button> */}
+        {/* </div> */}
         {/* Home */}
         <Button
           color={window.innerWidth > 959 ? 'transparent' : 'white'}
@@ -165,18 +165,18 @@ class HeaderLinks extends React.Component {
           </Poppers>
         </div>
 
-        {/*<Button*/}
-          {/*color={window.innerWidth > 959 ? 'transparent' : 'white'}*/}
-          {/*justIcon={window.innerWidth > 959}*/}
-          {/*simple={!(window.innerWidth > 959)}*/}
-          {/*aria-label="Person"*/}
-          {/*className={classes.buttonLink}*/}
-        {/*>*/}
-          {/*<Person className={classes.icons} />*/}
-          {/*<Hidden mdUp implementation="css">*/}
-            {/*<p className={classes.linkText}>Profile</p>*/}
-          {/*</Hidden>*/}
-        {/*</Button>*/}
+        {/* <Button */}
+        {/* color={window.innerWidth > 959 ? 'transparent' : 'white'} */}
+        {/* justIcon={window.innerWidth > 959} */}
+        {/* simple={!(window.innerWidth > 959)} */}
+        {/* aria-label="Person" */}
+        {/* className={classes.buttonLink} */}
+        {/* > */}
+        {/* <Person className={classes.icons} /> */}
+        {/* <Hidden mdUp implementation="css"> */}
+        {/* <p className={classes.linkText}>Profile</p> */}
+        {/* </Hidden> */}
+        {/* </Button> */}
       </div>
     );
   }

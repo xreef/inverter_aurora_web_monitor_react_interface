@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   shiftNotification, addNotification,
   setUserSubscribedToPushNotification, setServiceWorkerSubscription, setPushNotificationSupported,
-  serverStateFetch
+  serverStateFetch, webSocketOpen, webSocketClose
 } from '../../redux/actions';
 
 import App from '../../layouts/dashboard/Dashboard';
@@ -19,7 +19,9 @@ const mapDispatchToProps = {
   setUserSubscribedToPushNotification,
   setServiceWorkerSubscription,
   setPushNotificationSupported,
-  serverStateFetch
+  serverStateFetch,
+  webSocketOpen,
+  webSocketClose
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -51,6 +51,13 @@ import {
   setInverterInfoStateLayout
 } from './inverterInfoState';
 
+import {
+  webSocketSendMessage,
+  webSocketMessage,
+  webSocketOpen,
+  webSocketClose
+} from './realtimeUpdate';
+
 export {
   setVersion,
   addNotification, shiftNotification,
@@ -70,4 +77,5 @@ export {
   setHistoricalLayout,
   setInverterInfoStateLayout,
   serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected,
+  webSocketSendMessage, webSocketMessage, webSocketOpen, webSocketClose
 };

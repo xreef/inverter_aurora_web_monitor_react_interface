@@ -140,11 +140,11 @@ class App extends React.Component {
     // Remove serviceWorker
     // subscribeServiceWorker(subscribeServiceWorkerCB);
 
-    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
-    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
-    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
-    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'warning', autoHide: false })
-    addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'info', autoHide: false })
+    // addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
+    // addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
+    // addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false })
+    // addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'warning', autoHide: false })
+    // addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'info', autoHide: false })
   }
 
   addToHomeScreen = () => {

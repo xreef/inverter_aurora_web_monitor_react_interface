@@ -143,7 +143,7 @@
     "websocket.close": "Realtime push notification stopped",
     "websocket.error": "Error on realtime push notification <br>Not connected!",
 
-    "websocket.inverter.message.error": "Inverter change starte <br>Data: {hStr} <br>Alarm: {alarm} - Channel 1: {ch1state} - Channel 2: {ch2state} - Stato: {state}. ",
+    "websocket.inverter.message.error": "Inverter change starteS <br>Data: {hStr} <br>Alarm: {alarm} - Channel 1: {ch1state} - Channel 2: {ch2state} - Stato: {state}. ",
     "websocket.centraline.message.error": "Centraline error <br>Data: {hStr} <br>Time settings: {fixedTime} - SD: {sdStarted} - WIFI: {wifiConnected} - File saved: {isFileSaveOK} {sdWrongReadNumber}. "
   },
   "it": {

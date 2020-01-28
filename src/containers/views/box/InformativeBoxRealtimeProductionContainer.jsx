@@ -11,10 +11,7 @@ import InformativeRealtimeBox from '../../../layouts/box/informativeBox/Informat
 const isElementInHome = (element, homeElements) => homeElements.some(elem => elem.additionalInfo.boxType === element);
 
 /*
-lifetime
-yearly
-montly
-weekly
+power
  */
 const mapStateToProps = (state, ownProps) => ({
   dataType: 'power',

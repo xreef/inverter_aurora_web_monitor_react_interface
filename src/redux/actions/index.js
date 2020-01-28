@@ -30,7 +30,9 @@ import {
   inverterAlarmsFetch, inverterAlarmsFetchCancel, inverterAlarmsFetchFulfilled, inverterAlarmsFetchRejected
 } from './inverterAlarms';
 import {
-  serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected
+  serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected,
+  serverStateBatteryFetchFulfilled,
+  serverStateWIFIStrenghtFetchFulfilled
 } from './serverState';
 
 import {
@@ -58,6 +60,10 @@ import {
   webSocketClose
 } from './realtimeUpdate';
 
+import {
+  setPowerRealTime
+} from './realtimeData';
+
 export {
   setVersion,
   addNotification, shiftNotification,
@@ -76,6 +82,7 @@ export {
   setDailyLayout,
   setHistoricalLayout,
   setInverterInfoStateLayout,
-  serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected,
-  webSocketSendMessage, webSocketMessage, webSocketOpen, webSocketClose
+  serverStateFetch, serverStateFetchCancel, serverStateFetchFulfilled, serverStateFetchRejected, serverStateBatteryFetchFulfilled, serverStateWIFIStrenghtFetchFulfilled,
+  webSocketSendMessage, webSocketMessage, webSocketOpen, webSocketClose,
+  setPowerRealTime
 };

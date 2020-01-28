@@ -9,6 +9,7 @@ import InformativeBoxYearlyProductionContainer from '../../containers/views/box/
 import InformativeBoxMontlyProductionContainer from '../../containers/views/box/InformativeBoxMontlyProductionContainer';
 import InformativeBoxWeeklyProductionContainer from '../../containers/views/box/InformativeBoxWeeklyProductionContainer';
 import InformativeBoxDailyProductionContainer from '../../containers/views/box/InformativeBoxDailyProductionContainer';
+import InformativeBoxRealtimeProductionContainer from '../../containers/views/box/InformativeBoxRealtimeProductionContainer';
 import ChartBoxMonthlyContainer from '../../containers/views/box/ChartBoxMonthlyContainer';
 import TableBoxInverterInformationContainer from '../../containers/views/box/TableBoxInverterInformationContainer';
 import TableBoxInverterAlarmsContainer from '../../containers/views/box/TableBoxInverterAlarmsContainer';
@@ -237,6 +238,26 @@ const boxes = {
         lastUpdate: null,
       },
       boxType: 'informativeBoxDailyProductionContainer',
+    },
+    resize: true,
+    close: true,
+    minW: 1,
+    maxW: 1,
+    minH: 1,
+    maxH: 1,
+    w: 1,
+    h: 1,
+  },
+  informativeBoxRealtimeProductionContainer: {
+    additionalInfo: {
+      classObj: (id, props) => (<InformativeBoxRealtimeProductionContainer key={id} id={id} {...props} />),
+      defaultProps: {
+        dataType: 'power',
+        color: 'success',
+        value: 0,
+        lastUpdate: null,
+      },
+      boxType: 'informativeBoxRealtimeProductionContainer',
     },
     resize: true,
     close: true,

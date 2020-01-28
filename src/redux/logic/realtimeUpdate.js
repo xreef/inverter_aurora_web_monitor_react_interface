@@ -17,6 +17,16 @@ import {
   productionTotalsFetchFulfilled
 } from '../actions/productionTotals';
 
+import {
+  serverStateBatteryFetchFulfilled,
+  serverStateWIFIStrenghtFetchFulfilled
+} from '../actions/serverState';
+
+import {
+  setPowerRealTime
+} from '../actions/realtimeData';
+
+
 import { MICROCONTROLLER_WS_ADRESS } from '../config';
 import { addNotification, inverterAlarmsFetchFulfilled } from '../actions';
 
@@ -117,11 +127,11 @@ const wsListenLogic = createLogic({
           dispatch(productionTotalsFetchFulfilled(resp));
         } else if (msg.type === 'error') {
           // debugger;
-          let resp = { ...msg.value };
-          resp.fixedTime = (resp.fixedTime)?"OK":"KO";
-          resp.sdStarted = (resp.sdStarted)?"OK":"KO";
-          resp.wifiConnected = (resp.wifiConnected)?"OK":"KO";
-          resp.isFileSaveOK = (resp.isFileSaveOK)?"OK":"KO";
+          const resp = { ...msg.value };
+          resp.fixedTime = (resp.fixedTime) ? 'OK' : 'KO';
+          resp.sdStarted = (resp.sdStarted) ? 'OK' : 'KO';
+          resp.wifiConnected = (resp.wifiConnected) ? 'OK' : 'KO';
+          resp.isFileSaveOK = (resp.isFileSaveOK) ? 'OK' : 'KO';
 
           resp.hStr = moment(msg.date, 'DD/MM/YYYY HH:mm:ss').format('lll');
 
@@ -132,7 +142,7 @@ const wsListenLogic = createLogic({
           resp.hStr = moment(msg.date, 'DD/MM/YYYY HH:mm:ss').format('lll');
           resp.lastUpdate = new Date(moment(msg.date, 'DD/MM/YYYY HH:mm:ss'));
 
-          let updated = {
+          const updated = {
             alarmStateParam: resp.asp,
             alarmState: resp.alarm,
             channel1StateParam: resp.c1sp,
@@ -143,7 +153,25 @@ const wsListenLogic = createLogic({
             inverterState: resp.state
           };
           dispatch(addNotification({ message: <FormattedHTMLMessage id="websocket.inverter.message.error" values={{ ...resp }} />, variant: ((resp.inverterProblem) ? 'error' : 'warning'), autoHide: false }));
-          dispatch(inverterAlarmsFetchFulfilled({data: updated, lastUpdate: resp.lastUpdate}));
+          dispatch(inverterAlarmsFetchFulfilled({ data: updated, lastUpdate: resp.lastUpdate }));
+        } else if (msg.type === 'power_rt') {
+          let resp = {};
+          resp.value = parseFloat(msg.value);
+          resp.lastUpdate = new Date(moment(msg.date, 'DD/MM/YYYY HH:mm:ss'));
+
+          dispatch(setPowerRealTime(resp));
+        } else if (msg.type === 'bat_rt') {
+          const resp = {};
+          resp.voltage = parseFloat(msg.value);
+          resp.lastUpdate = new Date(moment(msg.date, 'DD/MM/YYYY HH:mm:ss'));
+
+          dispatch(serverStateBatteryFetchFulfilled(resp));
+        } else if (msg.type === 'wifi_rt') {
+          const resp = {};
+          resp.signalStrengh = parseInt(msg.value);
+          resp.lastUpdate = new Date(moment(msg.date, 'DD/MM/YYYY HH:mm:ss'));
+
+          dispatch(serverStateWIFIStrenghtFetchFulfilled(resp));
         }
       }),
       retryWhen(errors => errors.pipe(

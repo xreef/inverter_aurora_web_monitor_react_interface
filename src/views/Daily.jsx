@@ -23,6 +23,7 @@ class Daily extends React.Component {
         // {i: guid(), ...{...boxes['informativeBoxYearlyProductionContainer']}},
         // {i: guid(), ...{...boxes['informativeBoxMontlyProductionContainer']}},
         // {i: guid(), ...{...boxes['informativeBoxWeeklyProductionContainer']}}
+        { i: 'informativeBoxRealtimeProductionContainerId', ...{ ...boxes.informativeBoxRealtimeProductionContainer } },
         { i: 'informativeBoxDailyProductionContainerId', ...{ ...boxes.informativeBoxDailyProductionContainer } },
         { i: 'chartBoxProductionPowerId', ...{ ...boxes.chartBoxProductionPower } },
         { i: 'chartBoxProductionCurrentId', ...{ ...boxes.chartBoxProductionCurrent } },

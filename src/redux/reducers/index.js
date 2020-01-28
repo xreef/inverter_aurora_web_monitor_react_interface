@@ -18,6 +18,7 @@ import historical from './historical';
 import inverterInfoState from './inverterInfoState';
 import serverState from './serverState';
 import realtimeUpdate from './realtimeUpdate';
+import realtimeData from './realtimeData';
 
 const reducersAurora = combineReducers({
   version,
@@ -37,7 +38,8 @@ const reducersAurora = combineReducers({
   historical,
   inverterInfoState,
   serverState,
-  realtimeUpdate
+  realtimeUpdate,
+  realtimeData
 });
 
 export default reducersAurora;

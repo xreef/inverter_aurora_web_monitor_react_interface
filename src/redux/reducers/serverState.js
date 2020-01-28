@@ -1,6 +1,11 @@
 import {
-  key, SERVER_STATE_FETCH, SERVER_STATE_FETCH_CANCEL, SERVER_STATE_FETCH_FULFILLED,
-  SERVER_STATE_FETCH_REJECTED
+  key,
+  SERVER_STATE_BATTERY_FETCH_FULFILLED,
+  SERVER_STATE_FETCH,
+  SERVER_STATE_FETCH_CANCEL,
+  SERVER_STATE_FETCH_FULFILLED,
+  SERVER_STATE_FETCH_REJECTED,
+  SERVER_STATE_WIFI_STRENGHT_FETCH_FULFILLED
 } from '../actions/serverState';
 
 export const selectors = {
@@ -33,6 +38,38 @@ export default function reducer(state = initialState, action) {
         fetchStatus: `Results from ${(new Date()).toLocaleString()}`,
         lastUpdate: action.lastUpdate
       };
+    case SERVER_STATE_BATTERY_FETCH_FULFILLED:
+
+      let ss = -100;
+      if (state && state.data && state.data.network && state.data.network.signalStrengh) {
+        ss = state.data.network.signalStrengh;
+      }
+
+      if (state && state.data && state.data.chip && state.data.chip.batteryVoltage) {
+        return {
+          ...state,
+          data: {
+            ...state.data, ...{ chip: { ...state.data.chip, ...{ batteryVoltage: action.voltage } } }
+          },
+          isFetching: false,
+          fetchStatus: `Results from ${(new Date()).toLocaleString()}`,
+          lastUpdate: action.lastUpdate
+        };
+      }
+      return state;
+    case SERVER_STATE_WIFI_STRENGHT_FETCH_FULFILLED:
+      if (state && state.data && state.data.network && state.data.network.signalStrengh) {
+        return {
+          ...state,
+          data: {
+            ...state.data, ...{ network: { ...state.data.network, ...{ signalStrengh: action.signalStrengh } } }
+          },
+          isFetching: false,
+          fetchStatus: `Results from ${(new Date()).toLocaleString()}`,
+          lastUpdate: action.lastUpdate
+        };
+      }
+      return state;
     case SERVER_STATE_FETCH_REJECTED:
       return {
         ...state,

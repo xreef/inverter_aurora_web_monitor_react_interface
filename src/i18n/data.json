@@ -50,6 +50,8 @@
     "informative.total.weekly.title": "Total weekly production",
     "informative.total.daily.title": "Total daily production",
 
+    "informative.realtime.power.title": "Realtime production",
+
     "chart.monthly.production.title": "Monthly production chart",
     "chart.monthly.production.subtitle": "Reference month: ",
     "chart.monthly.production.label": "Daily power",
@@ -195,6 +197,8 @@
     "informative.total.montly.title": "Produzione mensile",
     "informative.total.weekly.title": "Produzione settimanale",
     "informative.total.daily.title": "Produzione giornaliera",
+
+    "informative.realtime.power.title": "Produzione corrente",
 
     "chart.monthly.production.label": "Watt giornalieri",
 

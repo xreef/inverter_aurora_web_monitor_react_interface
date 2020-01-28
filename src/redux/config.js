@@ -1,5 +1,5 @@
-export const MICROCONTROLLER_ADRESS = `${settings.localIP}:${settings.localRestPort}`;
-export const MICROCONTROLLER_WS_ADRESS = `ws://${settings.localIP}:${settings.localWSPort}`;
+export const MICROCONTROLLER_ADRESS = `${(settings.localIP)?settings.localIP:location.hostname}:${settings.localRestPort}`;
+export const MICROCONTROLLER_WS_ADRESS = `ws://${(settings.localIP)?settings.localIP:location.hostname}:${settings.localWSPort}`;
 
 export const PRODUCTION_ENDPOINT = 'production';
 export const BATTERY_ENDPOINT = 'battery';

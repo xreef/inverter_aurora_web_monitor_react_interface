@@ -117,7 +117,12 @@ const wsListenLogic = createLogic({
           dispatch(productionTotalsFetchFulfilled(resp));
         } else if (msg.type === 'error') {
           // debugger;
-          const resp = { ...msg.value };
+          let resp = { ...msg.value };
+          resp.fixedTime = (resp.fixedTime)?"OK":"KO";
+          resp.sdStarted = (resp.sdStarted)?"OK":"KO";
+          resp.wifiConnected = (resp.wifiConnected)?"OK":"KO";
+          resp.isFileSaveOK = (resp.isFileSaveOK)?"OK":"KO";
+
           resp.hStr = moment(msg.date, 'DD/MM/YYYY HH:mm:ss').format('lll');
 
           dispatch(addNotification({ message: <FormattedHTMLMessage id="websocket.centraline.message.error" values={{ ...resp }} />, variant: 'error', autoHide: false }));
@@ -144,7 +149,8 @@ const wsListenLogic = createLogic({
       retryWhen(errors => errors.pipe(
         tap((err) => {
           dispatch(webSocketError(err));
-          dispatch(addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false }));
+          console.error(err);
+          // dispatch(addNotification({ message: <FormattedHTMLMessage id="websocket.error" />, variant: 'error', autoHide: false }));
         }),
         switchMap(err => timer(1000)),
       )),

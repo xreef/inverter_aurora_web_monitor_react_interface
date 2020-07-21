@@ -45,6 +45,14 @@ class ChartBoxProduction extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.refreshData);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.refreshData);
+  }
+
   onChangeDate = (e) => {
     this.props.inverterDailyFetch(moment(e.target.value, 'YYYY-MM-DD').format('YYYYMMDD'), this.props.dataType);
 

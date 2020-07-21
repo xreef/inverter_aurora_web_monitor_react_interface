@@ -1,4 +1,4 @@
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const Visualizer = require('webpack-visualizer-plugin');
@@ -9,46 +9,46 @@ const CompressionPlugin = require('compression-webpack-plugin');
 // let ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const DIST_DIR = path.resolve(__dirname, 'dist');
-const AUTOPREFIXER_LOADER = 'autoprefixer-loader?{browsers:['
-    + '"Android 2.3", "Android >= 4", "Chrome >= 20", "Firefox >= 24", '
-    + '"Explorer >= 8", "iOS >= 6", "Opera >= 12", "Safari >= 6"]}';
+// const AUTOPREFIXER_LOADER = 'autoprefixer-loader?{browsers:['
+//     + '"Android 2.3", "Android >= 4", "Chrome >= 20", "Firefox >= 24", '
+//     + '"Explorer >= 8", "iOS >= 6", "Opera >= 12", "Safari >= 6"]}';
+//
+// const reactExternal = {
+//   root: 'React',
+//   commonjs2: 'react',
+//   commonjs: 'react',
+//   amd: 'react'
+// };
+// const reactDOMExternal = {
+//   root: 'ReactDOM',
+//   commonjs2: 'react-dom',
+//   commonjs: 'react-dom',
+//   amd: 'react-dom'
+// };
+// const momentExternal = {
+//   root: 'moment',
+//   commonjs2: 'moment',
+//   commonjs: 'moment',
+//   amd: 'moment'
+// };
+// const polyfillExternal = {
+//   root: 'babel-polyfill',
+//   commonjs2: 'babel-polyfill',
+//   commonjs: 'babel-polyfill',
+//   amd: 'babel-polyfill'
+// };
 
-const reactExternal = {
-  root: 'React',
-  commonjs2: 'react',
-  commonjs: 'react',
-  amd: 'react'
-};
-const reactDOMExternal = {
-  root: 'ReactDOM',
-  commonjs2: 'react-dom',
-  commonjs: 'react-dom',
-  amd: 'react-dom'
-};
-const momentExternal = {
-  root: 'moment',
-  commonjs2: 'moment',
-  commonjs: 'moment',
-  amd: 'moment'
-};
-const polyfillExternal = {
-  root: 'babel-polyfill',
-  commonjs2: 'babel-polyfill',
-  commonjs: 'babel-polyfill',
-  amd: 'babel-polyfill'
-};
-
-const externalmw = {
-  // react: reactExternal,
-  // 'react-dom': reactDOMExternal,
-  // 'babel-polyfill': polyfillExternal
-
-  // react: reactExternal,
-  // 'react-dom': reactDOMExternal
-  //
-  // // , 'babel-polyfill': polyfillExternal
-
-};
+// const externalmw = {
+//   // react: reactExternal,
+//   // 'react-dom': reactDOMExternal,
+//   // 'babel-polyfill': polyfillExternal
+//
+//   // react: reactExternal,
+//   // 'react-dom': reactDOMExternal
+//   //
+//   // // , 'babel-polyfill': polyfillExternal
+//
+// };
 
 // const settings = JSON.parse(fs.readFileSync('./src/settings.json', 'utf8'));
 

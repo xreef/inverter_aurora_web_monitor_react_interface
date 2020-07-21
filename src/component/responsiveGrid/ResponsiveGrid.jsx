@@ -102,7 +102,7 @@ class ResponsiveGrid extends React.PureComponent {
     onResizeStop = (layout, from, to) => {
       const addI = this.state.additionalInfo[from.i];
 
-      setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
+      setTimeout(() => window.dispatchEvent(new Event('resize')), 250);
     };
 
     onDragStop = (layout, from, to) => {
@@ -178,7 +178,7 @@ class ResponsiveGrid extends React.PureComponent {
         {...gridConfig}
       >
         {this.getAllDivs()}
-      </ResponsiveReactGridLayout>,
+              </ResponsiveReactGridLayout>,
       fabButtons
       ];
     }

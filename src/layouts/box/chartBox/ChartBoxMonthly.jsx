@@ -48,6 +48,14 @@ class ChartBoxMonthly extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.refreshData);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.refreshData);
+  }
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
     const my = {

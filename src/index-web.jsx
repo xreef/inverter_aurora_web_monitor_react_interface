@@ -86,7 +86,7 @@ class App extends React.Component {
     const language = navigator.language || navigator.userLanguage;
     const languageWithoutRegionCode = language.toLowerCase().split(/[_-]+/)[0];
     // Try full locale, try locale without region code, fallback to 'en'
-    const messages = localeData[languageWithoutRegionCode] || localeData[language] || localeData.it;
+    const messages = localeData[languageWithoutRegionCode] || localeData[language] || localeData.en;
 
     moment.locale(language);
 

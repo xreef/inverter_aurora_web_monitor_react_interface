@@ -1,5 +1,5 @@
 {
-  "name": "aurora-server",
+  "name": "aurora_web_monitor_react_interface",
   "version": "0.2.0",
   "description": "Aurora Power-One rest e web server",
   "main": "webpack.config.js",
@@ -7,20 +7,20 @@
     "dev": "webpack-dev-server --config webpack.config.js --mode=development ",
     "build": "make build"
   },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
   "keywords": [
     "aurora",
     "logger"
   ],
-  "author": "Renzo Mischianti",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xreef/aurora/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xreef/inverter_aurora_web_monitor_react_interface"
   },
-  "homepage": "https://github.com/xreef/aurora#readme",
+  "author": "Renzo Mischianti",
+  "license": "CC BY-NC-ND",
+  "homepage": "https://www.mischianti.org/category/project/web-monitoring-station-for-abb-aurora-inverter-ex-power-one-now-fimer/",
+  "bugs": {
+    "url": "https://github.com/xreef/inverter_aurora_web_monitor_react_interface/issues"
+  },
   "dependencies": {
     "@formatjs/intl-pluralrules": "^1.5.0",
     "@formatjs/intl-relativetimeformat": "^4.5.7",
